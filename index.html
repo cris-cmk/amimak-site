@@ -18,7 +18,6 @@
             color: #333;
         }
 
-        /* Page transitions */
         .page {
             display: none;
             opacity: 0;
@@ -30,13 +29,13 @@
             opacity: 1;
         }
 
-        /* Header with Logo */
         .top-header {
-            background: linear-gradient(135deg, #2c1f35 0%, #4a3d52 50%, #5d4f6b 100%);
-            padding: 2rem 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #1a0f2e 0%, #2c1f35 25%, #4a3d52 50%, #5d4f6b 75%, #7a6a82 100%);
+            padding: 1.5rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
         }
 
         .top-header::before {
@@ -46,83 +45,213 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="rgba(255,255,255,0.02)"/></svg>');
-            background-size: 100px 100px;
-            opacity: 0.3;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(139, 125, 143, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(93, 79, 107, 0.3) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M30 0 L60 30 L30 60 L0 30 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: 100% 100%, 100% 100%, 60px 60px;
+            animation: headerShine 20s ease-in-out infinite;
+        }
+
+        @keyframes headerShine {
+
+            0%,
+            100% {
+                background-position: 0% 50%, 100% 50%, 0 0;
+            }
+
+            50% {
+                background-position: 100% 50%, 0% 50%, 30px 30px;
+            }
+        }
+
+        .top-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: headerSweep 8s ease-in-out infinite;
+        }
+
+        @keyframes headerSweep {
+            0% {
+                left: -100%;
+            }
+
+            50%,
+            100% {
+                left: 200%;
+            }
         }
 
         .header-content {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
+            gap: 1rem;
             position: relative;
             z-index: 2;
+            padding: 0 1rem;
         }
 
         .logo-image {
-            width: 110px;
-            height: 110px;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
             border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 0 2px white;
+            border: 4px solid rgba(255, 255, 255, 0.4);
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.5),
+                0 0 0 2px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(139, 125, 143, 0.6),
+                inset 0 2px 10px rgba(255, 255, 255, 0.2);
             object-fit: cover;
             background: white;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 8px 24px rgba(0, 0, 0, 0.5),
+                    0 0 0 2px rgba(255, 255, 255, 0.2),
+                    0 0 40px rgba(139, 125, 143, 0.6),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.2);
+            }
+
+            50% {
+                box-shadow:
+                    0 8px 32px rgba(0, 0, 0, 0.6),
+                    0 0 0 2px rgba(255, 255, 255, 0.3),
+                    0 0 60px rgba(139, 125, 143, 0.8),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.3);
+            }
         }
 
         .logo-image:hover {
-            transform: scale(1.05) rotate(5deg);
+            transform: scale(1.1) rotate(10deg);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 3px rgba(255, 255, 255, 0.4),
+                0 0 80px rgba(139, 125, 143, 1),
+                inset 0 2px 15px rgba(255, 255, 255, 0.4);
         }
 
         .logo-text-container {
-            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
         }
 
         .logo-text {
             color: white;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
             font-style: italic;
             letter-spacing: 4px;
-            margin-bottom: 0.3rem;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.1);
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            text-shadow:
+                3px 3px 6px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(139, 125, 143, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #f0e6ff 50%, #e0d0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+            position: relative;
+            animation: textGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+            }
+        }
+
+        .logo-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .logo-subtitle {
+            color: rgba(255, 255, 255, 0.98);
+            font-size: 0.85rem;
+            font-style: italic;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            text-shadow:
+                2px 2px 4px rgba(0, 0, 0, 0.6),
+                0 0 15px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(240, 230, 255, 1));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .logo-subtitle {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 1.1rem;
-            font-style: italic;
-            letter-spacing: 1.5px;
-            font-weight: 300;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        .ifaima-badge {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f0ff 50%, #e8e0ff 100%);
+            color: #2c1f35;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            display: inline-block;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(139, 125, 143, 0.5),
+                inset 0 1px 3px rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
         }
 
-        .ifaima-badge {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            color: #4a3d52;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-top: 0.7rem;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
+        .ifaima-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: badgeShine 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeShine {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .ifaima-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(139, 125, 143, 0.8),
+                inset 0 1px 5px rgba(255, 255, 255, 0.9);
         }
 
-        /* Navigation */
         nav {
             background: linear-gradient(135deg, #6b5a78 0%, #8b7d8f 50%, #a08fa5 100%);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -146,6 +275,7 @@
             align-items: center;
             padding: 0;
             margin: 0;
+            flex-wrap: wrap;
         }
 
         nav ul li {
@@ -225,7 +355,6 @@
             font-weight: 900;
         }
 
-        /* Hero Section */
         .hero-section {
             position: relative;
             height: 80vh;
@@ -277,7 +406,6 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        /* Carousel Controls */
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -290,6 +418,7 @@
             cursor: pointer;
             transition: background 0.3s;
             z-index: 10;
+            border-radius: 5px;
         }
 
         .carousel-btn:hover {
@@ -304,14 +433,12 @@
             right: 2rem;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        /* Page Header */
         .page-header {
             background: linear-gradient(135deg, rgba(139, 125, 143, 0.9) 0%, rgba(160, 143, 165, 0.9) 100%);
             color: white;
@@ -372,7 +499,6 @@
             opacity: 0.95;
         }
 
-        /* Content Sections */
         .content-section {
             padding: 4rem 0;
         }
@@ -389,7 +515,6 @@
             font-weight: 700;
         }
 
-        /* Service Grid */
         .service-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -426,7 +551,6 @@
             line-height: 1.8;
         }
 
-        /* About Grid */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -460,7 +584,6 @@
             object-fit: cover;
         }
 
-        /* Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -490,12 +613,6 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            background: linear-gradient(135deg, #8b7d8f 0%, #a08fa5 100%);
-        }
-
-        .gallery-item-image img[src=""],
-        .gallery-item-image img:not([src]) {
-            display: none;
         }
 
         .gallery-item:hover .gallery-item-image img {
@@ -509,7 +626,6 @@
             font-weight: 600;
         }
 
-        /* News Grid */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -561,7 +677,6 @@
             line-height: 1.7;
         }
 
-        /* Contact Grid */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -587,17 +702,6 @@
             margin-bottom: 0.5rem;
         }
 
-        .contact-form-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            grid-column: 1 / -1;
-            max-width: 600px;
-            margin: 2rem auto 0;
-        }
-
-        /* Button */
         .btn {
             background: #8b7d8f;
             color: white;
@@ -618,23 +722,23 @@
             box-shadow: 0 5px 15px rgba(74, 61, 82, 0.3);
         }
 
-        /* Footer */
         footer {
             background: #4a3d52;
             color: white;
-            padding: 2rem 0;
+            padding: 1.5rem 0 0.5rem;
             text-align: center;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .footer-section h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .footer-section ul {
@@ -642,71 +746,108 @@
         }
 
         .footer-section ul li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
         }
 
         .footer-section a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .footer-section a:hover {
             color: white;
         }
 
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        .footer-section p {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
         }
 
-        /* Responsive */
+        .footer-bottom {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 968px) {
+
+            .service-grid,
+            .news-grid,
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
             .header-content {
-                gap: 1rem;
+                gap: 0.8rem;
             }
 
             .logo-image {
-                width: 80px;
-                height: 80px;
+                width: 50px;
+                height: 50px;
             }
 
             .logo-text {
-                font-size: 2.2rem;
+                font-size: 1.5rem;
+                letter-spacing: 2px;
             }
 
             .logo-subtitle {
-                font-size: 0.85rem;
+                font-size: 0.6rem;
             }
 
-            .logo-text-container {
-                text-align: center;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
+            .ifaima-badge {
+                font-size: 0.55rem;
+                padding: 0.25rem 0.6rem;
             }
 
             nav ul li a {
                 padding: 0.8rem 1rem;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            nav ul li::after {
+                display: none;
+            }
+
+            .hero-section {
+                height: 60vh;
+                min-height: 400px;
             }
 
             .hero-content h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-content p {
-                font-size: 1.2rem;
+            .hero-plane-icon {
+                font-size: 2rem;
             }
 
-            .about-grid {
-                grid-template-columns: 1fr;
+            .hero-content p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .hero-overlay {
+                padding: 2rem 1rem;
             }
 
             .carousel-btn {
-                font-size: 2rem;
-                padding: 0.5rem;
+                font-size: 1.8rem;
+                padding: 0.5rem 0.8rem;
             }
 
             .carousel-prev {
@@ -716,12 +857,119 @@
             .carousel-next {
                 right: 0.5rem;
             }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .page-header {
+                min-height: 180px;
+                padding: 2rem 0;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .content-section {
+                padding: 2.5rem 0;
+            }
+
+            .service-card,
+            .news-card,
+            .contact-info-box {
+                padding: 1.5rem;
+            }
+
+            .service-icon {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .logo-text-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.55rem;
+                text-align: center;
+            }
+
+            .logo-image {
+                width: 45px;
+                height: 45px;
+            }
+
+            nav ul li a {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .service-grid,
+            .news-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-btn {
+                font-size: 1.5rem;
+                padding: 0.4rem 0.6rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <div class="top-header">
             <div class="container">
@@ -729,8 +977,10 @@
                     <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
                     <div class="logo-text-container">
                         <div class="logo-text">AIMAK</div>
-                        <div class="logo-subtitle">Aeronautical Information Management Association of Kenya</div>
-                        <div class="ifaima-badge">A member of IFAIMA</div>
+                        <div class="logo-details">
+                            <div class="logo-subtitle">Aeronautical Information Management Association of Kenya</div>
+                            <div class="ifaima-badge">A member of IFAIMA</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -747,7 +997,6 @@
         </nav>
     </header>
 
-    <!-- HOME PAGE -->
     <div id="home" class="page active">
         <section class="hero-section">
             <img id="hero-image" class="hero-image" src="images/aimak1.jpg" alt="Aviation Excellence">
@@ -811,7 +1060,6 @@
         </section>
     </div>
 
-    <!-- ABOUT PAGE -->
     <div id="about" class="page">
         <div class="page-header about-header">
             <div class="container">
@@ -827,7 +1075,6 @@
                         <h2>Our Mission</h2>
                         <p>To advance the standards and practices of aeronautical information management in Kenya
                             through professional excellence, continuous training, and international collaboration.</p>
-
                         <h2 style="margin-top: 2rem;">Our Vision</h2>
                         <p>To be the leading professional association for aeronautical information management in East
                             Africa, recognized for quality, innovation, and safety excellence.</p>
@@ -868,7 +1115,6 @@
         </section>
     </div>
 
-    <!-- SERVICES/PROGRAMS PAGE -->
     <div id="services" class="page">
         <div class="page-header services-header">
             <div class="container">
@@ -936,7 +1182,6 @@
         </section>
     </div>
 
-    <!-- GALLERY/FLEET PAGE -->
     <div id="gallery" class="page">
         <div class="page-header gallery-header">
             <div class="container">
@@ -989,7 +1234,6 @@
         </section>
     </div>
 
-    <!-- NEWS/BLOG PAGE -->
     <div id="news" class="page">
         <div class="page-header news-header">
             <div class="container">
@@ -1032,7 +1276,6 @@
         </section>
     </div>
 
-    <!-- CONTACT PAGE -->
     <div id="contact" class="page">
         <div class="page-header contact-header">
             <div class="container">
@@ -1062,7 +1305,6 @@
                     </div>
                 </div>
 
-                <!-- Google Maps Section -->
                 <div style="margin-top: 3rem;">
                     <h2 class="section-title">Find Us on the Map</h2>
                     <div
@@ -1070,15 +1312,15 @@
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8226425382495!2d36.81486637496844!3d-1.2802154987054548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d645f3d5f1%3A0x3b8b8e3e8e8e8e8e!2sWilson%20Airport!5e0!3m2!1sen!2ske!4v1699564800000!5m2!1sen!2ske"
                             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div style="text-align: center; margin-top: 1.5rem;">
                         <a href="https://maps.app.goo.gl/example" target="_blank" class="btn">Open in Google Maps</a>
                     </div>
                 </div>
 
-                <div class="contact-form-container" style="margin-top: 3rem;">
+                <div
+                    style="background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 2rem; max-width: 600px; margin: 3rem auto 0;">
                     <h2 style="text-align: center; color: #4a3d52; margin-bottom: 1.5rem;">Send Us a Message</h2>
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSdmRxs1Srd0N5kNMlGGlM_broIObHQn4xv1B5_Ail-ZjXSj-Q/viewform?embedded=true"
@@ -1093,7 +1335,6 @@
         </section>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1138,20 +1379,12 @@
     </footer>
 
     <script>
-        // Hero Image Carousel - UPDATED WITH YOUR SPECIFIC IMAGES
-        const heroImages = [
-            'images/aimak1.jpg',
-            'images/aimak2.jpg',
-            'images/aimak3.jpg',
-            'images/aimak8.jpg',
-            'images/aimak4.jpg'
-        ];
+        const heroImages = ['images/aimak1.jpg', 'images/aimak2.jpg', 'images/aimak3.jpg', 'images/aimak8.jpg', 'images/aimak4.jpg'];
         let currentHeroIndex = 0;
 
         function changeHeroImage(direction) {
             const heroImg = document.getElementById('hero-image');
             currentHeroIndex = (currentHeroIndex + direction + heroImages.length) % heroImages.length;
-
             heroImg.style.opacity = '0.5';
             setTimeout(() => {
                 heroImg.src = heroImages[currentHeroIndex];
@@ -1159,23 +1392,13 @@
             }, 300);
         }
 
-        // Auto-rotate hero images every 5 seconds
-        setInterval(() => {
-            changeHeroImage(1);
-        }, 5000);
+        setInterval(() => changeHeroImage(1), 5000);
 
-        // Navigation Function
         function navigateTo(pageId) {
-            // Get current and target pages
             const currentPage = document.querySelector('.page.active');
             const targetPage = document.getElementById(pageId);
-
             if (!targetPage || currentPage === targetPage) return;
-
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Update active navigation link
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -1183,24 +1406,16 @@
                     link.classList.add('active');
                 }
             });
-
-            // Transition pages
             currentPage.classList.remove('active');
             targetPage.classList.add('active');
-
-            // Update URL hash
             window.location.hash = pageId;
         }
 
-        // Handle browser back/forward buttons
         window.addEventListener('hashchange', function () {
             const hash = window.location.hash.substring(1);
-            if (hash) {
-                navigateTo(hash);
-            }
+            if (hash) navigateTo(hash);
         });
 
-        // Load correct page on initial load
         window.addEventListener('DOMContentLoaded', function () {
             const hash = window.location.hash.substring(1);
             if (hash) {
@@ -1213,14 +1428,3 @@
 </body>
 
 </html>
-        <!-- .page-header.about-header {
-            background-image: url('images/aimak4.jpg');
-        }
-
-        .page-header.services-header {
-            background-image: url('images/aimak3.jpg');
-        }
-
-        .page-header.gallery-header {
-            background-image: url('images/aimak2.jpg');
-        } -->
