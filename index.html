@@ -32,37 +32,111 @@
 
         /* Header with Logo */
         .top-header {
-            background: #4a3d52;
-            padding: 0.8rem 0;
-            text-align: center;
+            background: linear-gradient(135deg, #2c1f35 0%, #4a3d52 50%, #5d4f6b 100%);
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo-container {
-            display: inline-block;
-            background: #4a3d52;
-            padding: 0.5rem 2rem;
-            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        .top-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="rgba(255,255,255,0.02)"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 0 2px white;
+            object-fit: cover;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo-text-container {
+            text-align: left;
         }
 
         .logo-text {
             color: white;
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 3.5rem;
+            font-weight: 900;
             font-style: italic;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            margin-bottom: 0.3rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .logo-subtitle {
-            color: white;
-            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.1rem;
             font-style: italic;
-            margin-top: -5px;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .ifaima-badge {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #4a3d52;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 0.7rem;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .ifaima-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         /* Navigation */
         nav {
-            background: linear-gradient(135deg, #8b7d8f 0%, #a08fa5 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #6b5a78 0%, #8b7d8f 50%, #a08fa5 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
         }
 
         nav ul {
@@ -78,22 +152,77 @@
             position: relative;
         }
 
+        nav ul li::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        nav ul li:last-child::after {
+            display: none;
+        }
+
         nav ul li a {
             color: white;
             text-decoration: none;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             display: block;
-            font-weight: 600;
-            font-size: 1rem;
+            font-weight: 700;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.3s ease;
         }
 
         nav ul li a:hover,
         nav ul li a.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul li a.active::after,
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.25);
+            font-weight: 900;
         }
 
         /* Hero Section */
@@ -533,8 +662,25 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .header-content {
+                gap: 1rem;
+            }
+
+            .logo-image {
+                width: 80px;
+                height: 80px;
+            }
+
             .logo-text {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .logo-text-container {
+                text-align: center;
             }
 
             nav ul {
@@ -578,9 +724,15 @@
     <!-- Header -->
     <header>
         <div class="top-header">
-            <div class="logo-container">
-                <div class="logo-text">AIMAK</div>
-                <div class="logo-subtitle">Aeronautical Information Management</div>
+            <div class="container">
+                <div class="header-content">
+                    <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
+                    <div class="logo-text-container">
+                        <div class="logo-text">AIMAK</div>
+                        <div class="logo-subtitle">Aeronautical Information Management Association of Kenya</div>
+                        <div class="ifaima-badge">A member of IFAIMA</div>
+                    </div>
+                </div>
             </div>
         </div>
         <nav>
@@ -1061,3 +1213,14 @@
 </body>
 
 </html>
+        <!-- .page-header.about-header {
+            background-image: url('images/aimak4.jpg');
+        }
+
+        .page-header.services-header {
+            background-image: url('images/aimak3.jpg');
+        }
+
+        .page-header.gallery-header {
+            background-image: url('images/aimak2.jpg');
+        } -->
