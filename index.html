@@ -111,6 +111,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .hero-overlay {
@@ -183,10 +184,53 @@
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(135deg, #8b7d8f 0%, #a08fa5 100%);
+            background: linear-gradient(135deg, rgba(139, 125, 143, 0.9) 0%, rgba(160, 143, 165, 0.9) 100%);
             color: white;
             padding: 3rem 0;
             text-align: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 125, 143, 0.85) 0%, rgba(160, 143, 165, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header.about-header {
+            background-image: url('images/aimak3.jpg');
+        }
+
+        .page-header.services-header {
+            background-image: url('images/aimak4.jpg');
+        }
+
+        .page-header.gallery-header {
+            background-image: url('images/aimak8.jpg');
+        }
+
+        .page-header.contact-header {
+            background-image: url('images/aimak2.jpg');
+        }
+
+        .page-header.news-header {
+            background-image: url('images/aimak1.jpg');
         }
 
         .page-header h1 {
@@ -317,6 +361,12 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
+            background: linear-gradient(135deg, #8b7d8f 0%, #a08fa5 100%);
+        }
+
+        .gallery-item-image img[src=""],
+        .gallery-item-image img:not([src]) {
+            display: none;
         }
 
         .gallery-item:hover .gallery-item-image img {
@@ -548,7 +598,7 @@
     <!-- HOME PAGE -->
     <div id="home" class="page active">
         <section class="hero-section">
-            <img id="hero-image" class="hero-image" src="images/aimak5.jpg" alt="Aviation Excellence">
+            <img id="hero-image" class="hero-image" src="images/aimak1.jpg" alt="Aviation Excellence">
             <button class="carousel-btn carousel-prev" onclick="changeHeroImage(-1)">&#10094;</button>
             <button class="carousel-btn carousel-next" onclick="changeHeroImage(1)">&#10095;</button>
             <div class="hero-overlay">
@@ -575,7 +625,7 @@
                         <a onclick="navigateTo('about')" class="btn">Learn More About Us</a>
                     </div>
                     <div class="about-image">
-                        <img src="images/aimac2.jpg" alt="AIMAK">
+                        <img src="images/aimak2.jpg" alt="AIMAK">
                     </div>
                 </div>
             </div>
@@ -611,7 +661,7 @@
 
     <!-- ABOUT PAGE -->
     <div id="about" class="page">
-        <div class="page-header">
+        <div class="page-header about-header">
             <div class="container">
                 <h1>About AIMAK</h1>
                 <p>Leading Aeronautical Information Management in Kenya</p>
@@ -668,7 +718,7 @@
 
     <!-- SERVICES/PROGRAMS PAGE -->
     <div id="services" class="page">
-        <div class="page-header">
+        <div class="page-header services-header">
             <div class="container">
                 <h1>Our Programs</h1>
                 <p>Comprehensive Aeronautical Information Management Solutions</p>
@@ -736,7 +786,7 @@
 
     <!-- GALLERY/FLEET PAGE -->
     <div id="gallery" class="page">
-        <div class="page-header">
+        <div class="page-header gallery-header">
             <div class="container">
                 <h1>Our Fleet</h1>
                 <p>Aviation Excellence in Kenya</p>
@@ -748,21 +798,21 @@
                 <div class="gallery-grid">
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimac1.jpg" alt="Aircraft over city">
+                            <img src="images/aimak1.jpg" alt="Aircraft operations">
                         </div>
                         <div class="gallery-caption">International Aviation Operations</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimac2.jpg" alt="Aircraft in flight">
+                            <img src="images/aimak2.jpg" alt="Aircraft in flight">
                         </div>
                         <div class="gallery-caption">Commercial Aviation Excellence</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimac3.jpg" alt="Aircraft in clouds">
+                            <img src="images/aimak3.jpg" alt="Aviation operations">
                         </div>
-                        <div class="gallery-caption">Sky High Operations</div>
+                        <div class="gallery-caption">Professional Aviation Services</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
@@ -772,27 +822,9 @@
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak5.jpg" alt="Aviation collage">
+                            <img src="images/aimak8.jpg" alt="Aviation operations">
                         </div>
-                        <div class="gallery-caption">Diverse Aviation Operations</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak6.jpg" alt="Aircraft landing">
-                        </div>
-                        <div class="gallery-caption">Runway Safety Management</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak7.jpg" alt="Business jets">
-                        </div>
-                        <div class="gallery-caption">Business Aviation Services</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak8.jpg" alt="Aircraft above clouds">
-                        </div>
-                        <div class="gallery-caption">High Altitude Navigation</div>
+                        <div class="gallery-caption">Air Navigation Management</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
@@ -807,7 +839,7 @@
 
     <!-- NEWS/BLOG PAGE -->
     <div id="news" class="page">
-        <div class="page-header">
+        <div class="page-header news-header">
             <div class="container">
                 <h1>Blog & News</h1>
                 <p>Latest Updates from AIMAK</p>
@@ -850,7 +882,7 @@
 
     <!-- CONTACT PAGE -->
     <div id="contact" class="page">
-        <div class="page-header">
+        <div class="page-header contact-header">
             <div class="container">
                 <h1>Contacts</h1>
                 <p>Get in touch with AIMAK</p>
@@ -954,14 +986,13 @@
     </footer>
 
     <script>
-        // Hero Image Carousel
+        // Hero Image Carousel - UPDATED WITH YOUR SPECIFIC IMAGES
         const heroImages = [
-            'images/aircraft1.jpg',
-            'images/aircraft2.jpg',
-            'images/aircraft3.jpg',
-            'images/aircraft6.jpg',
-            'images/aircraft8.jpg',
-            'images/aimac2.jpg'
+            'images/aimak1.jpg',
+            'images/aimak2.jpg',
+            'images/aimak3.jpg',
+            'images/aimak8.jpg',
+            'images/aimak4.jpg'
         ];
         let currentHeroIndex = 0;
 
