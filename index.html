@@ -30,61 +30,21 @@
         }
 
         .top-header {
-            background: linear-gradient(135deg, #1a0f2e 0%, #2c1f35 25%, #4a3d52 50%, #5d4f6b 75%, #7a6a82 100%);
+            background: #ffffff;
             padding: 1.5rem 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             position: relative;
-            overflow: hidden;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid #1e88e5;
         }
 
         .top-header::before {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(139, 125, 143, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(93, 79, 107, 0.3) 0%, transparent 50%),
-                url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M30 0 L60 30 L30 60 L0 30 Z" fill="rgba(255,255,255,0.03)"/></svg>');
-            background-size: 100% 100%, 100% 100%, 60px 60px;
-            animation: headerShine 20s ease-in-out infinite;
-        }
-
-        @keyframes headerShine {
-
-            0%,
-            100% {
-                background-position: 0% 50%, 100% 50%, 0 0;
-            }
-
-            50% {
-                background-position: 100% 50%, 0% 50%, 30px 30px;
-            }
-        }
-
-        .top-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: headerSweep 8s ease-in-out infinite;
-        }
-
-        @keyframes headerSweep {
-            0% {
-                left: -100%;
-            }
-
-            50%,
-            100% {
-                left: 200%;
-            }
+            height: 3px;
+            background: linear-gradient(90deg, #1e88e5 0%, #42a5f5 50%, #1e88e5 100%);
         }
 
         .header-content {
@@ -106,7 +66,7 @@
             box-shadow:
                 0 8px 24px rgba(0, 0, 0, 0.5),
                 0 0 0 2px rgba(255, 255, 255, 0.2),
-                0 0 40px rgba(139, 125, 143, 0.6),
+                0 0 40px rgba(30, 136, 229, 0.6),
                 inset 0 2px 10px rgba(255, 255, 255, 0.2);
             object-fit: cover;
             background: white;
@@ -121,7 +81,7 @@
                 box-shadow:
                     0 8px 24px rgba(0, 0, 0, 0.5),
                     0 0 0 2px rgba(255, 255, 255, 0.2),
-                    0 0 40px rgba(139, 125, 143, 0.6),
+                    0 0 40px rgba(30, 136, 229, 0.6),
                     inset 0 2px 10px rgba(255, 255, 255, 0.2);
             }
 
@@ -129,7 +89,7 @@
                 box-shadow:
                     0 8px 32px rgba(0, 0, 0, 0.6),
                     0 0 0 2px rgba(255, 255, 255, 0.3),
-                    0 0 60px rgba(139, 125, 143, 0.8),
+                    0 0 60px rgba(66, 165, 245, 0.8),
                     inset 0 2px 10px rgba(255, 255, 255, 0.3);
             }
         }
@@ -139,7 +99,7 @@
             box-shadow:
                 0 12px 40px rgba(0, 0, 0, 0.6),
                 0 0 0 3px rgba(255, 255, 255, 0.4),
-                0 0 80px rgba(139, 125, 143, 1),
+                0 0 80px rgba(30, 136, 229, 1),
                 inset 0 2px 15px rgba(255, 255, 255, 0.4);
         }
 
@@ -159,8 +119,8 @@
             text-shadow:
                 3px 3px 6px rgba(0, 0, 0, 0.8),
                 0 0 30px rgba(255, 255, 255, 0.3),
-                0 0 60px rgba(139, 125, 143, 0.5);
-            background: linear-gradient(135deg, #ffffff 0%, #f0e6ff 50%, #e0d0ff 100%);
+                0 0 60px rgba(30, 136, 229, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 50%, #bbdefb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -196,15 +156,15 @@
             text-shadow:
                 2px 2px 4px rgba(0, 0, 0, 0.6),
                 0 0 15px rgba(255, 255, 255, 0.2);
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(240, 230, 255, 1));
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(227, 242, 253, 1));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .ifaima-badge {
-            background: linear-gradient(135deg, #ffffff 0%, #f5f0ff 50%, #e8e0ff 100%);
-            color: #2c1f35;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+            color: #0d47a1;
             padding: 0.4rem 1rem;
             border-radius: 25px;
             font-weight: 800;
@@ -212,7 +172,7 @@
             display: inline-block;
             box-shadow:
                 0 4px 15px rgba(0, 0, 0, 0.4),
-                0 0 20px rgba(139, 125, 143, 0.5),
+                0 0 20px rgba(30, 136, 229, 0.5),
                 inset 0 1px 3px rgba(255, 255, 255, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
@@ -248,12 +208,12 @@
             transform: translateY(-3px) scale(1.05);
             box-shadow:
                 0 6px 20px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(139, 125, 143, 0.8),
+                0 0 30px rgba(30, 136, 229, 0.8),
                 inset 0 1px 5px rgba(255, 255, 255, 0.9);
         }
 
         nav {
-            background: linear-gradient(135deg, #6b5a78 0%, #8b7d8f 50%, #a08fa5 100%);
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 50%, #64b5f6 100%);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
         }
@@ -377,7 +337,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(74, 61, 82, 0.9) 0%, rgba(74, 61, 82, 0.7) 50%, transparent 100%);
+            background: linear-gradient(to top, rgba(13, 71, 161, 0.9) 0%, rgba(30, 136, 229, 0.7) 50%, transparent 100%);
             padding: 4rem 2rem 3rem;
             text-align: center;
         }
@@ -440,7 +400,7 @@
         }
 
         .page-header {
-            background: linear-gradient(135deg, rgba(139, 125, 143, 0.9) 0%, rgba(160, 143, 165, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9) 0%, rgba(66, 165, 245, 0.9) 100%);
             color: white;
             padding: 3rem 0;
             text-align: center;
@@ -460,7 +420,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 125, 143, 0.85) 0%, rgba(160, 143, 165, 0.85) 100%);
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.85) 0%, rgba(66, 165, 245, 0.85) 100%);
             z-index: 1;
         }
 
@@ -511,7 +471,7 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: #4a3d52;
+            color: #1565c0;
             font-weight: 700;
         }
 
@@ -527,12 +487,12 @@
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
-            border-left: 5px solid #8b7d8f;
+            border-left: 5px solid #1976d2;
         }
 
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(139, 125, 143, 0.2);
+            box-shadow: 0 10px 30px rgba(25, 118, 210, 0.2);
         }
 
         .service-icon {
@@ -541,7 +501,7 @@
         }
 
         .service-card h3 {
-            color: #4a3d52;
+            color: #1565c0;
             margin-bottom: 0.8rem;
             font-size: 1.3rem;
         }
@@ -560,7 +520,7 @@
         }
 
         .about-text h2 {
-            color: #4a3d52;
+            color: #1565c0;
             margin-bottom: 1rem;
             font-size: 2rem;
         }
@@ -622,7 +582,7 @@
         .gallery-caption {
             padding: 1rem;
             text-align: center;
-            color: #4a3d52;
+            color: #1565c0;
             font-weight: 600;
         }
 
@@ -647,7 +607,7 @@
 
         .news-image {
             height: 200px;
-            background: linear-gradient(135deg, #8b7d8f 0%, #a08fa5 100%);
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -660,14 +620,14 @@
         }
 
         .news-date {
-            color: #8b7d8f;
+            color: #1976d2;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
         .news-content h3 {
-            color: #4a3d52;
+            color: #1565c0;
             margin-bottom: 0.8rem;
             font-size: 1.3rem;
         }
@@ -692,7 +652,7 @@
         }
 
         .contact-info-box h3 {
-            color: #4a3d52;
+            color: #1565c0;
             margin-bottom: 1rem;
             font-size: 1.2rem;
         }
@@ -703,7 +663,7 @@
         }
 
         .btn {
-            background: #8b7d8f;
+            background: #1976d2;
             color: white;
             padding: 0.9rem 2.5rem;
             text-decoration: none;
@@ -717,13 +677,13 @@
         }
 
         .btn:hover {
-            background: #4a3d52;
+            background: #1565c0;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 61, 82, 0.3);
+            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
         }
 
         footer {
-            background: #4a3d52;
+            background: #0d47a1;
             color: white;
             padding: 1.5rem 0 0.5rem;
             text-align: center;
@@ -1172,7 +1132,7 @@
                     <div class="about-image" style="height: 350px; margin-bottom: 1.5rem;">
                         <img src="images/aimak4.jpg" alt="Sector Flight Plan">
                     </div>
-                    <h3 style="color: #4a3d52; margin-bottom: 1rem; font-size: 1.5rem;">What is a Sector Flight Plan?
+                    <h3 style="color: #1565c0; margin-bottom: 1rem; font-size: 1.5rem;">What is a Sector Flight Plan?
                     </h3>
                     <p style="color: #555; line-height: 1.8;">A sector flight plan is a flight plan filed at the
                         aerodrome of departure but intended for the sectors immediately following the point of arrival.
@@ -1321,7 +1281,7 @@
 
                 <div
                     style="background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 2rem; max-width: 600px; margin: 3rem auto 0;">
-                    <h2 style="text-align: center; color: #4a3d52; margin-bottom: 1.5rem;">Send Us a Message</h2>
+                    <h2 style="text-align: center; color: #1565c0; margin-bottom: 1.5rem;">Send Us a Message</h2>
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSdmRxs1Srd0N5kNMlGGlM_broIObHQn4xv1B5_Ail-ZjXSj-Q/viewform?embedded=true"
                         width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0"
