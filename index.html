@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIMAK - Aeronautical Information Management Association of Kenya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,6 +17,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            background: #f8f9fa;
         }
 
         .page {
@@ -29,292 +31,87 @@
             opacity: 1;
         }
 
+        /* Header Styles */
         .top-header {
-            background: #ffffff;
-            padding: 1.5rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            position: relative;
-            border-bottom: 3px solid #1e88e5;
-        }
-
-        .top-header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #1e88e5 0%, #42a5f5 50%, #1e88e5 100%);
+            background: whitesmoke;
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-content {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
             gap: 1rem;
-            position: relative;
-            z-index: 2;
-            padding: 0 1rem;
         }
 
         .logo-image {
-            width: 80px;
-            height: 80px;
-            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.4);
-            box-shadow:
-                0 8px 24px rgba(0, 0, 0, 0.5),
-                0 0 0 2px rgba(255, 255, 255, 0.2),
-                0 0 40px rgba(30, 136, 229, 0.6),
-                inset 0 2px 10px rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             object-fit: cover;
             background: white;
             transition: all 0.4s ease;
-            animation: logoPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-
-            0%,
-            100% {
-                box-shadow:
-                    0 8px 24px rgba(0, 0, 0, 0.5),
-                    0 0 0 2px rgba(255, 255, 255, 0.2),
-                    0 0 40px rgba(30, 136, 229, 0.6),
-                    inset 0 2px 10px rgba(255, 255, 255, 0.2);
-            }
-
-            50% {
-                box-shadow:
-                    0 8px 32px rgba(0, 0, 0, 0.6),
-                    0 0 0 2px rgba(255, 255, 255, 0.3),
-                    0 0 60px rgba(66, 165, 245, 0.8),
-                    inset 0 2px 10px rgba(255, 255, 255, 0.3);
-            }
         }
 
         .logo-image:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow:
-                0 12px 40px rgba(0, 0, 0, 0.6),
-                0 0 0 3px rgba(255, 255, 255, 0.4),
-                0 0 80px rgba(30, 136, 229, 1),
-                inset 0 2px 15px rgba(255, 255, 255, 0.4);
-        }
-
-        .logo-text-container {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+            transform: scale(1.05) rotate(5deg);
         }
 
         .logo-text {
-            color: white;
-            font-size: 2.5rem;
+            color: #0d47a1;
+            font-size: 1.8rem;
             font-weight: 900;
             font-style: italic;
-            letter-spacing: 4px;
-            text-shadow:
-                3px 3px 6px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(255, 255, 255, 0.3),
-                0 0 60px rgba(30, 136, 229, 0.5);
-            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 50%, #bbdefb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            white-space: nowrap;
-            position: relative;
-            animation: textGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes textGlow {
-
-            0%,
-            100% {
-                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-            }
-
-            50% {
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
-            }
-        }
-
-        .logo-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .logo-subtitle {
-            color: rgba(255, 255, 255, 0.98);
-            font-size: 0.85rem;
-            font-style: italic;
-            letter-spacing: 1.5px;
-            font-weight: 400;
-            text-shadow:
-                2px 2px 4px rgba(0, 0, 0, 0.6),
-                0 0 15px rgba(255, 255, 255, 0.2);
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(227, 242, 253, 1));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .ifaima-badge {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
-            color: #0d47a1;
-            padding: 0.4rem 1rem;
-            border-radius: 25px;
-            font-weight: 800;
-            font-size: 0.7rem;
-            display: inline-block;
-            box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
-                0 0 20px rgba(30, 136, 229, 0.5),
-                inset 0 1px 3px rgba(255, 255, 255, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ifaima-badge::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            animation: badgeShine 3s ease-in-out infinite;
-        }
-
-        @keyframes badgeShine {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .ifaima-badge:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow:
-                0 6px 20px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(30, 136, 229, 0.8),
-                inset 0 1px 5px rgba(255, 255, 255, 0.9);
-        }
-
-        nav {
-            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 50%, #64b5f6 100%);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             padding: 0;
             margin: 0;
             flex-wrap: wrap;
-        }
-
-        nav ul li {
-            position: relative;
-        }
-
-        nav ul li::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 20px;
-            width: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        nav ul li:last-child::after {
-            display: none;
+            gap: 0.5rem;
         }
 
         nav ul li a {
-            color: white;
+            color: #0d47a1;
             text-decoration: none;
-            padding: 1.2rem 2rem;
+            padding: 0.8rem 1.5rem;
             display: block;
-            font-weight: 700;
-            font-size: 0.95rem;
+            font-weight: 600;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav ul li a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        nav ul li a:hover::before {
-            left: 100%;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background: white;
-            transition: width 0.3s ease;
+            border-radius: 5px;
         }
 
         nav ul li a:hover,
         nav ul li a.active {
-            background: rgba(255, 255, 255, 0.15);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(13, 71, 161, 0.1);
+            color: #1565c0;
         }
 
-        nav ul li a.active::after,
-        nav ul li a:hover::after {
-            width: 80%;
-        }
-
-        nav ul li a.active {
-            background: rgba(255, 255, 255, 0.25);
-            font-weight: 900;
-        }
-
+        /* Hero Section */
         .hero-section {
             position: relative;
             height: 80vh;
@@ -340,30 +137,44 @@
             background: linear-gradient(to top, rgba(13, 71, 161, 0.9) 0%, rgba(30, 136, 229, 0.7) 50%, transparent 100%);
             padding: 4rem 2rem 3rem;
             text-align: center;
+            z-index: 2;
         }
 
         .hero-content h1 {
             color: white;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            font-style: italic;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .hero-plane-icon {
             color: white;
-            font-size: 3rem;
-            margin: 1rem 0;
+            font-size: 4rem;
+            margin: 1.5rem 0;
+            animation: float 3s ease-in-out infinite;
         }
 
         .hero-content p {
             color: white;
             font-size: 1.5rem;
-            font-style: italic;
-            max-width: 900px;
-            margin: 0 auto;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
         }
 
         .carousel-btn {
@@ -393,24 +204,25 @@
             right: 2rem;
         }
 
+        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
+        /* Page Header - Updated with white gradient */
         .page-header {
-            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9) 0%, rgba(66, 165, 245, 0.9) 100%);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-            position: relative;
             background-size: cover;
             background-position: center;
+            color: #0d47a1;
+            padding: 3rem 0;
+            text-align: center;
             min-height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .page-header::before {
@@ -420,7 +232,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(25, 118, 210, 0.85) 0%, rgba(66, 165, 245, 0.85) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.4) 100%);
             z-index: 1;
         }
 
@@ -437,34 +249,44 @@
             background-image: url('images/aimak4.jpg');
         }
 
-        .page-header.gallery-header {
-            background-image: url('images/aimak8.jpg');
+        .page-header.management-header {
+            background-image: url('images/aimak5.jpg');
         }
 
-        .page-header.contact-header {
-            background-image: url('images/aimak2.jpg');
+        .page-header.gallery-header {
+            background-image: url('images/aimak6.jpg');
         }
 
         .page-header.news-header {
-            background-image: url('images/aimak1.jpg');
+            background-image: url('images/aimak7.jpg');
+        }
+
+        .page-header.contact-header {
+            background-image: url('images/aimak8.jpg');
         }
 
         .page-header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            color: #0d47a1;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
         }
 
         .page-header p {
             font-size: 1.1rem;
             opacity: 0.95;
+            color: #1565c0;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
 
+        /* Content Sections */
         .content-section {
             padding: 4rem 0;
         }
 
         .content-section.alt {
-            background: #f8f9fa;
+            background: white;
         }
 
         .section-title {
@@ -475,6 +297,7 @@
             font-weight: 700;
         }
 
+        /* Service Grid */
         .service-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -488,6 +311,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             border-left: 5px solid #1976d2;
+            text-align: center;
         }
 
         .service-card:hover {
@@ -498,6 +322,7 @@
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
+            color: #1976d2;
         }
 
         .service-card h3 {
@@ -511,6 +336,7 @@
             line-height: 1.8;
         }
 
+        /* About Grid */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -544,6 +370,62 @@
             object-fit: cover;
         }
 
+        /* Management Grid */
+        .management-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .management-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .management-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .management-photo {
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+        }
+
+        .management-info {
+            padding: 1.5rem;
+        }
+
+        .management-info h3 {
+            color: #1565c0;
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .management-info h4 {
+            color: #1976d2;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .management-info p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -586,6 +468,7 @@
             font-weight: 600;
         }
 
+        /* News Grid */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -637,10 +520,12 @@
             line-height: 1.7;
         }
 
+        /* Contact Grid */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .contact-info-box {
@@ -662,6 +547,52 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Contact Map */
+        .contact-map {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form-container h2 {
+            text-align: center;
+            color: #1565c0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-form-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Buttons */
         .btn {
             background: #1976d2;
             color: white;
@@ -682,17 +613,18 @@
             box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
         }
 
+        /* Footer */
         footer {
             background: #0d47a1;
             color: white;
-            padding: 1.5rem 0 0.5rem;
+            padding: 2rem 0 1rem;
             text-align: center;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            gap: 2rem;
             margin-bottom: 1rem;
         }
 
@@ -714,16 +646,10 @@
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             cursor: pointer;
-            font-size: 0.9rem;
         }
 
         .footer-section a:hover {
             color: white;
-        }
-
-        .footer-section p {
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
         }
 
         .footer-bottom {
@@ -732,55 +658,30 @@
             font-size: 0.85rem;
         }
 
-        @media (max-width: 968px) {
-
-            .service-grid,
-            .news-grid,
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-
             .header-content {
-                gap: 0.8rem;
+                flex-direction: column;
+                gap: 1rem;
             }
 
             .logo-image {
-                width: 50px;
-                height: 50px;
+                width: 45px;
+                height: 45px;
             }
 
             .logo-text {
-                font-size: 1.5rem;
-                letter-spacing: 2px;
+                font-size: 1.3rem;
             }
 
-            .logo-subtitle {
-                font-size: 0.6rem;
-            }
-
-            .ifaima-badge {
-                font-size: 0.55rem;
-                padding: 0.25rem 0.6rem;
+            nav ul {
+                justify-content: center;
+                gap: 0.3rem;
             }
 
             nav ul li a {
-                padding: 0.8rem 1rem;
-                font-size: 0.8rem;
-                letter-spacing: 1px;
-            }
-
-            nav ul li::after {
-                display: none;
+                padding: 0.6rem 1rem;
+                font-size: 0.75rem;
             }
 
             .hero-section {
@@ -792,17 +693,9 @@
                 font-size: 2.5rem;
             }
 
-            .hero-plane-icon {
-                font-size: 2rem;
-            }
-
             .hero-content p {
                 font-size: 1.1rem;
                 padding: 0 1rem;
-            }
-
-            .hero-overlay {
-                padding: 2rem 1rem;
             }
 
             .carousel-btn {
@@ -823,107 +716,52 @@
                 gap: 2rem;
             }
 
-            .about-image {
-                height: 300px;
-            }
-
             .section-title {
                 font-size: 2rem;
-                margin-bottom: 2rem;
             }
 
-            .page-header {
-                min-height: 180px;
-                padding: 2rem 0;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .page-header p {
-                font-size: 1rem;
-            }
-
-            .content-section {
-                padding: 2.5rem 0;
-            }
-
-            .service-card,
-            .news-card,
-            .contact-info-box {
-                padding: 1.5rem;
-            }
-
-            .service-icon {
-                font-size: 2.5rem;
-            }
-
-            .footer-content {
+            .service-grid,
+            .news-grid,
+            .gallery-grid,
+            .management-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
+            }
+
+            .contact-map iframe {
+                height: 350px;
+            }
+
+            .contact-form-container iframe {
+                height: 600px;
             }
         }
 
         @media (max-width: 480px) {
-            .header-content {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .logo-text-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.3rem;
+            .logo-image {
+                width: 40px;
+                height: 40px;
             }
 
             .logo-text {
-                font-size: 1.3rem;
-                letter-spacing: 1.5px;
-            }
-
-            .logo-subtitle {
-                font-size: 0.55rem;
-                text-align: center;
-            }
-
-            .logo-image {
-                width: 45px;
-                height: 45px;
+                font-size: 1.1rem;
             }
 
             nav ul li a {
-                padding: 0.7rem 0.8rem;
-                font-size: 0.75rem;
+                padding: 0.5rem 0.7rem;
+                font-size: 0.7rem;
             }
 
             .hero-content h1 {
                 font-size: 2rem;
             }
 
-            .hero-content p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.7rem;
-            }
-
-            .btn {
-                padding: 0.8rem 1.8rem;
-                font-size: 0.9rem;
-            }
-
-            .service-grid,
-            .news-grid,
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
             .carousel-btn {
                 font-size: 1.5rem;
                 padding: 0.4rem 0.6rem;
+            }
+
+            .contact-map iframe {
+                height: 300px;
             }
         }
     </style>
@@ -932,29 +770,25 @@
 <body>
     <header>
         <div class="top-header">
-            <div class="container">
-                <div class="header-content">
+            <div class="header-content">
+                <div class="logo-container">
                     <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
-                    <div class="logo-text-container">
-                        <div class="logo-text">AIMAK</div>
-                        <div class="logo-details">
-                            <div class="logo-subtitle">Aeronautical Information Management Association of Kenya</div>
-                            <div class="ifaima-badge">A member of IFAIMA</div>
-                        </div>
-                    </div>
+                    <div class="logo-text">AIMAK</div>
                 </div>
+                <nav>
+                    <ul>
+                        <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
+                        <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
+                        <li><a onclick="navigateTo('services')" class="nav-link" data-page="services">PROGRAMS</a></li>
+                        <li><a onclick="navigateTo('management')" class="nav-link" data-page="management">MANAGEMENT</a>
+                        </li>
+                        <li><a onclick="navigateTo('gallery')" class="nav-link" data-page="gallery">GALLERY</a></li>
+                        <li><a onclick="navigateTo('news')" class="nav-link" data-page="news">BLOG</a></li>
+                        <li><a onclick="navigateTo('contact')" class="nav-link" data-page="contact">CONTACT</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <nav>
-            <ul>
-                <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
-                <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
-                <li><a onclick="navigateTo('services')" class="nav-link" data-page="services">PROGRAMS</a></li>
-                <li><a onclick="navigateTo('gallery')" class="nav-link" data-page="gallery">OUR FLEET</a></li>
-                <li><a onclick="navigateTo('news')" class="nav-link" data-page="news">BLOG</a></li>
-                <li><a onclick="navigateTo('contact')" class="nav-link" data-page="contact">CONTACTS</a></li>
-            </ul>
-        </nav>
     </header>
 
     <div id="home" class="page active">
@@ -964,9 +798,10 @@
             <button class="carousel-btn carousel-next" onclick="changeHeroImage(1)">&#10095;</button>
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>WELCOME</h1>
+                    <h1>WELCOME TO AIMAK</h1>
+                    <p>Aeronautical Information Management Association of Kenya</p>
                     <div class="hero-plane-icon">✈</div>
-                    <p>Excellence in Aeronautical Information Management for Kenya and Beyond</p>
+                    <p>Excellence in Aeronautical Information Management</p>
                 </div>
             </div>
         </section>
@@ -980,41 +815,13 @@
                         <p>The Aeronautical Information Management Association of Kenya (AIMAK) is the premier
                             professional organization dedicated to advancing aeronautical information management
                             standards and practices in Kenya.</p>
-                        <p>As a proud member of the International Federation of Aeronautical Information Management
-                            Associations (IFAIMA), we uphold global standards while addressing local aviation
+                        <p>As a proud member of IFAIMA, we uphold global standards while addressing local aviation
                             information needs.</p>
-                        <a onclick="navigateTo('about')" class="btn">Learn More About Us</a>
+                        <a onclick="navigateTo('about')" class="btn">Learn More</a>
                     </div>
                     <div class="about-image">
                         <img src="images/aimak2.jpg" alt="AIMAK">
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section alt">
-            <div class="container">
-                <h2 class="section-title">Our Core Services</h2>
-                <div class="service-grid">
-                    <div class="service-card">
-                        <div class="service-icon">✈️</div>
-                        <h3>Aeronautical Information Services</h3>
-                        <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📋</div>
-                        <h3>Flight Plan Processing</h3>
-                        <p>Expert handling of flight plans including sector flight plans for multi-segment operations
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🎓</div>
-                        <h3>Training & Development</h3>
-                        <p>Professional development programs for AIM personnel and stakeholders</p>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a onclick="navigateTo('services')" class="btn">View All Programs</a>
                 </div>
             </div>
         </section>
@@ -1027,7 +834,6 @@
                 <p>Leading Aeronautical Information Management in Kenya</p>
             </div>
         </div>
-
         <section class="content-section">
             <div class="container">
                 <div class="about-grid">
@@ -1035,40 +841,12 @@
                         <h2>Our Mission</h2>
                         <p>To advance the standards and practices of aeronautical information management in Kenya
                             through professional excellence, continuous training, and international collaboration.</p>
-                        <h2 style="margin-top: 2rem;">Our Vision</h2>
+                        <h2>Our Vision</h2>
                         <p>To be the leading professional association for aeronautical information management in East
-                            Africa, recognized for quality, innovation, and safety excellence.</p>
+                            Africa.</p>
                     </div>
                     <div class="about-image">
-                        <img src="images/aimak4.jpg" alt="AIMAK">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section alt">
-            <div class="container">
-                <h2 class="section-title">What We Do</h2>
-                <div class="service-grid">
-                    <div class="service-card">
-                        <h3>Professional Development</h3>
-                        <p>We provide continuous training and capacity building programs for AIM professionals to
-                            maintain international standards and best practices.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Standards & Quality</h3>
-                        <p>We promote adherence to ICAO standards and ensure quality assurance in aeronautical
-                            information management across Kenya.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Networking & Collaboration</h3>
-                        <p>We facilitate collaboration among aviation stakeholders, regulatory bodies, and international
-                            organizations through IFAIMA membership.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Advocacy & Representation</h3>
-                        <p>We represent the interests of AIM professionals and advocate for improved aeronautical
-                            information management infrastructure.</p>
+                        <img src="images/aimak3.jpg" alt="AIMAK">
                     </div>
                 </div>
             </div>
@@ -1082,61 +860,88 @@
                 <p>Comprehensive Aeronautical Information Management Solutions</p>
             </div>
         </div>
-
         <section class="content-section">
             <div class="container">
                 <div class="service-grid">
                     <div class="service-card">
                         <div class="service-icon">✈️</div>
-                        <h3>Aeronautical Information Services (AIS)</h3>
-                        <p>We provide comprehensive aeronautical information vital for safe and efficient air navigation
-                            operations.</p>
+                        <h3>Aeronautical Information Services</h3>
+                        <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">📋</div>
                         <h3>Flight Plan Processing</h3>
-                        <p>Expert handling of flight plans including sector flight plans for seamless multi-segment
-                            operations.</p>
+                        <p>Expert handling of flight plans including sector flight plans for multi-segment operations.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎓</div>
+                        <h3>Training & Development</h3>
+                        <p>Professional development programs for AIM personnel and stakeholders.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">🗺️</div>
-                        <h3>Aeronautical Charts & Publications</h3>
-                        <p>Production and distribution of accurate aeronautical charts compliant with ICAO standards.
-                        </p>
+                        <h3>Charts & Publications</h3>
+                        <p>Production and distribution of aeronautical charts and navigation publications.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">📡</div>
                         <h3>NOTAM Services</h3>
-                        <p>Timely preparation and dissemination of Notices to Airmen for critical aviation safety
-                            information.</p>
+                        <p>Real-time preparation and dissemination of Notices to Airmen.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">💾</div>
-                        <h3>Aeronautical Data Quality</h3>
-                        <p>Quality assurance procedures ensuring data accuracy and integrity per ICAO requirements.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🎓</div>
-                        <h3>Training & Capacity Building</h3>
-                        <p>Professional development programs covering ICAO standards and best practices.</p>
+                        <h3>Data Quality Management</h3>
+                        <p>Rigorous quality assurance procedures ensuring data accuracy and integrity.</p>
                     </div>
                 </div>
             </div>
         </section>
+    </div>
 
-        <section class="content-section alt">
+    <div id="management" class="page">
+        <div class="page-header management-header">
             <div class="container">
-                <h2 class="section-title">Understanding Sector Flight Plans</h2>
-                <div
-                    style="max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                    <div class="about-image" style="height: 350px; margin-bottom: 1.5rem;">
-                        <img src="images/aimak4.jpg" alt="Sector Flight Plan">
+                <h1>Our Management Team</h1>
+                <p>Leadership Driving Excellence</p>
+            </div>
+        </div>
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Executive Committee</h2>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <div class="management-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="management-info">
+                            <h3>David Kimani</h3>
+                            <h4>Chairman</h4>
+                            <p>Over 20 years of experience in aeronautical information management implementing ICAO
+                                standards across East Africa.</p>
+                        </div>
                     </div>
-                    <h3 style="color: #1565c0; margin-bottom: 1rem; font-size: 1.5rem;">What is a Sector Flight Plan?
-                    </h3>
-                    <p style="color: #555; line-height: 1.8;">A sector flight plan is a flight plan filed at the
-                        aerodrome of departure but intended for the sectors immediately following the point of arrival.
-                        This ensures seamless coordination and safety across multiple flight segments.</p>
+                    <div class="management-card">
+                        <div class="management-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="management-info">
+                            <h3>Sarah Wanjiru</h3>
+                            <h4>Vice Chairman</h4>
+                            <p>Specializes in aeronautical data quality and has led multiple training programs for AIM
+                                professionals.</p>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="management-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="management-info">
+                            <h3>Michael Omondi</h3>
+                            <h4>Secretary General</h4>
+                            <p>Oversees AIMAK's strategic initiatives and international collaborations.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1145,47 +950,46 @@
     <div id="gallery" class="page">
         <div class="page-header gallery-header">
             <div class="container">
-                <h1>Our Fleet</h1>
+                <h1>Our Gallery</h1>
                 <p>Aviation Excellence in Kenya</p>
             </div>
         </div>
-
         <section class="content-section">
             <div class="container">
                 <div class="gallery-grid">
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak1.jpg" alt="Aircraft operations">
+                            <img src="images/aimak4.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">International Aviation Operations</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak2.jpg" alt="Aircraft in flight">
+                            <img src="images/aimak5.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">Commercial Aviation Excellence</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak3.jpg" alt="Aviation operations">
+                            <img src="images/aimak6.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">Professional Aviation Services</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak4.jpg" alt="Sector Flight Plan">
+                            <img src="images/aimak7.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">Flight Planning & Navigation</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/aimak8.jpg" alt="Aviation operations">
+                            <img src="images/aimak8.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">Air Navigation Management</div>
                     </div>
                     <div class="gallery-item">
                         <div class="gallery-item-image">
-                            <img src="images/Aimaklogo.jpg" alt="AIMAK Logo">
+                            <img src="images/aimak9.jpg" alt="Aviation">
                         </div>
                         <div class="gallery-caption">AIMAK - Professional Excellence</div>
                     </div>
@@ -1201,7 +1005,6 @@
                 <p>Latest Updates from AIMAK</p>
             </div>
         </div>
-
         <section class="content-section">
             <div class="container">
                 <div class="news-grid">
@@ -1210,8 +1013,7 @@
                         <div class="news-content">
                             <div class="news-date">November 2025</div>
                             <h3>Annual General Meeting 2025</h3>
-                            <p>Join us for our upcoming Annual General Meeting where we'll discuss achievements and
-                                future plans for AIMAK.</p>
+                            <p>Join us for our upcoming AGM where we'll discuss achievements and future plans.</p>
                         </div>
                     </div>
                     <div class="news-card">
@@ -1219,8 +1021,8 @@
                         <div class="news-content">
                             <div class="news-date">October 2025</div>
                             <h3>ICAO Standards Training Workshop</h3>
-                            <p>Successful completion of our professional development workshop on latest ICAO Annex 15
-                                updates.</p>
+                            <p>Successful completion of our professional development workshop on ICAO Annex 15 updates.
+                            </p>
                         </div>
                     </div>
                     <div class="news-card">
@@ -1228,7 +1030,7 @@
                         <div class="news-content">
                             <div class="news-date">September 2025</div>
                             <h3>IFAIMA Regional Conference</h3>
-                            <p>AIMAK members attended the IFAIMA regional conference in Johannesburg, South Africa.</p>
+                            <p>AIMAK members attended the IFAIMA conference in Johannesburg, South Africa.</p>
                         </div>
                     </div>
                 </div>
@@ -1239,11 +1041,10 @@
     <div id="contact" class="page">
         <div class="page-header contact-header">
             <div class="container">
-                <h1>Contacts</h1>
+                <h1>Contact Us</h1>
                 <p>Get in touch with AIMAK</p>
             </div>
         </div>
-
         <section class="content-section">
             <div class="container">
                 <div class="contact-grid">
@@ -1261,32 +1062,28 @@
                     <div class="contact-info-box">
                         <h3>📞 Call Us</h3>
                         <p>+254 700 000 000</p>
-                        <p>+254 722 000 000</p>
+                        <p>Mon-Fri 8AM-5PM</p>
                     </div>
                 </div>
 
                 <div style="margin-top: 3rem;">
                     <h2 class="section-title">Find Us on the Map</h2>
-                    <div
-                        style="max-width: 1000px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <div class="contact-map">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8226425382495!2d36.81486637496844!3d-1.2802154987054548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d645f3d5f1%3A0x3b8b8e3e8e8e8e8e!2sWilson%20Airport!5e0!3m2!1sen!2ske!4v1699564800000!5m2!1sen!2ske"
-                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div style="text-align: center; margin-top: 1.5rem;">
                         <a href="https://maps.app.goo.gl/example" target="_blank" class="btn">Open in Google Maps</a>
                     </div>
                 </div>
 
-                <div
-                    style="background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 2rem; max-width: 600px; margin: 3rem auto 0;">
-                    <h2 style="text-align: center; color: #1565c0; margin-bottom: 1.5rem;">Send Us a Message</h2>
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSdmRxs1Srd0N5kNMlGGlM_broIObHQn4xv1B5_Ail-ZjXSj-Q/viewform?embedded=true"
-                        width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0"
-                        style="border-radius: 10px;">Loading…</iframe>
-                    <div style="text-align: center; margin-top: 1rem;">
+                        frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                    <div class="form-link">
                         <a href="https://forms.gle/TdRjLYUR1X5JsivaA" target="_blank" class="btn">Open Form in New
                             Tab</a>
                     </div>
@@ -1301,45 +1098,41 @@
                 <div class="footer-section">
                     <h3>About AIMAK</h3>
                     <p>Aeronautical Information Management Association of Kenya</p>
-                    <p style="margin-top: 1rem;"><strong>A member of IFAIMA</strong></p>
+                    <p>A member of IFAIMA</p>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a onclick="navigateTo('home')">Home</a></li>
-                        <li><a onclick="navigateTo('about')">About Us</a></li>
+                        <li><a onclick="navigateTo('about')">About</a></li>
                         <li><a onclick="navigateTo('services')">Programs</a></li>
-                        <li><a onclick="navigateTo('gallery')">Our Fleet</a></li>
-                        <li><a onclick="navigateTo('news')">Blog</a></li>
-                        <li><a onclick="navigateTo('contact')">Contacts</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact Info</h3>
+                    <h3>Contact</h3>
                     <ul>
                         <li>📍 Nairobi, Kenya</li>
                         <li>📧 info@aimak.org</li>
                         <li>📞 +254 700 000 000</li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <ul>
-                        <li><a href="#">Facebook: @AIMAK</a></li>
-                        <li><a href="#">Twitter: @AIMAK_Kenya</a></li>
-                        <li><a href="#">LinkedIn: AIMAK</a></li>
-                    </ul>
-                </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Aeronautical Information Management Association of Kenya (AIMAK). All rights reserved.
-                </p>
+                <p>&copy; 2025 AIMAK. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        const heroImages = ['images/aimak1.jpg', 'images/aimak2.jpg', 'images/aimak3.jpg', 'images/aimak8.jpg', 'images/aimak4.jpg'];
+        // Hero image carousel functionality
+        const heroImages = [
+            'images/aimak1.jpg',
+            'images/aimak2.jpg',
+            'images/aimak3.jpg',
+            'images/aimak4.jpg',
+            'images/aimak5.jpg'
+        ];
         let currentHeroIndex = 0;
 
         function changeHeroImage(direction) {
@@ -1352,13 +1145,17 @@
             }, 300);
         }
 
+        // Auto-rotate hero images every 5 seconds
         setInterval(() => changeHeroImage(1), 5000);
 
+        // Navigation functionality
         function navigateTo(pageId) {
             const currentPage = document.querySelector('.page.active');
             const targetPage = document.getElementById(pageId);
             if (!targetPage || currentPage === targetPage) return;
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -1366,6 +1163,7 @@
                     link.classList.add('active');
                 }
             });
+
             currentPage.classList.remove('active');
             targetPage.classList.add('active');
             window.location.hash = pageId;
