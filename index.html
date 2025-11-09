@@ -18,12 +18,16 @@
             line-height: 1.6;
             color: #333;
             background: #f8f9fa;
+            padding-top: 0;
+            /* Ensure no extra padding */
         }
 
         .page {
             display: none;
             opacity: 0;
             transition: opacity 0.3s ease-in;
+            min-height: 100vh;
+            /* Ensure pages take full height */
         }
 
         .page.active {
@@ -80,7 +84,12 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        nav ul {
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: block;
+        }
+
+        .desktop-nav ul {
             list-style: none;
             display: flex;
             justify-content: flex-end;
@@ -91,7 +100,7 @@
             gap: 0.5rem;
         }
 
-        nav ul li a {
+        .desktop-nav ul li a {
             color: #0d47a1;
             text-decoration: none;
             padding: 0.8rem 1.5rem;
@@ -105,8 +114,59 @@
             border-radius: 5px;
         }
 
-        nav ul li a:hover,
-        nav ul li a.active {
+        .desktop-nav ul li a:hover,
+        .desktop-nav ul li a.active {
+            background: rgba(13, 71, 161, 0.1);
+            color: #1565c0;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #0d47a1;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: whitesmoke;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav ul li a {
+            color: #0d47a1;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(13, 71, 161, 0.1);
+        }
+
+        .mobile-nav ul li a:hover,
+        .mobile-nav ul li a.active {
             background: rgba(13, 71, 161, 0.1);
             color: #1565c0;
         }
@@ -223,6 +283,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            margin-top: 0;
+            /* Ensure no margin at top */
         }
 
         .page-header::before {
@@ -674,14 +736,13 @@
                 font-size: 1.3rem;
             }
 
-            nav ul {
-                justify-content: center;
-                gap: 0.3rem;
+            /* Mobile Navigation */
+            .desktop-nav {
+                display: none;
             }
 
-            nav ul li a {
-                padding: 0.6rem 1rem;
-                font-size: 0.75rem;
+            .mobile-nav-toggle {
+                display: block;
             }
 
             .hero-section {
@@ -746,11 +807,6 @@
                 font-size: 1.1rem;
             }
 
-            nav ul li a {
-                padding: 0.5rem 0.7rem;
-                font-size: 0.7rem;
-            }
-
             .hero-content h1 {
                 font-size: 2rem;
             }
@@ -775,7 +831,9 @@
                     <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
                     <div class="logo-text">AIMAK</div>
                 </div>
-                <nav>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
                     <ul>
                         <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
                         <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
@@ -787,7 +845,32 @@
                         <li><a onclick="navigateTo('contact')" class="nav-link" data-page="contact">CONTACT</a></li>
                     </ul>
                 </nav>
+
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+
+            <!-- Mobile Navigation Menu -->
+            <nav class="mobile-nav" id="mobileNav">
+                <ul>
+                    <li><a onclick="navigateTo('home'); toggleMobileNav()" class="nav-link active"
+                            data-page="home">HOME</a></li>
+                    <li><a onclick="navigateTo('about'); toggleMobileNav()" class="nav-link" data-page="about">ABOUT</a>
+                    </li>
+                    <li><a onclick="navigateTo('services'); toggleMobileNav()" class="nav-link"
+                            data-page="services">PROGRAMS</a></li>
+                    <li><a onclick="navigateTo('management'); toggleMobileNav()" class="nav-link"
+                            data-page="management">MANAGEMENT</a></li>
+                    <li><a onclick="navigateTo('gallery'); toggleMobileNav()" class="nav-link"
+                            data-page="gallery">GALLERY</a></li>
+                    <li><a onclick="navigateTo('news'); toggleMobileNav()" class="nav-link" data-page="news">BLOG</a>
+                    </li>
+                    <li><a onclick="navigateTo('contact'); toggleMobileNav()" class="nav-link"
+                            data-page="contact">CONTACT</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -1074,7 +1157,8 @@
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div style="text-align: center; margin-top: 1.5rem;">
-                        <a href="https://maps.app.goo.gl/example" target="_blank" class="btn">Open in Google Maps</a>
+                        <a href="https://www.google.com/maps/place/Jomo+Kenyatta+International+Airport/@-1.3225242,36.9219546,17z/data=!3m1!4b1!4m6!3m5!1s0x182f129102505cef:0xefc58e7ef0660bf2!8m2!3d-1.3225242!4d36.9245295!16zL20vMDExemNy?entry=ttu&g_ep=EgoyMDI1MTEwNS4wIKXMDSoASAFQAw%3D%3D"
+                            target="_blank" class="btn">Open in Google Maps</a>
                     </div>
                 </div>
 
@@ -1125,6 +1209,22 @@
     </footer>
 
     <script>
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function (event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+
+            if (!mobileNav.contains(event.target) && !mobileNavToggle.contains(event.target)) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
         // Hero image carousel functionality
         const heroImages = [
             'images/aimak1.jpg',
@@ -1154,8 +1254,11 @@
             const targetPage = document.getElementById(pageId);
             if (!targetPage || currentPage === targetPage) return;
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Close mobile nav if open
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
 
+            // Update active navigation links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -1164,22 +1267,49 @@
                 }
             });
 
+            // Switch pages with smooth transition
             currentPage.classList.remove('active');
-            targetPage.classList.add('active');
-            window.location.hash = pageId;
+
+            // Small delay to ensure smooth transition
+            setTimeout(() => {
+                targetPage.classList.add('active');
+
+                // Scroll to top of the page immediately
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                // Update URL hash
+                window.location.hash = pageId;
+            }, 50);
         }
 
+        // Handle hash changes
         window.addEventListener('hashchange', function () {
             const hash = window.location.hash.substring(1);
-            if (hash) navigateTo(hash);
+            if (hash) {
+                navigateTo(hash);
+            }
         });
 
+        // Initialize page on load
         window.addEventListener('DOMContentLoaded', function () {
             const hash = window.location.hash.substring(1);
             if (hash) {
                 navigateTo(hash);
             } else {
                 navigateTo('home');
+            }
+
+            // Ensure we're at the top of the page on initial load
+            window.scrollTo(0, 0);
+        });
+
+        // Additional scroll handling for page transitions
+        document.addEventListener('click', function (e) {
+            if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+                // Small delay to ensure DOM is ready before scrolling
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 100);
             }
         });
     </script>
