@@ -1,0 +1,51 @@
+# .github/workflows/deploy.yml
+name: Deploy  Site to Droplet via SSH
+
+on:
+  push:
+    branches:
+      - main # Trigger on push to the main branch
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------
+      # Step: Deploy Static Files using SCP
+      # ----------------------------------------------------
+      - name: 🚀 SCP Deploy via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          # SSH connection details from GitHub Secrets
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          
+          # Deployment configuration
+          # The source files to copy ('.' means the whole repository root)
+          source: "." 
+          # The destination directory on your Droplet where your web server is pointing
+          # E.g., for Nginx on Ubuntu, this is usually /var/www/html or a site-specific folder.
+          target: "/var/www/aimak" 
+          # You can use 'exclude' to skip files like .git or .github
+          exclude: ".git, .github" 
+          
+      # ----------------------------------------------------
+      # Step: Clear Cache / Restart Nginx (Optional)
+      # ----------------------------------------------------
+      # You can use the companion appleboy/ssh-action to run remote commands
+      - name: Run remote commands (e.g., restart web server)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # If your server caches content, restart the web server to ensure changes are live
+            # Example for Nginx:
+            sudo systemctl restart nginx
