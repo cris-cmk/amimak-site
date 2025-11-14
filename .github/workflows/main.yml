@@ -21,9 +21,9 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           # SSH connection details from GitHub Secrets
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
           port: 22
           
           # Deployment configuration
