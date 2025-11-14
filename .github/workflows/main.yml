@@ -32,7 +32,7 @@ jobs:
           # Deployment configuration
           source: "." # Copy all files from the root of the repository
           # IMPORTANT: Update this path to your web server's root directory (e.g., /var/www/html)
-          target: "/var/www/your-site-directory" 
+          target: "/var/www/aimak" 
           
       # ----------------------------------------------------
       # Step 2: Clear Cache / Restart Web Server (Recommended)
