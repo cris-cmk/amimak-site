@@ -34,9 +34,9 @@ jobs:
           # IMPORTANT: Update this path to your web server's root directory (e.g., /var/www/html)
           target: "/var/www/aimak" 
           
-      # ----------------------------------------------------
+      # -----------------------------------------------------
       # Step 2: Clear Cache / Restart Web Server (Recommended)
-      # ----------------------------------------------------
+      # -----------------------------------------------------
       # This step ensures your web server picks up the new files.
       - name: Restart Web Server (Nginx Example)
         uses: appleboy/ssh-action@v1.0.3
