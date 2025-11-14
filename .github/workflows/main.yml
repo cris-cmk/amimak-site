@@ -4,7 +4,7 @@ name: Deploy Static Site to Droplet via SSH
 on:
   push:
     branches:
-      - main 
+      - main
   # Allows manual triggering from the GitHub Actions tab
   workflow_dispatch:
 
@@ -19,26 +19,22 @@ jobs:
       # Step 1: Deploy Static Files using SCP
       # ----------------------------------------------------
       - name: 🚀 SCP Deploy via SSH
-        # We continue to use v0.1.7 since that's what was in the logs, 
-        # but the 'exclude' parameter is REMOVED to fix the warning.
-        uses: appleboy/scp-action@v0.1.7 
+        uses: appleboy/scp-action@v0.1.7
         with:
           # SSH connection details from GitHub Secrets
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.DROPLET_SSH_KEY }} # CRITICAL: Ensure this secret is formatted correctly
+          key: ${{ secrets.DROPLET_SSH_KEY }}
           port: 22
-          
+
           # Deployment configuration
           source: "." # Copy all files from the root of the repository
-          # IMPORTANT: Update this path to your web server's root directory (e.g., /var/www/html)
-          target: "/var/www/aimak" 
-          
+          target: "/var/www/aimak" # Target directory on the Droplet
+
       # -----------------------------------------------------
-      # Step 2: Clear Cache / Restart Web Server (Recommended)
+      # Step 2: Restart Web Server
       # -----------------------------------------------------
-      # This step ensures your web server picks up the new files.
-      - name: Restart Web Server (Nginx Example)
+      - name: Restart Web Server (Nginx)
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DROPLET_IP }}
@@ -46,6 +42,4 @@ jobs:
           key: ${{ secrets.DROPLET_SSH_KEY }}
           # Command to run on the Droplet
           script: |
-            # Only required if your server is running Nginx/Apache
             sudo systemctl restart nginx
-            # OR for Apache: sudo systemctl restart apache2
