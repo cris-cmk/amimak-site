@@ -1,0 +1,45 @@
+name: Deploy Static Site to Droplet via SSH
+
+# Triggers the workflow on pushes to the main branch
+on:
+  push:
+    branches:
+      - main
+  # Allows manual triggering from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------
+      # Step 1: Deploy Static Files using SCP
+      # ----------------------------------------------------
+      - name: 🚀 SCP Deploy via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          # SSH connection details from GitHub Secrets
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          port: 22
+
+          # Deployment configuration
+          source: "." # Copy all files from the root of the repository
+          target: "/var/www/aimak" # Target directory on the Droplet
+
+      # -----------------------------------------------------
+      # Step 2: Restart Web Server
+      # -----------------------------------------------------
+      - name: Restart Web Server (Nginx)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          # Command to run on the Droplet
+          script: |
+            sudo systemctl restart nginx
