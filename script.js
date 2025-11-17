@@ -39,12 +39,15 @@ setInterval(() => changeHeroImage(1), 5000);
 
 // Navigation functionality
 function navigateTo(pageId) {
+    console.log('Navigating to:', pageId);
+
     const currentPage = document.querySelector('.page.active');
     const targetPage = document.getElementById(pageId);
     if (!targetPage || currentPage === targetPage) return;
 
     // Close mobile nav if open
     const mobileNav = document.getElementById('mobileNav');
+    console.log('Closing mobile menu');
     mobileNav.classList.remove('active');
 
     // Update active navigation links
@@ -62,11 +65,7 @@ function navigateTo(pageId) {
     // Small delay to ensure smooth transition
     setTimeout(() => {
         targetPage.classList.add('active');
-
-        // Scroll to top of the page immediately
         window.scrollTo({ top: 0, behavior: 'instant' });
-
-        // Update URL hash
         window.location.hash = pageId;
     }, 50);
 }
@@ -87,15 +86,12 @@ window.addEventListener('DOMContentLoaded', function () {
     } else {
         navigateTo('home');
     }
-
-    // Ensure we're at the top of the page on initial load
     window.scrollTo(0, 0);
 });
 
 // Additional scroll handling for page transitions
 document.addEventListener('click', function (e) {
     if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
-        // Small delay to ensure DOM is ready before scrolling
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 100);

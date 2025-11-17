@@ -420,25 +420,7 @@ body {
     object-fit: cover;
 }
 
-/* Enhanced Management Page Styles */
-.management-page {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
 
-.management-intro {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 3rem;
-    padding: 0 1rem;
-}
-
-.management-intro p {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.7;
-}
-
-/* Enhanced Management Grid */
 /* Management Page Styles */
 .management-page {
     background: #f8f9fa;
@@ -480,17 +462,32 @@ body {
 
 .management-photo {
     height: 350px;
-    /* Increased from 300px */
     overflow: hidden;
     background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    /* This helps center the image vertically */
+    justify-content: center;
 }
 
 .management-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 30%;
+    /* Adjust this percentage to show more of the face */
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .management-photo {
+        height: 300px;
+    }
+
+    .management-photo img {
+        object-position: center 25%;
+        /* Adjust for mobile to show more face */
+    }
 }
 
 .management-card:hover .management-photo img {
@@ -853,6 +850,85 @@ footer {
 
     .management-photo {
         height: 280px;
+    }
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #0d47a1;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+    /* This pushes it to the far right */
+}
+
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: whitesmoke;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.mobile-nav.active {
+    display: block;
+}
+.mobile-nav ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.mobile-nav ul li a {
+    color: #0d47a1;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(13, 71, 161, 0.1);
+}
+
+.mobile-nav ul li a:hover,
+.mobile-nav ul li a.active {
+    background: rgba(13, 71, 161, 0.1);
+    color: #1565c0;
+}
+
+/* Update header content for mobile */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: row;
+        /* Keep it as row to align items properly */
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .logo-container {
+        flex: 1;
+        /* Allow logo to take available space */
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        margin-left: auto;
+        /* Push to far right */
+    }
+
+    /* Hide desktop nav on mobile */
+    .desktop-nav {
+        display: none;
     }
 }
 
