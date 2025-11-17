@@ -5,829 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIMAK - Aeronautical Information Management Association of Kenya</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-            padding-top: 0;
-            /* Ensure no extra padding */
-        }
-
-        .page {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in;
-            min-height: 100vh;
-            /* Ensure pages take full height */
-        }
-
-        .page.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Header Styles */
-        .top-header {
-            background: whitesmoke;
-            padding: 1rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-            background: white;
-            transition: all 0.4s ease;
-        }
-
-        .logo-image:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-
-        .logo-text {
-            color: #0d47a1;
-            font-size: 1.8rem;
-            font-weight: 900;
-            font-style: italic;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Desktop Navigation */
-        .desktop-nav {
-            display: block;
-        }
-
-        .desktop-nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .desktop-nav ul li a {
-            color: #0d47a1;
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            display: block;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .desktop-nav ul li a:hover,
-        .desktop-nav ul li a.active {
-            background: rgba(13, 71, 161, 0.1);
-            color: #1565c0;
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #0d47a1;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .mobile-nav {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: whitesmoke;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
-
-        .mobile-nav.active {
-            display: block;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            padding: 1rem 0;
-        }
-
-        .mobile-nav ul li a {
-            color: #0d47a1;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            display: block;
-            font-weight: 600;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(13, 71, 161, 0.1);
-        }
-
-        .mobile-nav ul li a:hover,
-        .mobile-nav ul li a.active {
-            background: rgba(13, 71, 161, 0.1);
-            color: #1565c0;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            height: 80vh;
-            min-height: 600px;
-            overflow: hidden;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(13, 71, 161, 0.9) 0%, rgba(30, 136, 229, 0.7) 50%, transparent 100%);
-            padding: 4rem 2rem 3rem;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .hero-content h1 {
-            color: white;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-plane-icon {
-            color: white;
-            font-size: 4rem;
-            margin: 1.5rem 0;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .hero-content p {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.3);
-            border: none;
-            color: white;
-            font-size: 3rem;
-            padding: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            z-index: 10;
-            border-radius: 5px;
-        }
-
-        .carousel-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .carousel-prev {
-            left: 2rem;
-        }
-
-        .carousel-next {
-            right: 2rem;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Page Header - Updated with white gradient */
-        .page-header {
-            background-size: cover;
-            background-position: center;
-            color: #0d47a1;
-            padding: 3rem 0;
-            text-align: center;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-top: 0;
-            /* Ensure no margin at top */
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.4) 100%);
-            z-index: 1;
-        }
-
-        .page-header .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .page-header.about-header {
-            background-image: url('images/aimak3.jpg');
-        }
-
-        .page-header.services-header {
-            background-image: url('images/aimak4.jpg');
-        }
-
-        .page-header.management-header {
-            background-image: url('images/aimak5.jpg');
-        }
-
-        .page-header.gallery-header {
-            background-image: url('images/aimak6.jpg');
-        }
-
-        .page-header.news-header {
-            background-image: url('images/aimak7.jpg');
-        }
-
-        .page-header.contact-header {
-            background-image: url('images/aimak8.jpg');
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #0d47a1;
-            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            color: #1565c0;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Content Sections */
-        .content-section {
-            padding: 4rem 0;
-        }
-
-        .content-section.alt {
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1565c0;
-            font-weight: 700;
-        }
-
-        /* Service Grid */
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            border-left: 5px solid #1976d2;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(25, 118, 210, 0.2);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #1976d2;
-        }
-
-        .service-card h3 {
-            color: #1565c0;
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* About Grid */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-
-        .about-text h2 {
-            color: #1565c0;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            line-height: 1.9;
-            color: #555;
-        }
-
-        .about-image {
-            height: 400px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Management Grid */
-        .management-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .management-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .management-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .management-photo {
-            height: 350px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 5rem;
-            position: relative;
-        }
-
-        .management-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-        }
-
-        .management-info {
-            padding: 1.5rem;
-        }
-
-        .management-info h3 {
-            color: #1565c0;
-            font-size: 1.4rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .management-info h4 {
-            color: #1976d2;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .management-info p {
-            color: #555;
-            line-height: 1.7;
-        }
-
-        /* Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-item-image {
-            height: 250px;
-            overflow: hidden;
-        }
-
-        .gallery-item-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover .gallery-item-image img {
-            transform: scale(1.1);
-        }
-
-        .gallery-caption {
-            padding: 1rem;
-            text-align: center;
-            color: #1565c0;
-            font-weight: 600;
-        }
-
-        /* News Grid */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .news-image {
-            height: 200px;
-            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-        }
-
-        .news-content {
-            padding: 1.5rem;
-        }
-
-        .news-date {
-            color: #1976d2;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .news-content h3 {
-            color: #1565c0;
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-
-        .news-content p {
-            color: #555;
-            line-height: 1.7;
-        }
-
-        /* Contact Grid */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-info-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .contact-info-box h3 {
-            color: #1565c0;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .contact-info-box p {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Contact Map */
-        .contact-map {
-            max-width: 1000px;
-            margin: 0 auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 3rem;
-        }
-
-        .contact-map iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-
-        /* Contact Form */
-        .contact-form-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form-container h2 {
-            text-align: center;
-            color: #1565c0;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .contact-form-container iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            border-radius: 10px;
-        }
-
-        .form-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        /* Buttons */
-        .btn {
-            background: #1976d2;
-            color: white;
-            padding: 0.9rem 2.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .btn:hover {
-            background: #1565c0;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: #0d47a1;
-            color: white;
-            padding: 2rem 0 1rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.85rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .logo-image {
-                width: 45px;
-                height: 45px;
-            }
-
-            .logo-text {
-                font-size: 1.3rem;
-            }
-
-            /* Mobile Navigation */
-            .desktop-nav {
-                display: none;
-            }
-
-            .mobile-nav-toggle {
-                display: block;
-            }
-
-            .hero-section {
-                height: 60vh;
-                min-height: 400px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-                padding: 0 1rem;
-            }
-
-            .carousel-btn {
-                font-size: 1.8rem;
-                padding: 0.5rem 0.8rem;
-            }
-
-            .carousel-prev {
-                left: 0.5rem;
-            }
-
-            .carousel-next {
-                right: 0.5rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .service-grid,
-            .news-grid,
-            .gallery-grid,
-            .management-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-map iframe {
-                height: 350px;
-            }
-
-            .contact-form-container iframe {
-                height: 600px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-image {
-                width: 40px;
-                height: 40px;
-            }
-
-            .logo-text {
-                font-size: 1.1rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .carousel-btn {
-                font-size: 1.5rem;
-                padding: 0.4rem 0.6rem;
-            }
-
-            .contact-map iframe {
-                height: 300px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -845,7 +23,7 @@
                         <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
                         <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
                         <li><a onclick="navigateTo('services')" class="nav-link" data-page="services">PROGRAMS</a></li>
-                        <li><a onclick="navigateTo('management')" class="nav-link" data-page="management">MANAGEMENT</a>
+                        <li><a onclick="navigateTo('management')" class="nav-link" data-page="management">OUR MANAGEMENT</a>
                         </li>
                         <li><a onclick="navigateTo('gallery')" class="nav-link" data-page="gallery">GALLERY</a></li>
                         <li><a onclick="navigateTo('news')" class="nav-link" data-page="news">BLOG</a></li>
@@ -868,7 +46,7 @@
                     <li><a onclick="navigateTo('services'); toggleMobileNav()" class="nav-link"
                             data-page="services">PROGRAMS</a></li>
                     <li><a onclick="navigateTo('management'); toggleMobileNav()" class="nav-link"
-                            data-page="management">MANAGEMENT</a></li>
+                            data-page="management"> OUR MANAGEMENT</a></li>
                     <li><a onclick="navigateTo('gallery'); toggleMobileNav()" class="nav-link"
                             data-page="gallery">GALLERY</a></li>
                     <li><a onclick="navigateTo('news'); toggleMobileNav()" class="nav-link" data-page="news">BLOG</a>
@@ -1063,67 +241,94 @@
         </section>
     </div>
 
-    <div id="management" class="page">
-        <div class="page-header management-header">
-            <div class="container">
-                <h1>AIMAK Leadership</h1>
-                <p>Leading with Excellence</p>
-            </div>
+    <!-- MANAGEMENT -->
+<div id="management" class="page management-page">
+    <div class="page-header management-header">
+        <div class="container">
+            <h1>AIMAK Leadership</h1>
+            <p>Leading with Excellence</p>
         </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="management-grid">
-                    <div class="management-card">
-                        <div class="management-photo">
-                            <img src="images/executive secretary and ceo.jpg" alt="Executive Secretary & CEO"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="management-info">
-                            <h3>Executive Secretary & CEO</h3>
-        
-                        </div>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="management-intro">
+                <p>Our leadership team brings together experienced professionals dedicated to advancing aeronautical
+                    information management standards in Kenya and beyond. With diverse expertise and a shared vision,
+                    they guide AIMAK toward excellence in all our endeavors.</p>
+            </div>
+
+            <div class="management-grid">
+                <div class="management-card">
+                    <div class="management-photo">
+                        <img src="images/executive secretary and ceo.jpg" alt="Executive Secretary & CEO">
                     </div>
-                    <div class="management-card">
-                        <div class="management-photo">
-                            <img src="images/president.jpg" alt="President"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="management-info">
-                            <h3>President</h3>
-                        </div>
+                    <div class="management-role-icon">
+                        <i class="fas fa-user-tie"></i>
                     </div>
-                    <div class="management-card">
-                        <div class="management-photo">
-                            <img src="images/deputyexecutive secretary.jpg" alt="Deputy Executive Secretary"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="management-info">
-                            <h3>Deputy Executive Secretary</h3>
-                        </div>
+                    <div class="management-info">
+                        <h3>Executive Secretary & CEO</h3>
+                        <p>Oversees the strategic direction and day-to-day operations of AIMAK, ensuring alignment with
+                            our mission and vision.</p>
                     </div>
-                    <div class="management-card">
-                        <div class="management-photo">
-                            <img src="images/Vicepresident.jpg" alt="Vice President"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="management-info">
-                            <h3>Vice President</h3>
-                        </div>
+                </div>
+
+                <div class="management-card">
+                    <div class="management-photo">
+                        <img src="images/president.jpg" alt="President">
                     </div>
-                    <div class="management-card">
-                        <div class="management-photo">
-                            <img src="images/treasurer.jpg" alt="Treasurer"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="management-info">
-                            <h3>Treasurer</h3>
-                        </div>
+                    <div class="management-role-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="management-info">
+                        <h3>President</h3>
+                        <p>Provides leadership and represents AIMAK in all official capacities, guiding our strategic
+                            initiatives.</p>
+                    </div>
+                </div>
+
+                <div class="management-card">
+                    <div class="management-photo">
+                        <img src="images/deputyexecutive secretary.jpg" alt="Deputy Executive Secretary">
+                    </div>
+                    <div class="management-role-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="management-info">
+                        <h3>Deputy Executive Secretary</h3>
+                        <p>Supports the Executive Secretary in operational management and strategic implementation.</p>
+                    </div>
+                </div>
+
+                <div class="management-card">
+                    <div class="management-photo">
+                        <img src="images/Vicepresident.jpg" alt="Vice President">
+                    </div>
+                    <div class="management-role-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="management-info">
+                        <h3>Vice President</h3>
+                        <p>Assists the President in leadership duties and represents the association when required.</p>
+                    </div>
+                </div>
+
+                <div class="management-card">
+                    <div class="management-photo">
+                        <img src="images/treasurer.jpg" alt="Treasurer">
+                    </div>
+                    <div class="management-role-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="management-info">
+                        <h3>Treasurer</h3>
+                        <p>Manages the association's finances, budgeting, and financial reporting.</p>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-
+        </div>
+    </section>
+</div>
     <div id="gallery" class="page">
         <div class="page-header gallery-header">
             <div class="container">
@@ -1302,111 +507,7 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile navigation toggle
-        function toggleMobileNav() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('active');
-        }
-
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function (event) {
-            const mobileNav = document.getElementById('mobileNav');
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-
-            if (!mobileNav.contains(event.target) && !mobileNavToggle.contains(event.target)) {
-                mobileNav.classList.remove('active');
-            }
-        });
-
-        // Hero image carousel functionality
-        const heroImages = [
-            'images/aimak1.jpg',
-            'images/aimak2.jpg',
-            'images/aimak3.jpg',
-            'images/aimak4.jpg',
-            'images/aimak5.jpg'
-        ];
-        let currentHeroIndex = 0;
-
-        function changeHeroImage(direction) {
-            const heroImg = document.getElementById('hero-image');
-            currentHeroIndex = (currentHeroIndex + direction + heroImages.length) % heroImages.length;
-            heroImg.style.opacity = '0.5';
-            setTimeout(() => {
-                heroImg.src = heroImages[currentHeroIndex];
-                heroImg.style.opacity = '1';
-            }, 300);
-        }
-
-        // Auto-rotate hero images every 5 seconds
-        setInterval(() => changeHeroImage(1), 5000);
-
-        // Navigation functionality
-        function navigateTo(pageId) {
-            const currentPage = document.querySelector('.page.active');
-            const targetPage = document.getElementById(pageId);
-            if (!targetPage || currentPage === targetPage) return;
-
-            // Close mobile nav if open
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.remove('active');
-
-            // Update active navigation links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-page') === pageId) {
-                    link.classList.add('active');
-                }
-            });
-
-            // Switch pages with smooth transition
-            currentPage.classList.remove('active');
-
-            // Small delay to ensure smooth transition
-            setTimeout(() => {
-                targetPage.classList.add('active');
-
-                // Scroll to top of the page immediately
-                window.scrollTo({ top: 0, behavior: 'instant' });
-
-                // Update URL hash
-                window.location.hash = pageId;
-            }, 50);
-        }
-
-        // Handle hash changes
-        window.addEventListener('hashchange', function () {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                navigateTo(hash);
-            }
-        });
-
-        // Initialize page on load
-        window.addEventListener('DOMContentLoaded', function () {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                navigateTo(hash);
-            } else {
-                navigateTo('home');
-            }
-
-            // Ensure we're at the top of the page on initial load
-            window.scrollTo(0, 0);
-        });
-
-        // Additional scroll handling for page transitions
-        document.addEventListener('click', function (e) {
-            if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
-                // Small delay to ensure DOM is ready before scrolling
-                setTimeout(() => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 100);
-            }
-        });
-    </script>
+<script src="script.js"></script>
 </body>
 
 </html>
