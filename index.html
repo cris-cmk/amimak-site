@@ -453,7 +453,7 @@
         }
 
         .management-photo {
-            height: 300px;
+            height: 350px;
             overflow: hidden;
             background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
             display: flex;
@@ -461,6 +461,14 @@
             justify-content: center;
             color: white;
             font-size: 5rem;
+            position: relative;
+        }
+
+        .management-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
         }
 
         .management-info {
@@ -847,7 +855,6 @@
 
                 <!-- Mobile Navigation Toggle -->
                 <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-                    <i class="fas fa-bars"></i>
                 </button>
             </div>
 
@@ -1060,43 +1067,56 @@
         <div class="page-header management-header">
             <div class="container">
                 <h1>AIMAK Leadership</h1>
-                <p>Leadership Driving Excellence</p>
+                <p>Leading with Excellence</p>
             </div>
         </div>
         <section class="content-section">
             <div class="container">
-                <h2 class="section-title">Executive Committee</h2>
                 <div class="management-grid">
                     <div class="management-card">
                         <div class="management-photo">
-                            <i class="fas fa-user"></i>
+                            <img src="images/executive secretary and ceo.jpg" alt="Executive Secretary & CEO"
+                                style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="management-info">
-                            <h3>xxxxxx xxxxxxi</h3>
-                            <h4>Chairman</h4>
-                            <p>Over 20 years of experience in aeronautical information management implementing ICAO
-                                standards across East Africa.</p>
+                            <h3>Executive Secretary & CEO</h3>
+        
                         </div>
                     </div>
                     <div class="management-card">
                         <div class="management-photo">
-                            <i class="fas fa-user"></i>
+                            <img src="images/president.jpg" alt="President"
+                                style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="management-info">
-                            <h3>xxxxxx xxxxxx</h3>
-                            <h4>Vice Chairman</h4>
-                            <p>Specializes in aeronautical data quality and has led multiple training programs for AIM
-                                professionals.</p>
+                            <h3>President</h3>
                         </div>
                     </div>
                     <div class="management-card">
                         <div class="management-photo">
-                            <i class="fas fa-user"></i>
+                            <img src="images/deputyexecutive secretary.jpg" alt="Deputy Executive Secretary"
+                                style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="management-info">
-                            <h3>xxxxxx xxxxxx</h3>
-                            <h4>Secretary General</h4>
-                            <p>Oversees AIMAK's strategic initiatives and international collaborations.</p>
+                            <h3>Deputy Executive Secretary</h3>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="management-photo">
+                            <img src="images/Vicepresident.jpg" alt="Vice President"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="management-info">
+                            <h3>Vice President</h3>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="management-photo">
+                            <img src="images/treasurer.jpg" alt="Treasurer"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="management-info">
+                            <h3>Treasurer</h3>
                         </div>
                     </div>
                 </div>
