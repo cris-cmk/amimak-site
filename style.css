@@ -439,7 +439,7 @@ body {
     line-height: 1.7;
 }
 
-/* Management Grid */
+/* Management Grid - Enhanced with Hover Effects */
 .management-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -448,116 +448,234 @@ body {
 
 .management-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
     position: relative;
+    border-top: 4px solid #1976d2;
+    cursor: pointer;
+    height: 100%;
 }
 
 .management-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(25, 118, 210, 0.15);
 }
 
+/* Image Container - No Cutting */
 .management-photo {
-    height: 350px;
+    height: 300px;
     overflow: hidden;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    padding: 1rem;
 }
 
 .management-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    /* Adjusted to show more of the upper part */
-    transition: transform 0.3s ease;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: all 0.5s ease;
 }
 
-.management-card:hover .management-photo img {
-    transform: scale(1.05);
-}
-
-/* Name overlay on image */
-.photo-name-overlay {
+/* Hover Overlay Effect */
+.management-overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(13, 71, 161, 0.9) 0%, transparent 100%);
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(13, 71, 161, 0.95) 0%, rgba(25, 118, 210, 0.9) 100%);
     color: white;
-    padding: 2rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
     text-align: center;
 }
 
-.photo-name-overlay h3 {
+.management-card:hover .management-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.management-card:hover .management-photo img {
+    transform: scale(1.1);
+    filter: brightness(0.7);
+}
+
+.overlay-content h3 {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
     font-weight: 700;
-    margin-bottom: 0.3rem;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.photo-name-overlay h4 {
+.overlay-content h4 {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
+    margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.overlay-content p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Initial View - Only Show Name and Position */
 .management-info {
     padding: 1.5rem;
+    background: white;
 }
 
+.management-info h3 {
+    color: #1565c0;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.management-info h4 {
+    color: #1976d2;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Hide description in initial view */
 .management-info p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.95rem;
+    display: none;
 }
 
-/* Responsive Management */
+/* Mobile First Responsive Design */
+@media (max-width: 1200px) {
+    .management-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .management-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
     }
 
     .management-photo {
-        height: 300px;
+        height: 250px;
+        padding: 0.8rem;
     }
 
-    .management-photo img {
-        object-position: center 15%;
-        /* Adjusted for mobile */
+    .management-overlay {
+        padding: 1.5rem;
     }
 
-    .photo-name-overlay {
-        padding: 1.5rem 1rem 0.8rem;
+    .overlay-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.4rem;
     }
 
-    .photo-name-overlay h3 {
+    .overlay-content h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .overlay-content p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .management-info {
+        padding: 1.2rem;
+    }
+
+    .management-info h3 {
         font-size: 1.2rem;
     }
 
-    .photo-name-overlay h4 {
-        font-size: 0.8rem;
+    .management-info h4 {
+        font-size: 0.85rem;
     }
 }
 
 @media (max-width: 480px) {
+    .management-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
     .management-photo {
-        height: 280px;
+        height: 220px;
+        padding: 0.5rem;
+    }
+
+    .management-overlay {
+        padding: 1rem;
+    }
+
+    .overlay-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .overlay-content h4 {
+        font-size: 0.8rem;
+    }
+
+    .overlay-content p {
+        font-size: 0.8rem;
     }
 
     .management-info {
-        padding: 1.2rem 1rem;
+        padding: 1rem;
+    }
+
+    .management-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .management-info h4 {
+        font-size: 0.8rem;
     }
 }
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .management-card {
+        cursor: default;
+    }
+
+    .management-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(135deg, rgba(13, 71, 161, 0.85) 0%, rgba(25, 118, 210, 0.8) 100%);
+    }
+
+    .management-photo img {
+        filter: brightness(0.8);
+    }
+}
+
 /* Gallery Grid */
 .gallery-grid {
     display: grid;
