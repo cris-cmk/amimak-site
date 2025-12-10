@@ -1,173 +1,316 @@
-// Management Section Interactive Cards
-function initManagementCards() {
-    const managementCards = document.querySelectorAll('.management-card');
+// Fixed JavaScript for AIMAK Website
 
-    // Function to close all cards
-    function closeAllCards() {
-        managementCards.forEach(card => {
-            card.classList.remove('active');
-        });
+// DOM Elements
+const backToTopBtn = document.querySelector('.back-to-top');
+const mobileNav = document.getElementById('mobileNav');
+const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('AIMAK Website Initialized');
+
+    // Initialize all components
+    initHeroSlider();
+    initStatsCounter();
+    initScrollAnimations();
+    initNavigation();
+
+    // Load saved theme
+    loadTheme();
+
+    // Handle initial page load
+    handleInitialPageLoad();
+});
+
+// Handle initial page load and hash
+function handleInitialPageLoad() {
+    const hash = window.location.hash.substring(1);
+    const validPages = ['home', 'about', 'services', 'management', 'gallery', 'news', 'contact'];
+
+    if (hash && validPages.includes(hash)) {
+        showPage(hash);
+    } else {
+        showPage('home');
     }
-
-    // Function to handle card click
-    function handleCardClick(card) {
-        const isActive = card.classList.contains('active');
-
-        // Close all cards first
-        closeAllCards();
-
-        // If the clicked card wasn't active, activate it
-        if (!isActive) {
-            card.classList.add('active');
-        }
-    }
-
-    // Add click event to each card
-    managementCards.forEach(card => {
-        card.addEventListener('click', function (e) {
-            // Prevent event bubbling
-            e.stopPropagation();
-            handleCardClick(this);
-        });
-
-        // Add keyboard support for accessibility
-        card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCardClick(this);
-            }
-        });
-    });
-
-    // Close cards when clicking outside
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('.management-card')) {
-            closeAllCards();
-        }
-    });
-
-    // Close cards when pressing Escape key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            closeAllCards();
-        }
-    });
-
-    // Handle touch events for better mobile experience
-    managementCards.forEach(card => {
-        card.addEventListener('touchstart', function () {
-            // Add touch feedback
-            this.style.transition = 'transform 0.2s ease';
-        }, { passive: true });
-    });
 }
 
-// Enhanced navigation function to initialize management cards when navigating to management page
-function navigateTo(pageId) {
-    console.log('Navigating to:', pageId);
+// Show specific page
+function showPage(pageId) {
+    console.log('Showing page:', pageId);
 
-    const currentPage = document.querySelector('.page.active');
+    // Hide all pages
+    const allPages = document.querySelectorAll('.page-section');
+    allPages.forEach(page => {
+        page.classList.remove('active');
+    });
+
+    // Show the selected page
     const targetPage = document.getElementById(pageId);
-    if (!targetPage || currentPage === targetPage) return;
+    if (targetPage) {
+        targetPage.classList.add('active');
 
-    // Close mobile nav if open
-    const mobileNav = document.getElementById('mobileNav');
-    console.log('Closing mobile menu');
-    mobileNav.classList.remove('active');
+        // Update active navigation links
+        updateActiveNav(pageId);
 
-    // Update active navigation links
+        // Update URL hash without scrolling
+        window.history.replaceState(null, null, `#${pageId}`);
+
+        // Scroll to top of the page
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Update active navigation links
+function updateActiveNav(pageId) {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('data-page') === pageId) {
+        const href = link.getAttribute('href');
+        if (href === `#${pageId}`) {
             link.classList.add('active');
         }
     });
-
-    // Switch pages with smooth transition
-    currentPage.classList.remove('active');
-
-    // Small delay to ensure smooth transition
-    setTimeout(() => {
-        targetPage.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        window.location.hash = pageId;
-
-        // Initialize management cards if navigating to management page
-        if (pageId === 'management') {
-            setTimeout(initManagementCards, 100);
-        }
-    }, 50);
 }
 
-// Mobile navigation toggle
+// Enhanced Hero Slider
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slides.length === 0) return;
+
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Show the selected slide
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        let nextIndex = (currentSlide + 1) % slides.length;
+        showSlide(nextIndex);
+    }
+
+    function changeSlide(direction) {
+        clearInterval(slideInterval);
+        let newIndex = (currentSlide + direction + slides.length) % slides.length;
+        showSlide(newIndex);
+        startAutoSlide();
+    }
+
+    function goToSlide(index) {
+        if (index >= 0 && index < slides.length) {
+            clearInterval(slideInterval);
+            showSlide(index);
+            startAutoSlide();
+        }
+    }
+
+    function startAutoSlide() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    // Initialize slider
+    window.changeSlide = changeSlide;
+    window.goToSlide = goToSlide;
+
+    // Show first slide
+    showSlide(0);
+    startAutoSlide();
+
+    // Pause on hover
+    const slider = document.querySelector('.hero-slider');
+    if (slider) {
+        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slider.addEventListener('mouseleave', startAutoSlide);
+    }
+}
+
+// Stats Counter Animation
+function initStatsCounter() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    if (statNumbers.length === 0) return;
+
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                element.textContent = target;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    function checkStatsVisibility() {
+        const statsSection = document.querySelector('.stats-section');
+        if (!statsSection) return;
+
+        const rect = statsSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top <= windowHeight * 0.75 && rect.bottom >= 0) {
+            statNumbers.forEach(animateCounter);
+            window.removeEventListener('scroll', checkStatsVisibility);
+        }
+    }
+
+    window.addEventListener('scroll', checkStatsVisibility);
+    checkStatsVisibility(); // Check on load
+}
+
+// Scroll Animations
+function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+    function checkScroll() {
+        animatedElements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (rect.top <= windowHeight * 0.8 && rect.bottom >= 0) {
+                const delay = element.getAttribute('data-delay') || 0;
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, delay);
+            }
+        });
+
+        // Back to top button visibility
+        if (backToTopBtn) {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll(); // Check on load
+}
+
+// Initialize Navigation
+function initNavigation() {
+    // Handle navigation clicks
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('.nav-link');
+        if (link) {
+            event.preventDefault();
+
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const pageId = href.substring(1);
+                showPage(pageId);
+
+                // Close mobile menu if open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
+                }
+            }
+        }
+    });
+
+    // Handle hash changes
+    window.addEventListener('hashchange', function () {
+        const hash = window.location.hash.substring(1);
+        const validPages = ['home', 'about', 'services', 'management', 'gallery', 'news', 'contact'];
+
+        if (hash && validPages.includes(hash)) {
+            showPage(hash);
+        }
+    });
+}
+
+// Theme Toggle
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const themeIcon = document.querySelector('.theme-toggle i');
+    if (themeIcon) {
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            localStorage.setItem('theme', 'light');
+        }
+    }
+}
+
+// Load saved theme
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+}
+
+// Mobile Navigation Toggle
 function toggleMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    mobileNav.classList.toggle('active');
+    if (mobileNav) {
+        mobileNav.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    }
+}
+
+// Scroll to Top
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 // Close mobile nav when clicking outside
 document.addEventListener('click', function (event) {
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-
-    if (!mobileNav.contains(event.target) && !mobileNavToggle.contains(event.target)) {
-        mobileNav.classList.remove('active');
+    if (mobileNav && mobileNavToggle) {
+        if (!mobileNav.contains(event.target) &&
+            !mobileNavToggle.contains(event.target) &&
+            mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
     }
 });
 
-// Hero image carousel functionality
-const heroImages = [
-    'images/aimak1.jpg',
-    'images/aimak2.jpg',
-    'images/aimak3.jpg',
-    'images/aimak4.jpg',
-    'images/aimak5.jpg'
-];
-let currentHeroIndex = 0;
-
-function changeHeroImage(direction) {
-    const heroImg = document.getElementById('hero-image');
-    currentHeroIndex = (currentHeroIndex + direction + heroImages.length) % heroImages.length;
-    heroImg.style.opacity = '0.5';
-    setTimeout(() => {
-        heroImg.src = heroImages[currentHeroIndex];
-        heroImg.style.opacity = '1';
-    }, 300);
-}
-
-// Auto-rotate hero images every 5 seconds
-setInterval(() => changeHeroImage(1), 5000);
-
-// Handle hash changes
-window.addEventListener('hashchange', function () {
-    const hash = window.location.hash.substring(1);
-    if (hash) {
-        navigateTo(hash);
+// Close mobile nav on escape key
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && mobileNav && mobileNav.classList.contains('active')) {
+        toggleMobileNav();
     }
 });
 
-// Initialize page on load
-window.addEventListener('DOMContentLoaded', function () {
-    const hash = window.location.hash.substring(1);
-    if (hash) {
-        navigateTo(hash);
-    } else {
-        navigateTo('home');
-    }
-    window.scrollTo(0, 0);
-
-    // Initialize management cards if already on management page
-    if (document.getElementById('management').classList.contains('active')) {
-        setTimeout(initManagementCards, 100);
+// Handle window resize
+window.addEventListener('resize', function () {
+    // Close mobile nav on larger screens
+    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
+        toggleMobileNav();
     }
 });
 
-// Additional scroll handling for page transitions
-document.addEventListener('click', function (e) {
-    if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
-        setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 100);
-    }
-});
+// Initialize window functions
+window.toggleTheme = toggleTheme;
+window.scrollToTop = scrollToTop;
+window.toggleMobileNav = toggleMobileNav;
+window.showPage = showPage;

@@ -1,566 +1,806 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIMAK - Aeronautical Information Management Association of Kenya</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Header -->
     <header>
         <div class="top-header">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
-                    <div class="logo-text">AIMAK</div>
+            <div class="header-container">
+                <div class="header-content">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <div class="logo-wrapper">
+                            <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main">AIMAK</span>
+                            <span class="logo-subtitle">Aeronautical Information Management</span>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <nav class="desktop-nav">
+                        <ul>
+                            <li><a href="#home" class="nav-link active">HOME</a></li>
+                            <li><a href="#about" class="nav-link">ABOUT</a></li>
+                            <li><a href="#services" class="nav-link">PROGRAMS</a></li>
+                            <li><a href="#management" class="nav-link">MANAGEMENT</a></li>
+                            <li><a href="#gallery" class="nav-link">GALLERY</a></li>
+                            <li><a href="#news" class="nav-link">BLOG</a></li>
+                            <li><a href="#contact" class="nav-link">CONTACT</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Header Actions -->
+                    <div class="header-actions">
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+
+                        <!-- Mobile Navigation Toggle -->
+                        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-
-<!-- navbar navigation -->
-                <nav class="desktop-nav">
-                    <ul>
-                        <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
-                        <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
-                        <li><a onclick="navigateTo('services')" class="nav-link" data-page="services">PROGRAMS</a></li>
-                        <li><a onclick="navigateTo('management')" class="nav-link" data-page="management">OUR MANAGEMENT</a></li>
-                        <li><a onclick="navigateTo('gallery')" class="nav-link" data-page="gallery">GALLERY</a></li>
-                        <li><a onclick="navigateTo('news')" class="nav-link" data-page="news">BLOG</a></li>
-                        <li><a onclick="navigateTo('contact')" class="nav-link" data-page="contact">CONTACT</a></li>
-                    </ul>
-                </nav>
-
-                <!-- Mobile Navigation Menu -->
-                <nav class="mobile-nav" id="mobileNav">
-                    <ul>
-                        <li><a onclick="navigateTo('home')" class="nav-link active" data-page="home">HOME</a></li>
-                        <li><a onclick="navigateTo('about')" class="nav-link" data-page="about">ABOUT</a></li>
-                        <li><a onclick="navigateTo('services')" class="nav-link" data-page="services">PROGRAMS</a></li>
-                        <li><a onclick="navigateTo('management')" class="nav-link" data-page="management"> OUR MANAGEMENT</a></li>
-                        <li><a onclick="navigateTo('gallery')" class="nav-link" data-page="gallery">GALLERY</a></li>
-                        <li><a onclick="navigateTo('news')" class="nav-link" data-page="news">BLOG</a></li>
-                        <li><a onclick="navigateTo('contact')" class="nav-link" data-page="contact">CONTACT</a></li>
-                    </ul>
-                </nav>
-
-          
-                <!-- Mobile Navigation Toggle -->
-                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
 
             <!-- Mobile Navigation Menu -->
             <nav class="mobile-nav" id="mobileNav">
+                <div class="mobile-nav-header">
+                    <div class="mobile-logo">
+                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo">
+                        <span>AIMAK</span>
+                    </div>
+                    <button class="mobile-close-btn" onclick="toggleMobileNav()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
                 <ul>
-                    <li><a onclick="navigateTo('home'); toggleMobileNav()" class="nav-link active"
-                            data-page="home">HOME</a></li>
-                    <li><a onclick="navigateTo('about'); toggleMobileNav()" class="nav-link" data-page="about">ABOUT</a>
-                    </li>
-                    <li><a onclick="navigateTo('services'); toggleMobileNav()" class="nav-link"
-                            data-page="services">PROGRAMS</a></li>
-                    <li><a onclick="navigateTo('management'); toggleMobileNav()" class="nav-link"
-                            data-page="management"> OUR MANAGEMENT</a></li>
-                    <li><a onclick="navigateTo('gallery'); toggleMobileNav()" class="nav-link"
-                            data-page="gallery">GALLERY</a></li>
-                    <li><a onclick="navigateTo('news'); toggleMobileNav()" class="nav-link" data-page="news">BLOG</a>
-                    </li>
-                    <li><a onclick="navigateTo('contact'); toggleMobileNav()" class="nav-link"
-                            data-page="contact">CONTACT</a></li>
+                    <li><a href="#home" class="nav-link active" onclick="toggleMobileNav()">HOME</a></li>
+                    <li><a href="#about" class="nav-link" onclick="toggleMobileNav()">ABOUT</a></li>
+                    <li><a href="#services" class="nav-link" onclick="toggleMobileNav()">PROGRAMS</a></li>
+                    <li><a href="#management" class="nav-link" onclick="toggleMobileNav()">MANAGEMENT</a></li>
+                    <li><a href="#gallery" class="nav-link" onclick="toggleMobileNav()">GALLERY</a></li>
+                    <li><a href="#news" class="nav-link" onclick="toggleMobileNav()">BLOG</a></li>
+                    <li><a href="#contact" class="nav-link" onclick="toggleMobileNav()">CONTACT</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div id="home" class="page active">
-        <section class="hero-section">
-            <img id="hero-image" class="hero-image" src="images/aimak1.jpg" alt="Aviation Excellence">
-            <button class="carousel-btn carousel-prev" onclick="changeHeroImage(-1)">&#10094;</button>
-            <button class="carousel-btn carousel-next" onclick="changeHeroImage(1)">&#10095;</button>
-            <div class="hero-overlay">
-                <div class="hero-content">
-                    <h1>WELCOME TO AIMAK</h1>
-                    <p>Aeronautical Information Management Association of Kenya</p>
-                    <div class="hero-plane-icon">✈</div>
-                    <p>Excellence in Aeronautical Information Management change to Advancing Excellence in Aeronautical Information Management</p>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page-section active">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-slider">
+                    <div class="hero-slides">
+                        <div class="hero-slide active">
+                            <img src="images/aimak1.jpg" alt="Aviation Excellence">
+                            <div class="slide-overlay"></div>
+                        </div>
+                        <div class="hero-slide">
+                            <img src="images/aimak2.jpg" alt="Aviation Operations">
+                            <div class="slide-overlay"></div>
+                        </div>
+                        <div class="hero-slide">
+                            <img src="images/aimak3.jpg" alt="Aviation Technology">
+                            <div class="slide-overlay"></div>
+                        </div>
+                    </div>
+
+                    <div class="hero-content">
+                        <h1 class="animate__animated animate__fadeInDown">WELCOME TO AIMAK</h1>
+                        <p class="tagline animate__animated animate__fadeInUp">Aeronautical Information Management
+                            Association of Kenya</p>
+                        <div class="hero-plane-icon animate__animated animate__bounceIn">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <p class="subtitle animate__animated animate__fadeInUp">Advancing Excellence in Aeronautical
+                            Information Management</p>
+                        <div class="hero-buttons animate__animated animate__fadeInUp">
+                            <a href="#about" class="btn btn-primary">Learn More</a>
+                            <a href="#contact" class="btn btn-secondary">Join Us</a>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn carousel-next" onclick="changeSlide(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(0)"></span>
+                        <span class="dot" onclick="goToSlide(1)"></span>
+                        <span class="dot" onclick="goToSlide(2)"></span>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number" data-count="250">250</div>
+                            <div class="stat-label">Members</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-number" data-count="45">45</div>
+                            <div class="stat-label">Training Programs</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-number" data-count="12">12</div>
+                            <div class="stat-label">Annual Events</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="stat-number" data-count="8">8</div>
+                            <div class="stat-label">Partners</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Preview Section -->
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title animate-on-scroll">About AIMAK</h2>
+                    <div class="about-grid">
+                        <div class="about-text animate-on-scroll" data-animation="fade-left">
+                            <h2>Who We Are</h2>
+                            <p>The Aeronautical Information Management Association of Kenya (AIMAK) is the premier
+                                professional organization dedicated to advancing aeronautical information management
+                                standards and practices in Kenya.</p>
+                            <p>As a proud member of IFAIMA, we uphold global standards while addressing local aviation
+                                information needs.</p>
+                            <div class="features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Professional Excellence</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Global Standards</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Local Expertise</span>
+                                </div>
+                            </div>
+                            <a href="#about" class="btn btn-primary">Learn More</a>
+                        </div>
+                        <div class="about-image animate-on-scroll" data-animation="fade-right">
+                            <img src="images/aimak2.jpg" alt="AIMAK Operations">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Preview Section -->
+            <section class="content-section alt">
+                <div class="container">
+                    <h2 class="section-title animate-on-scroll">Our Core Services</h2>
+                    <div class="services-grid">
+                        <div class="service-card animate-on-scroll" data-animation="zoom-in">
+                            <div class="service-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3>Aeronautical Information Services</h3>
+                            <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations</p>
+                            <a href="#services" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="service-card animate-on-scroll" data-animation="zoom-in" data-delay="200">
+                            <div class="service-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3>Flight Plan Processing</h3>
+                            <p>Expert handling of flight plans including sector flight plans for multi-segment
+                                operations</p>
+                            <a href="#services" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="service-card animate-on-scroll" data-animation="zoom-in" data-delay="400">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Training & Development</h3>
+                            <p>Professional development programs for AIM personnel and stakeholders</p>
+                            <a href="#services" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center" style="margin-top: 3rem;">
+                        <a href="#services" class="btn btn-outline">View All Programs</a>
+                    </div>
+                </div>
+            </section>
         </section>
 
-        <section class="content-section">
-            <div class="container">
-                <h2 class="section-title">About AIMAK</h2>
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h2>Who We Are</h2>
-                        <p>The Aeronautical Information Management Association of Kenya (AIMAK) is the premier
-                            professional organization dedicated to advancing aeronautical information management
-                            standards and practices in Kenya.</p>
-                        <p>As a proud member of IFAIMA, we uphold global standards while addressing local aviation
-                            information needs.</p>
-                        <a onclick="navigateTo('about')" class="btn">Learn More</a>
-                    </div>
-                    <div class="about-image">
-                        <img src="images/aimak2.jpg" alt="AIMAK">
-                    </div>
+        <!-- About Page -->
+        <section id="about" class="page-section">
+            <div class="page-header about-header">
+                <div class="container">
+                    <h1>About AIMAK</h1>
+                    <p>Leading Aeronautical Information Management in Kenya</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Restored Core Services Section -->
-        <section class="content-section alt">
-            <div class="container">
-                <h2 class="section-title">Our Core Services</h2>
-                <div class="service-grid">
-                    <div class="service-card">
-                        <div class="service-icon">✈️</div>
-                        <h3>Aeronautical Information Services</h3>
-                        <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📋</div>
-                        <h3>Flight Plan Processing</h3>
-                        <p>Expert handling of flight plans including sector flight plans for multi-segment operations
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🎓</div>
-                        <h3>Training & Development</h3>
-                        <p>Professional development programs for AIM personnel and stakeholders</p>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a onclick="navigateTo('services')" class="btn">View All Programs</a>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="about" class="page">
-        <div class="page-header about-header">
-            <div class="container">
-                <h1>About AIMAK</h1>
-                <p>Leading Aeronautical Information Management in Kenya</p>
-            </div>
-        </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h2>Our Mission</h2>
-                        <p>To advance the standards and practices of aeronautical information management in Kenya
-                            through professional excellence, continuous training, and international collaboration.</p>
-                        <h2>Our Vision</h2>
-                        <p>To be the leading professional association for aeronautical information management in East
-                            Africa.</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="images/aimak3.jpg" alt="AIMAK">
+            <section class="content-section">
+                <div class="container">
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <h2>Our Mission</h2>
+                            <p>To advance the standards and practices of aeronautical information management in Kenya
+                                through professional excellence, continuous training, and international collaboration.
+                            </p>
+                            <h2>Our Vision</h2>
+                            <p>To be the leading professional association for aeronautical information management in
+                                East Africa, recognized for excellence, innovation, and impact.</p>
+                            <h2>Core Values</h2>
+                            <div class="values-grid">
+                                <div class="value-item">
+                                    <i class="fas fa-star"></i>
+                                    <h4>Excellence</h4>
+                                    <p>Commitment to highest professional standards</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="fas fa-users"></i>
+                                    <h4>Collaboration</h4>
+                                    <p>Working together for shared success</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <h4>Innovation</h4>
+                                    <p>Embracing new technologies and methods</p>
+                                </div>
+                                <div class="value-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <h4>Integrity</h4>
+                                    <p>Upholding ethical standards and transparency</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-image">
+                            <img src="images/aimak3.jpg" alt="AIMAK Team">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Restored What We Do Section -->
-        <section class="content-section alt">
-            <div class="container">
-                <h2 class="section-title">Our Core Pillars</h2>
-                <div class="service-grid">
-                    <div class="service-card">
-                        <h3>Professional Representation</h3>
-                        <p>Gain unified representation on critical policy and professional issues affecting AIM personnel at national forums and
-                        with international bodies like ICAO.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Continuous Development</h3>
-                        <p>Workshops, and global best practice sharing to elevate your skills.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Networking & Collaboration</h3>
-                        <p>We facilitate collaboration among aviation stakeholders, regulatory bodies, and international
-                            organizations through IFAIMA membership.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="services" class="page">
-        <div class="page-header services-header">
-            <div class="container">
-                <h1>Our Programs</h1>
-                <p>Comprehensive Aeronautical Information Management Solutions</p>
-            </div>
-        </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="service-grid">
-                    <div class="service-card">
-                        <div class="service-icon">✈️</div>
-                        <h3>Aeronautical Information Services</h3>
-                        <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📋</div>
-                        <h3>Flight Plan Processing</h3>
-                        <p>Expert handling of flight plans including sector flight plans for multi-segment operations.
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🎓</div>
-                        <h3>Training & Development</h3>
-                        <p>Professional development programs for AIM personnel and stakeholders.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🗺️</div>
-                        <h3>Charts & Publications</h3>
-                        <p>Production and distribution of aeronautical charts and navigation publications.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📡</div>
-                        <h3>NOTAM Services</h3>
-                        <p>Real-time preparation and dissemination of Notices to Airmen.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">💾</div>
-                        <h3>Data Quality Management</h3>
-                        <p>Rigorous quality assurance procedures ensuring data accuracy and integrity.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Restored Sector Flight Plan Section -->
-        <section class="content-section alt">
-            <div class="container">
-                <h2 class="section-title">Understanding Sector Flight Plans</h2>
-                <div
-                    style="max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                    <div class="about-image" style="height: 350px; margin-bottom: 1.5rem;">
-                        <img src="images/aimak4.jpg" alt="Sector Flight Plan">
-                    </div>
-                    <h3 style="color: #1565c0; margin-bottom: 1rem; font-size: 1.5rem;">What is a Sector Flight Plan?
-                    </h3>
-                    <p style="color: #555; line-height: 1.8;">A sector flight plan is a flight plan filed at the
-                        aerodrome of departure but intended for the sectors immediately following the point of arrival.
-                        This ensures seamless coordination and safety across multiple flight segments.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-   
-<!-- MANAGEMENT -->
-<div id="management" class="page management-page">
-    <div class="page-header management-header">
-        <div class="container">
-            <h1>AIMAK Leadership</h1>
-            <p>Leading with Excellence</p>
-        </div>
-    </div>
-
-    <section class="content-section">
-        <div class="container">
-            <div class="management-intro">
-                <p>Our leadership team brings together experienced professionals dedicated to advancing aeronautical
-                    information management standards in Kenya and beyond. With diverse expertise and a shared vision,
-                    they guide AIMAK toward excellence in all our endeavors.</p>
-            </div>
-            
-            <div class="management-grid">
-                
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/president.jpg" alt="Linda Odula - President">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>Linda Odula</h3>
-                                <h4>President</h4>
-                                <p>Provides leadership and represents AIMAK in all official capacities, guiding our
-                                    strategic initiatives.</p>
+            <!-- History Timeline -->
+            <section class="content-section alt">
+                <div class="container">
+                    <h2 class="section-title">Our Journey</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2018</div>
+                            <div class="timeline-content">
+                                <h3>Foundation Established</h3>
+                                <p>AIMAK was founded with a vision to enhance aeronautical information management
+                                    standards in Kenya.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020</div>
+                            <div class="timeline-content">
+                                <h3>IFAIMA Membership</h3>
+                                <p>Became an official member of the International Federation of Aeronautical Information
+                                    Management Associations.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2022</div>
+                            <div class="timeline-content">
+                                <h3>Training Programs Launched</h3>
+                                <p>Initiated professional development programs for AIM personnel across Kenya.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2024</div>
+                            <div class="timeline-content">
+                                <h3>Regional Expansion</h3>
+                                <p>Extended our reach to serve aviation professionals across East Africa.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="management-info">
-                        <h3>Linda Odula</h3>
-                        <h4>President</h4>
-                    </div>
                 </div>
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/Vicepresident.jpg" alt="William Mutuku - Vice President">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>William Mutuku</h3>
-                                <h4>Vice President</h4>
-                                <p>Assists the President in leadership duties and represents the association when
-                                    required.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="management-info">
-                        <h3>William Mutuku</h3>
-                        <h4>Vice President</h4>
-                    </div>
-                </div>
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/executive secretary and ceo.jpg" alt="Philip Njoroge - Executive Secretary & CEO">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>Philip Njoroge</h3>
-                                <h4>Executive Secretary</h4>
-                                <p>Oversees the strategic direction and day-to-day operations of AIMAK, ensuring
-                                    alignment with our mission and vision.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="management-info">
-                        <h3>Philip Njoroge</h3>
-                        <h4>Executive Secretary</h4>
-                    </div>
-                </div>
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/deputyexecutive secretary.jpg" alt="Vinesenciah Gisore - Deputy Executive Secretary">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>Vinesenciah Gisore</h3>
-                                <h4>Deputy Executive Secretary</h4>
-                                <p>Supports the Executive Secretary in operational management and strategic
-                                    implementation.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="management-info">
-                        <h3>Vinesenciah Gisore</h3>
-                        <h4>Deputy Executive Secretary</h4>
-                    </div>
-                </div>
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/treasurer.jpg" alt="Eric Makori - Treasurer">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>Eric Makori</h3>
-                                <h4>Treasurer</h4>
-                                <p>Manages the association's finances, budgeting, and financial reporting.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="management-info">
-                        <h3>Eric Makori</h3>
-                        <h4>Treasurer</h4>
-                    </div>
-                </div>
-
-                <div class="management-card">
-                    <div class="management-photo">
-                        <img src="images/executiveCommitee.jpeg" alt="Victor Oduor - Executive Committee Member">
-                        <div class="management-overlay">
-                            <div class="overlay-content">
-                                <h3>Victor Oduor</h3>
-                                <h4>Executive Committee Member</h4>
-                                <p>Provides technical expertise and strategic guidance for AIMAK's initiatives and
-                                    long-term planning.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="management-info">
-                        <h3>Victor Oduor</h3>
-                        <h4>Executive Committee Member</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- gallery -->
-    <div id="gallery" class="page">
-        <div class="page-header gallery-header">
-            <div class="container">
-                <h1>Our Gallery</h1>
-                <p>Aviation Excellence in Kenya</p>
-            </div>
-        </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak4.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">International Aviation Operations</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak5.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">Commercial Aviation Excellence</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak6.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">Professional Aviation Services</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak7.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">Flight Planning & Navigation</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak8.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">Air Navigation Management</div>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="gallery-item-image">
-                            <img src="images/aimak9.jpg" alt="Aviation">
-                        </div>
-                        <div class="gallery-caption">AIMAK - Professional Excellence</div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </section>
-    </div>
 
-    <div id="news" class="page">
-        <div class="page-header news-header">
-            <div class="container">
-                <h1>Blog & News</h1>
-                <p>Latest Updates from AIMAK</p>
+        <!-- Services Page -->
+        <section id="services" class="page-section">
+            <div class="page-header services-header">
+                <div class="container">
+                    <h1>Our Programs</h1>
+                    <p>Comprehensive Aeronautical Information Management Solutions</p>
+                </div>
             </div>
-        </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="news-grid">
-                    <div class="news-card">
-                        <div class="news-image">📰</div>
-                        <div class="news-content">
-                            <div class="news-date">November 2025</div>
-                            <h3>Annual General Meeting 2025</h3>
-                            <p>Join us for our upcoming AGM where we'll discuss achievements and future plans.</p>
+            <section class="content-section">
+                <div class="container">
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3>Aeronautical Information Services</h3>
+                            <p>Comprehensive AIS/AIM services ensuring safe and efficient air navigation operations.</p>
+                            <ul class="service-features">
+                                <li>AIS to AIM transition support</li>
+                                <li>Data quality management</li>
+                                <li>Navigation database services</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3>Flight Plan Processing</h3>
+                            <p>Expert handling of flight plans including sector flight plans for multi-segment
+                                operations.</p>
+                            <ul class="service-features">
+                                <li>Sector flight plan processing</li>
+                                <li>International flight coordination</li>
+                                <li>Real-time flight monitoring</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Training & Development</h3>
+                            <p>Professional development programs for AIM personnel and stakeholders.</p>
+                            <ul class="service-features">
+                                <li>ICAO standards training</li>
+                                <li>Technical workshops</li>
+                                <li>Certification programs</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Charts & Publications</h3>
+                            <p>Production and distribution of aeronautical charts and navigation publications.</p>
+                            <ul class="service-features">
+                                <li>Aeronautical chart production</li>
+                                <li>Digital publication services</li>
+                                <li>Update management</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-broadcast-tower"></i>
+                            </div>
+                            <h3>NOTAM Services</h3>
+                            <p>Real-time preparation and dissemination of Notices to Airmen.</p>
+                            <ul class="service-features">
+                                <li>NOTAM management</li>
+                                <li>Emergency notification systems</li>
+                                <li>Digital NOTAM services</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Data Quality Management</h3>
+                            <p>Rigorous quality assurance procedures ensuring data accuracy and integrity.</p>
+                            <ul class="service-features">
+                                <li>Data validation services</li>
+                                <li>Quality control systems</li>
+                                <li>Compliance monitoring</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="news-card">
-                        <div class="news-image">🎓</div>
-                        <div class="news-content">
-                            <div class="news-date">October 2025</div>
-                            <h3>ICAO Standards Training Workshop</h3>
-                            <p>Successful completion of our professional development workshop on ICAO Annex 15 updates.
+                </div>
+            </section>
+
+            <!-- Restored Sector Flight Plan Section -->
+            <section class="content-section alt">
+                <div class="container">
+                    <h2 class="section-title">Understanding Sector Flight Plans</h2>
+                    <div class="sector-flight-plan">
+                        <div class="sector-image">
+                            <img src="images/aimak4.jpg" alt="Sector Flight Plan">
+                        </div>
+                        <div class="sector-content">
+                            <h3>What is a Sector Flight Plan?</h3>
+                            <p>A sector flight plan is a flight plan filed at the aerodrome of departure but intended
+                                for the sectors immediately following the point of arrival. This ensures seamless
+                                coordination and safety across multiple flight segments.</p>
+                            <p>This specialized service ensures that multi-leg flights are properly coordinated across
+                                different airspace sectors, maintaining safety and efficiency throughout the journey.
                             </p>
                         </div>
                     </div>
-                    <div class="news-card">
-                        <div class="news-image">🌍</div>
-                        <div class="news-content">
-                            <div class="news-date">September 2025</div>
-                            <h3>IFAIMA Regional Conference</h3>
-                            <p>AIMAK members attended the IFAIMA conference in Johannesburg, South Africa.</p>
+                </div>
+            </section>
+        </section>
+
+        <!-- Management Page -->
+        <section id="management" class="page-section">
+            <div class="page-header management-header">
+                <div class="container">
+                    <h1>AIMAK Leadership</h1>
+                    <p>Leading with Excellence</p>
+                </div>
+            </div>
+            <section class="content-section">
+                <div class="container">
+                    <div class="management-intro">
+                        <p>Our leadership team brings together experienced professionals dedicated to advancing
+                            aeronautical information management standards in Kenya and beyond. With diverse expertise
+                            and a shared vision, they guide AIMAK toward excellence in all our endeavors.</p>
+                    </div>
+
+                    <div class="management-grid">
+                        <!-- President -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/president.jpg" alt="Linda Odula - President"
+                                    onerror="this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Linda Odula</h3>
+                                        <h4>President</h4>
+                                        <p>Provides leadership and represents AIMAK in all official capacities, guiding
+                                            our strategic initiatives.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>Linda Odula</h3>
+                                <h4>President</h4>
+                            </div>
+                        </div>
+
+                        <!-- Vice President -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/Vicepresident.jpg" alt="William Mutuku - Vice President"
+                                    onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>William Mutuku</h3>
+                                        <h4>Vice President</h4>
+                                        <p>Assists the President in leadership duties and represents the association
+                                            when required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>William Mutuku</h3>
+                                <h4>Vice President</h4>
+                            </div>
+                        </div>
+
+                        <!-- Executive Secretary & CEO -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/executive secretary and ceo.jpg"
+                                    alt="Philip Njoroge - Executive Secretary & CEO"
+                                    onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Philip Njoroge</h3>
+                                        <h4>Executive Secretary & CEO</h4>
+                                        <p>Oversees the strategic direction and day-to-day operations of AIMAK, ensuring
+                                            alignment with our mission and vision.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>Philip Njoroge</h3>
+                                <h4>Executive Secretary & CEO</h4>
+                            </div>
+                        </div>
+
+                        <!-- Deputy Executive Secretary -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/deputyexecutive secretary.jpg"
+                                    alt="Vinesenciah Gisore - Deputy Executive Secretary"
+                                    onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Vinesenciah Gisore</h3>
+                                        <h4>Deputy Executive Secretary</h4>
+                                        <p>Supports the Executive Secretary in operational management and strategic
+                                            implementation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>Vinesenciah Gisore</h3>
+                                <h4>Deputy Executive Secretary</h4>
+                            </div>
+                        </div>
+
+                        <!-- Treasurer -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/treasurer.jpg" alt="Eric Makori - Treasurer"
+                                    onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Eric Makori</h3>
+                                        <h4>Treasurer</h4>
+                                        <p>Manages the association's finances, budgeting, and financial reporting.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>Eric Makori</h3>
+                                <h4>Treasurer</h4>
+                            </div>
+                        </div>
+
+                        <!-- Executive Committee Member -->
+                        <div class="management-card">
+                            <div class="management-photo">
+                                <img src="images/executiveCommitee.jpeg" alt="Victor Oduor - Executive Committee Member"
+                                    onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=500&q=80'">
+                                <div class="management-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Victor Oduor</h3>
+                                        <h4>Executive Committee Member</h4>
+                                        <p>Provides technical expertise and strategic guidance for AIMAK's initiatives
+                                            and long-term planning.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="management-info">
+                                <h3>Victor Oduor</h3>
+                                <h4>Executive Committee Member</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </section>
-    </div>
 
-    <div id="contact" class="page">
-        <div class="page-header contact-header">
-            <div class="container">
-                <h1>Contact Us</h1>
-                <p>Get in touch with AIMAK</p>
+        <!-- Gallery Page -->
+        <section id="gallery" class="page-section">
+            <div class="page-header gallery-header">
+                <div class="container">
+                    <h1>Our Gallery</h1>
+                    <p>Aviation Excellence in Kenya</p>
+                </div>
             </div>
-        </div>
-        <section class="content-section">
-            <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-info-box">
-                        <h3>📍 Our Location</h3>
-                        <p>Nairobi, Kenya</p>
-                        <p>Kenya Civil Aviation Authority Building</p>
-                        <p>Aviation Park, Wilson Airport</p>
-                    </div>
-                    <div class="contact-info-box">
-                        <h3>📧 Email Us</h3>
-                        <p>info@aimak.org</p>
-                        <p>membership@aimak.org</p>
-                    </div>
-                    <div class="contact-info-box">
-                        <h3>📞 Call Us</h3>
-                        <p>+254 700 000 000</p>
-                        <p>Mon-Fri 8AM-5PM</p>
+            <section class="content-section">
+                <div class="container">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak4.jpg" alt="International Aviation Operations">
+                            </div>
+                            <div class="gallery-caption">International Aviation Operations</div>
+                        </div>
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak5.jpg" alt="Commercial Aviation Excellence">
+                            </div>
+                            <div class="gallery-caption">Commercial Aviation Excellence</div>
+                        </div>
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak6.jpg" alt="Professional Aviation Services">
+                            </div>
+                            <div class="gallery-caption">Professional Aviation Services</div>
+                        </div>
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak7.jpg" alt="Flight Planning & Navigation">
+                            </div>
+                            <div class="gallery-caption">Flight Planning & Navigation</div>
+                        </div>
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak8.jpg" alt="Air Navigation Management">
+                            </div>
+                            <div class="gallery-caption">Air Navigation Management</div>
+                        </div>
+                        <div class="gallery-item">
+                            <div class="gallery-item-image">
+                                <img src="images/aimak9.jpg" alt="AIMAK - Professional Excellence">
+                            </div>
+                            <div class="gallery-caption">AIMAK - Professional Excellence</div>
+                        </div>
                     </div>
                 </div>
+            </section>
+        </section>
 
-                <div style="margin-top: 3rem;">
-                    <h2 class="section-title">Find Us on the Map</h2>
-                    <div class="contact-map">
+        <!-- Blog/News Page -->
+        <section id="news" class="page-section">
+            <div class="page-header news-header">
+                <div class="container">
+                    <h1>Blog & News</h1>
+                    <p>Latest Updates from AIMAK</p>
+                </div>
+            </div>
+            <section class="content-section">
+                <div class="container">
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <div class="news-image">📰</div>
+                            <div class="news-content">
+                                <div class="news-date">November 2025</div>
+                                <h3>Annual General Meeting 2025</h3>
+                                <p>Join us for our upcoming AGM where we'll discuss achievements and future plans.</p>
+                            </div>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-image">🎓</div>
+                            <div class="news-content">
+                                <div class="news-date">October 2025</div>
+                                <h3>ICAO Standards Training Workshop</h3>
+                                <p>Successful completion of our professional development workshop on ICAO Annex 15
+                                    updates.</p>
+                            </div>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-image">🌍</div>
+                            <div class="news-content">
+                                <div class="news-date">September 2025</div>
+                                <h3>IFAIMA Regional Conference</h3>
+                                <p>AIMAK members attended the IFAIMA conference in Johannesburg, South Africa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page-section">
+            <div class="page-header contact-header">
+                <div class="container">
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with AIMAK</p>
+                </div>
+            </div>
+            <section class="content-section">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-info-box">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Our Location</h3>
+                            <p>Nairobi, Kenya</p>
+                            <p>Kenya Civil Aviation Authority Building</p>
+                            <p>Aviation Park, Wilson Airport</p>
+                        </div>
+                        <div class="contact-info-box">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email Us</h3>
+                            <p>info@aimak.org</p>
+                            <p>membership@aimak.org</p>
+                        </div>
+                        <div class="contact-info-box">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>Call Us</h3>
+                            <p>+254 700 000 000</p>
+                            <p>Mon-Fri 8AM-5PM</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-section">
+                        <h2 class="section-title">Find Us on the Map</h2>
+                        <div class="contact-map">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8226425382495!2d36.81486637496844!3d-1.2802154987054548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d645f3d5f1%3A0x3b8b8e3e8e8e8e8e!2sWilson%20Airport!5e0!3m2!1sen!2ske!4v1699564800000!5m2!1sen!2ske"
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="text-center">
+                            <a href="https://www.google.com/maps/place/Jomo+Kenyatta+International+Airport/@-1.3225242,36.9219546,17z/data=!3m1!4b1!4m6!3m5!1s0x182f129102505cef:0xefc58e7ef0660bf2!8m2!3d-1.3225242!4d36.9245295!16zL20vMD011emNy?entry=ttu"
+                                target="_blank" class="btn btn-primary">Open in Google Maps</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <h2>Send Us a Message</h2>
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8226425382495!2d36.81486637496844!3d-1.2802154987054548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d645f3d5f1%3A0x3b8b8e3e8e8e8e8e!2sWilson%20Airport!5e0!3m2!1sen!2ske!4v1699564800000!5m2!1sen!2ske"
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div style="text-align: center; margin-top: 1.5rem;">
-                        <a href="https://www.google.com/maps/place/Jomo+Kenyatta+International+Airport/@-1.3225242,36.9219546,17z/data=!3m1!4b1!4m6!3m5!1s0x182f129102505cef:0xefc58e7ef0660bf2!8m2!3d-1.3225242!4d36.9245295!16zL20vMDExemNy?entry=ttu&g_ep=EgoyMDI1MTEwNS4wIKXMDSoASAFQAw%3D%3D"
-                            target="_blank" class="btn">Open in Google Maps</a>
-                    </div>
-                </div>
-
-                <div class="contact-form-container">
-                    <h2>Send Us a Message</h2>
-                    <iframe
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSdmRxs1Srd0N5kNMlGGlM_broIObHQn4xv1B5_Ail-ZjXSj-Q/viewform?embedded=true"
-                        frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                    <div class="form-link">
-                        <a href="https://forms.gle/TdRjLYUR1X5JsivaA" target="_blank" class="btn">Open Form in New
-                            Tab</a>
+                            src="https://docs.google.com/forms/d/e/1FAIpQLSdmRxs1Srd0N5kNMlGGlM_broIObHQn4xv1B5_Ail-ZjXSj-Q/viewform?embedded=true"
+                            frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                        <div class="form-link text-center">
+                            <a href="https://forms.gle/TdRjLYUR1X5JsivaA" target="_blank" class="btn btn-outline">Open
+                                Form in New Tab</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </section>
-    </div>
+    </main>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>About AIMAK</h3>
+                    <div class="footer-logo">
+                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo">
+                        <h3>AIMAK</h3>
+                    </div>
                     <p>Aeronautical Information Management Association of Kenya</p>
-                    <p>A member of IFAIMA</p>
+                    <p>A proud member of IFAIMA</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
-                    <ul>
-                        <li><a onclick="navigateTo('home')">Home</a></li>
-                        <li><a onclick="navigateTo('about')">About</a></li>
-                        <li><a onclick="navigateTo('services')">Programs</a></li>
-                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Programs</a></li>
+                        <li><a href="#management">Management</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li>📍 Nairobi, Kenya</li>
-                        <li>📧 info@aimak.org</li>
-                        <li>📞 +254 700 000 000</li>
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+                        <li><i class="fas fa-envelope"></i> info@aimak.org</li>
+                        <li><i class="fas fa-phone"></i> +254 700 000 000</li>
                     </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AIMAK. All rights reserved.</p>
+                <p>&copy; 2025 Aeronautical Information Management Association of Kenya (AIMAK). All rights reserved.
+                </p>
             </div>
         </div>
     </footer>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
