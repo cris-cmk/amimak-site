@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Header -->
     <header>
         <div class="top-header">
@@ -19,7 +22,7 @@
                     <!-- Logo -->
                     <div class="logo-container">
                         <div class="logo-wrapper">
-                            <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image">
+                            <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" class="logo-image" loading="lazy">
                         </div>
                         <div class="logo-text">
                             <span class="logo-main">AIMAK</span>
@@ -28,7 +31,7 @@
                     </div>
 
                     <!-- Desktop Navigation -->
-                    <nav class="desktop-nav">
+                    <nav class="desktop-nav" aria-label="Main Navigation">
                         <ul>
                             <li><a href="#home" class="nav-link active">HOME</a></li>
                             <li><a href="#about" class="nav-link">ABOUT</a></li>
@@ -42,12 +45,13 @@
 
                     <!-- Header Actions -->
                     <div class="header-actions">
-                        <button class="theme-toggle" onclick="toggleTheme()">
+                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
                             <i class="fas fa-moon"></i>
                         </button>
 
                         <!-- Mobile Navigation Toggle -->
-                        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                        <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle mobile menu"
+                            aria-expanded="false">
                             <i class="fas fa-bars"></i>
                         </button>
                     </div>
@@ -55,13 +59,13 @@
             </div>
 
             <!-- Mobile Navigation Menu -->
-            <nav class="mobile-nav" id="mobileNav">
+            <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
                 <div class="mobile-nav-header">
                     <div class="mobile-logo">
-                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo">
+                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" loading="lazy">
                         <span>AIMAK</span>
                     </div>
-                    <button class="mobile-close-btn" onclick="toggleMobileNav()">
+                    <button class="mobile-close-btn" onclick="toggleMobileNav()" aria-label="Close mobile menu">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -79,12 +83,12 @@
     </header>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()">
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main id="main-content" class="main-content">
         <!-- Home Page -->
         <section id="home" class="page-section active">
             <!-- Hero Section -->
@@ -92,15 +96,15 @@
                 <div class="hero-slider">
                     <div class="hero-slides">
                         <div class="hero-slide active">
-                            <img src="images/aimak1.jpg" alt="Aviation Excellence">
+                            <img src="images/aimak1.jpg" alt="Aviation Excellence" loading="lazy">
                             <div class="slide-overlay"></div>
                         </div>
                         <div class="hero-slide">
-                            <img src="images/aimak2.jpg" alt="Aviation Operations">
+                            <img src="images/aimak2.jpg" alt="Aviation Operations" loading="lazy">
                             <div class="slide-overlay"></div>
                         </div>
                         <div class="hero-slide">
-                            <img src="images/aimak3.jpg" alt="Aviation Technology">
+                            <img src="images/aimak3.jpg" alt="Aviation Technology" loading="lazy">
                             <div class="slide-overlay"></div>
                         </div>
                     </div>
@@ -120,17 +124,17 @@
                         </div>
                     </div>
 
-                    <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">
+                    <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)" aria-label="Previous slide">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="carousel-btn carousel-next" onclick="changeSlide(1)">
+                    <button class="carousel-btn carousel-next" onclick="changeSlide(1)" aria-label="Next slide">
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
                     <div class="carousel-dots">
-                        <span class="dot active" onclick="goToSlide(0)"></span>
-                        <span class="dot" onclick="goToSlide(1)"></span>
-                        <span class="dot" onclick="goToSlide(2)"></span>
+                        <span class="dot active" onclick="goToSlide(0)" aria-label="Go to slide 1"></span>
+                        <span class="dot" onclick="goToSlide(1)" aria-label="Go to slide 2"></span>
+                        <span class="dot" onclick="goToSlide(2)" aria-label="Go to slide 3"></span>
                     </div>
                 </div>
             </section>
@@ -144,28 +148,28 @@
                             <div class="stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <div class="stat-number" data-count="250">250</div>
+                            <div class="stat-number" data-count="250">0</div>
                             <div class="stat-label">Members</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon">
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
-                            <div class="stat-number" data-count="45">45</div>
+                            <div class="stat-number" data-count="45">0</div>
                             <div class="stat-label">Training Programs</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon">
                                 <i class="fas fa-calendar-check"></i>
                             </div>
-                            <div class="stat-number" data-count="12">12</div>
+                            <div class="stat-number" data-count="12">0</div>
                             <div class="stat-label">Annual Events</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon">
                                 <i class="fas fa-handshake"></i>
                             </div>
-                            <div class="stat-number" data-count="8">8</div>
+                            <div class="stat-number" data-count="8">0</div>
                             <div class="stat-label">Corporate Partners</div>
                         </div>
                     </div>
@@ -201,7 +205,7 @@
                             <a href="#about" class="btn btn-primary">Learn More</a>
                         </div>
                         <div class="about-image animate-on-scroll" data-animation="fade-right">
-                            <img src="images/aimak2.jpg" alt="AIMAK Operations">
+                            <img src="images/aimak2.jpg" alt="AIMAK Operations" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -253,7 +257,7 @@
                     <div class="news-grid">
                         <div class="news-card animate-on-scroll" data-animation="fade-up">
                             <div class="news-image">
-                                <img src="images/aimak4.jpg" alt="Annual General Meeting">
+                                <img src="images/aimak4.jpg" alt="Annual General Meeting" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">November 2025</div>
@@ -265,7 +269,7 @@
                         </div>
                         <div class="news-card animate-on-scroll" data-animation="fade-up" data-delay="200">
                             <div class="news-image">
-                                <img src="images/aimak5.jpg" alt="Training Workshop">
+                                <img src="images/aimak5.jpg" alt="Training Workshop" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">October 2025</div>
@@ -277,7 +281,7 @@
                         </div>
                         <div class="news-card animate-on-scroll" data-animation="fade-up" data-delay="400">
                             <div class="news-image">
-                                <img src="images/aimak6.jpg" alt="Regional Conference">
+                                <img src="images/aimak6.jpg" alt="Regional Conference" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">September 2025</div>
@@ -348,7 +352,7 @@
 
                         </div>
                         <div class="about-image">
-                            <img src="images/aimak3.jpg" alt="AIMAK Team">
+                            <img src="images/aimak3.jpg" alt="AIMAK Team" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -638,7 +642,7 @@
                             </div>
                         </div>
                         <div class="about-image">
-                            <img src="images/aimak2.jpg" alt="AIMAK Community">
+                            <img src="images/aimak2.jpg" alt="AIMAK Community" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -694,9 +698,6 @@
                                         professionals with regulators like KCAA and international aviation bodies.</td>
                                     <td>Direct influence on policies affecting your profession</td>
                                 </tr>
-                             
-                             
-                              
                             </tbody>
                         </table>
                     </div>
@@ -717,7 +718,6 @@
                                     <i class="fas fa-user-tie"></i>
                                 </div>
                                 <h3>Ordinary Membership</h3>
-                            
                             </div>
                             <div class="tier-content">
                                 <h4>For actively practicing AIM professionals</h4>
@@ -732,11 +732,9 @@
                                     <i class="fas fa-building"></i>
                                 </div>
                                 <h3>Corporate Membership</h3>
-                        
                             </div>
                             <div class="tier-content">
                                 <h4>For organizations interested in advancing the AIM industry</h4>
-                            
                                 <a href="#contact" class="btn btn-primary btn-block">Apply Now</a>
                             </div>
                         </div>
@@ -747,12 +745,9 @@
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
                                 <h3>Student Membership</h3>
-                            
                             </div>
                             <div class="tier-content">
                                 <h4>For individuals currently pursuing training in AIM</h4>
-                            
-                            
                                 <a href="#contact" class="btn btn-primary btn-block">Apply Now</a>
                             </div>
                         </div>
@@ -768,138 +763,6 @@
                 </div>
             </section>
 
-            <!-- How to Join -->
-            <section class="content-section alt">
-                <div class="container">
-                    <h2 class="section-title">How to Join AIMAK</h2>
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h3>Choose Your Membership Tier</h3>
-                                <p>Review the membership categories above and select the one that best fits your
-                                    professional status and goals.</p>
-                            </div>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h3>Complete Application Form</h3>
-                                <p>Download and fill out the membership application form, providing all required
-                                    documentation and information.</p>
-                            </div>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h3>Submit & Wait for Review</h3>
-                                <p>Submit your completed application to the membership committee for review and
-                                    approval.</p>
-                            </div>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <h3>Payment & Activation</h3>
-                                <p>Upon approval, complete the membership fee payment to activate your membership
-                                    benefits.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="application-download">
-                        <h3>Ready to Join?</h3>
-                        <p>Download the membership application form and start your journey with AIMAK today.</p>
-                        <div class="download-buttons">
-                            <a href="#" class="btn btn-primary" onclick="downloadApplicationForm()">
-                                <i class="fas fa-download"></i> Download Application Form (PDF)
-                            </a>
-                            <a href="#" class="btn btn-outline" onclick="downloadMembershipBrochure()">
-                                <i class="fas fa-file-pdf"></i> Download Membership Brochure
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ Section -->
-            <section class="content-section">
-                <div class="container">
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                    <div class="faq-container">
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                What are the requirements for Ordinary Membership?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>To qualify for Ordinary Membership, you must be currently employed in an AIM/AIS role
-                                    in Kenya, or be a Kenyan AIM professional working abroad. You'll need to provide
-                                    proof of employment and relevant qualifications.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                Can I upgrade my membership tier later?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Yes, members can upgrade their membership tier at any time. The remaining period of
-                                    your current membership will be prorated, and you'll only need to pay the difference
-                                    for the upgrade.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                How long does the application process take?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>The membership committee reviews applications within 7-14 business days. You'll
-                                    receive notification of your application status via email once the review is
-                                    complete.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                What payment methods are accepted?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>We accept payments via MPESA, bank transfer, and direct deposit. Payment details will
-                                    be provided upon application approval.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                Are there any discounts for group applications?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Yes, organizations applying for 5 or more corporate memberships receive a 15%
-                                    discount on total fees. Contact our membership office for group application details.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                Can international professionals join AIMAK?
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>International professionals working in Kenya can join as Ordinary Members.
-                                    Professionals outside Kenya can join as International Associate Members (contact us
-                                    for details).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Testimonials -->
             <section class="content-section alt">
@@ -1000,7 +863,7 @@
                             </div>
                         </div>
                         <div class="about-image">
-                            <img src="images/aimak5.jpg" alt="AIMAK Events Gathering">
+                            <img src="images/aimak5.jpg" alt="AIMAK Events Gathering" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -1117,7 +980,7 @@
                     <p class="section-subtitle">Interested in attending or supporting our upcoming events?</p>
 
                     <div class="action-grid">
-                        <a href="#" class="action-card" onclick="subscribeToEvents()">
+                        <a href="#" class="action-card" onclick="subscribeToEvents(event)">
                             <div class="action-icon">
                                 <i class="fas fa-bell"></i>
                             </div>
@@ -1133,7 +996,7 @@
                             <p>Have a great idea for an event? Share it with us!</p>
                         </a>
 
-                        <a href="#" class="action-card" onclick="viewEventCalendar()">
+                        <a href="#" class="action-card" onclick="viewEventCalendar(event)">
                             <div class="action-icon">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
@@ -1152,20 +1015,20 @@
                     <div class="past-events-grid">
                         <div class="past-event-card">
                             <div class="past-event-image">
-                                <img src="images/aimak4.jpg" alt="AGM 2024">
+                                <img src="images/aimak4.jpg" alt="AGM 2024" loading="lazy">
                             </div>
                             <div class="past-event-content">
                                 <h3>Annual General Meeting 2024</h3>
                                 <div class="past-event-date">March 2024</div>
                                 <p>Review of annual progress and strategic planning for the coming year</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('agm2024')">
+                                    <a href="#" onclick="viewEventPhotos('agm2024', event)">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('agm2024')">
+                                    <a href="#" onclick="downloadEventReport('agm2024', event)">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
-                                    <a href="#" onclick="viewEventPresentation('agm2024')">
+                                    <a href="#" onclick="viewEventPresentation('agm2024', event)">
                                         <i class="fas fa-presentation"></i> Presentation
                                     </a>
                                 </div>
@@ -1174,17 +1037,17 @@
 
                         <div class="past-event-card">
                             <div class="past-event-image">
-                                <img src="images/aimak6.jpg" alt="World AIS Day 2024">
+                                <img src="images/aimak6.jpg" alt="World AIS Day 2024" loading="lazy">
                             </div>
                             <div class="past-event-content">
                                 <h3>World AIS Day 2024</h3>
                                 <div class="past-event-date">September 2024</div>
                                 <p>Celebration of global AIS awareness with industry experts</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('wais2024')">
+                                    <a href="#" onclick="viewEventPhotos('wais2024', event)">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('wais2024')">
+                                    <a href="#" onclick="downloadEventReport('wais2024', event)">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
                                 </div>
@@ -1193,17 +1056,17 @@
 
                         <div class="past-event-card">
                             <div class="past-event-image">
-                                <img src="images/aimak8.jpg" alt="Tree Planting 2024">
+                                <img src="images/aimak8.jpg" alt="Tree Planting 2024" loading="lazy">
                             </div>
                             <div class="past-event-content">
                                 <h3>Tree Planting Initiative 2024</h3>
                                 <div class="past-event-date">November 2024</div>
                                 <p>Environmental conservation and community engagement</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('tree2024')">
+                                    <a href="#" onclick="viewEventPhotos('tree2024', event)">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('tree2024')">
+                                    <a href="#" onclick="downloadEventReport('tree2024', event)">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
                                 </div>
@@ -1248,13 +1111,13 @@
                             <div class="newsletter-archive">
                                 <h3>Newsletter Archive</h3>
                                 <div class="archive-items">
-                                    <a href="#" onclick="downloadNewsletter('2024')">
+                                    <a href="#" onclick="downloadNewsletter('2024', event)">
                                         <i class="fas fa-file-pdf"></i> 2024 Annual Newsletter
                                     </a>
-                                    <a href="#" onclick="downloadNewsletter('2023')">
+                                    <a href="#" onclick="downloadNewsletter('2023', event)">
                                         <i class="fas fa-file-pdf"></i> 2023 Annual Newsletter
                                     </a>
-                                    <a href="#" onclick="downloadNewsletter('2022')">
+                                    <a href="#" onclick="downloadNewsletter('2022', event)">
                                         <i class="fas fa-file-pdf"></i> 2022 Annual Newsletter
                                     </a>
                                 </div>
@@ -1280,7 +1143,7 @@
                     <div class="news-grid">
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak4.jpg" alt="Annual General Meeting">
+                                <img src="images/aimak4.jpg" alt="Annual General Meeting" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">November 2025</div>
@@ -1292,7 +1155,7 @@
                         </div>
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak5.jpg" alt="Training Workshop">
+                                <img src="images/aimak5.jpg" alt="Training Workshop" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">October 2025</div>
@@ -1304,7 +1167,7 @@
                         </div>
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak6.jpg" alt="Regional Conference">
+                                <img src="images/aimak6.jpg" alt="Regional Conference" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">September 2025</div>
@@ -1316,7 +1179,7 @@
                         </div>
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak7.jpg" alt="Flight Planning">
+                                <img src="images/aimak7.jpg" alt="Flight Planning" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">August 2025</div>
@@ -1328,7 +1191,7 @@
                         </div>
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak8.jpg" alt="Aviation Technology">
+                                <img src="images/aimak8.jpg" alt="Aviation Technology" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">July 2025</div>
@@ -1340,7 +1203,7 @@
                         </div>
                         <div class="news-card">
                             <div class="news-image">
-                                <img src="images/aimak9.jpg" alt="Member Achievement">
+                                <img src="images/aimak9.jpg" alt="Member Achievement" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">June 2025</div>
@@ -1429,16 +1292,16 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo">
+                        <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" loading="lazy">
                         <h3>AIMAK</h3>
                     </div>
                     <p>Aeronautical Information Management Association of Kenya</p>
                     <p>A proud member of IFAIMA</p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1465,8 +1328,8 @@
                     <h3>Newsletter</h3>
                     <p>Subscribe to our newsletter for updates</p>
                     <form class="newsletter-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit" class="newsletter-btn">
+                        <input type="email" placeholder="Your email address" required aria-label="Email for newsletter">
+                        <button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>

@@ -30,6 +30,247 @@ body {
     overflow-x: hidden;
 }
 
+/* ===== DARK MODE STYLES ===== */
+body.dark-mode {
+    --text-color: #e0e0e0;
+    --text-light: #a0a0a0;
+    --white: #121212;
+    --gray-light: #1e1e1e;
+    --light-color: #2a2a2a;
+    --dark-color: #0a1a36;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+/* Dark mode specific adjustments */
+body.dark-mode header {
+    background: var(--gray-light);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .nav-link {
+    color: var(--text-color);
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link.active {
+    color: var(--accent-color);
+}
+
+body.dark-mode .desktop-nav {
+    background: var(--gray-light);
+}
+
+body.dark-mode .mobile-nav {
+    background: var(--gray-light);
+}
+
+body.dark-mode .mobile-nav .nav-link {
+    color: var(--text-color);
+}
+
+body.dark-mode .theme-toggle {
+    background: var(--light-color);
+    color: var(--accent-color);
+}
+
+body.dark-mode .theme-toggle:hover {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+body.dark-mode .stat-item,
+body.dark-mode .service-card,
+body.dark-mode .news-card,
+body.dark-mode .management-card,
+body.dark-mode .tier-card,
+body.dark-mode .testimonial-card,
+body.dark-mode .event-detail,
+body.dark-mode .past-event-card,
+body.dark-mode .action-card,
+body.dark-mode .contact-info-box,
+body.dark-mode .contact-form-container,
+body.dark-mode .newsletter-form-container,
+body.dark-mode .application-download {
+    background: var(--gray-light);
+    color: var(--text-color);
+}
+
+body.dark-mode .stat-item:hover,
+body.dark-mode .service-card:hover,
+body.dark-mode .news-card:hover,
+body.dark-mode .management-card:hover,
+body.dark-mode .tier-card:hover,
+body.dark-mode .testimonial-card:hover,
+body.dark-mode .event-detail:hover,
+body.dark-mode .past-event-card:hover,
+body.dark-mode .action-card:hover,
+body.dark-mode .contact-info-box:hover {
+    background: var(--light-color);
+}
+
+body.dark-mode .benefits-table {
+    background: var(--gray-light);
+}
+
+body.dark-mode .benefits-table tbody tr:hover {
+    background: var(--light-color);
+}
+
+body.dark-mode .btn-secondary {
+    background: var(--gray-light);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .btn-secondary:hover {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+body.dark-mode .btn-outline {
+    background: transparent;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .btn-outline:hover {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+body.dark-mode .faq-item {
+    background: var(--gray-light);
+}
+
+body.dark-mode .faq-question {
+    background: var(--gray-light);
+    color: var(--accent-color);
+}
+
+body.dark-mode .faq-question:hover {
+    background: var(--light-color);
+}
+
+body.dark-mode .focus-card,
+body.dark-mode .value-item {
+    background: var(--gray-light);
+}
+
+body.dark-mode .focus-card:hover,
+body.dark-mode .value-item:hover {
+    background: var(--light-color);
+}
+
+body.dark-mode .timeline-content {
+    background: var(--gray-light);
+}
+
+body.dark-mode .timeline-content::before {
+    background: var(--gray-light);
+}
+
+body.dark-mode .site-footer {
+    background: var(--dark-color);
+}
+
+body.dark-mode .footer-section p,
+body.dark-mode .footer-links a,
+body.dark-mode .contact-info li {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark-mode .tier-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+body.dark-mode .hero-content {
+    color: white;
+    /* Override dark mode text color for hero section */
+}
+
+body.dark-mode .hero-content h1,
+body.dark-mode .hero-content .tagline,
+body.dark-mode .hero-content .subtitle {
+    color: white;
+}
+
+/* Dark mode form elements */
+body.dark-mode input,
+body.dark-mode textarea {
+    background: var(--light-color);
+    color: var(--text-color);
+    border-color: #444;
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.2);
+}
+
+body.dark-mode .checkbox-group label {
+    color: var(--text-color);
+}
+
+body.dark-mode .archive-items a {
+    background: var(--light-color);
+    color: var(--accent-color);
+}
+
+body.dark-mode .archive-items a:hover {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+body.dark-mode .past-event-links a {
+    background: var(--light-color);
+    color: var(--accent-color);
+}
+
+body.dark-mode .past-event-links a:hover {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+/* Page headers in dark mode */
+body.dark-mode .page-header::before {
+    background: linear-gradient(135deg, rgba(13, 71, 161, 0.9) 0%, rgba(66, 165, 245, 0.9) 100%);
+}
+
+/* Smooth transitions for dark mode */
+body,
+body * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+.nav-link:focus,
+.btn:focus,
+.theme-toggle:focus,
+.mobile-nav-toggle:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Skip to main content link for screen readers */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    z-index: 1001;
+    text-decoration: none;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
 /* ===== UTILITY CLASSES ===== */
 .container {
     width: 100%;
@@ -363,19 +604,45 @@ header {
     border-left-color: var(--primary-color);
 }
 
-/* ===== MAIN CONTENT ===== */
-.main-content {
-    margin-top: 0;
-    min-height: calc(100vh - 400px);
+/* ===== PAGE TRANSITIONS ===== */
+.page-transition::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: 9999;
+    opacity: 0;
+    animation: pageTransition 0.3s ease;
 }
 
-.page-section {
-    display: none;
+@keyframes pageTransition {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.page-section.page-exit {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.page-section.page-enter {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .page-section.active {
-    display: block;
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.3s ease forwards;
 }
 
 @keyframes fadeIn {
@@ -388,6 +655,42 @@ header {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* ===== LOADING STATE ===== */
+body:not(.loaded) .main-content {
+    opacity: 0;
+}
+
+body.loaded .main-content {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    margin-top: 0;
+    min-height: calc(100vh - 400px);
+}
+
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
 }
 
 @keyframes fadeInDown {
@@ -1672,6 +1975,17 @@ header {
     font-size: 1rem;
 }
 
+/* ===== FAQ SMOOTH HEIGHT ===== */
+.faq-answer {
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+}
+
+.faq-answer.active {
+    max-height: 500px;
+}
+
 /* Testimonials */
 .testimonials-grid {
     display: grid;
@@ -2134,6 +2448,27 @@ header {
 
 .back-to-top.visible {
     display: flex;
+    animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .back-to-top:hover {
@@ -2296,6 +2631,49 @@ header {
 .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ===== MOBILE NAV ANIMATION ===== */
+.mobile-nav.opening {
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+
+    .header-actions,
+    .back-to-top,
+    .mobile-nav,
+    .hero-buttons,
+    .newsletter-form,
+    .social-icons,
+    .action-card {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .content-section {
+        page-break-inside: avoid;
+    }
+
+    a {
+        color: black !important;
+        text-decoration: underline;
+    }
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -2626,5 +3004,14 @@ header {
 
     .testimonial-card {
         padding: 20px 15px;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

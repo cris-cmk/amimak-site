@@ -1,13 +1,14 @@
-// AIMAK Website JavaScript
+// AIMAK Website JavaScript - Enhanced Version
 
 // DOM Elements
 const backToTopBtn = document.querySelector('.back-to-top');
 const mobileNav = document.getElementById('mobileNav');
 const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+const body = document.body;
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('AIMAK Website Initialized');
+    console.log('AIMAK Website Enhanced Version Initialized');
 
     // Initialize all components
     initHeroSlider();
@@ -17,40 +18,137 @@ document.addEventListener('DOMContentLoaded', function () {
     initNavigation();
     initNewsletterForm();
     initFAQs();
+    initSmoothScrolling();
+    initImageLazyLoading();
+    initPageTransitions();
 
     // Load saved theme
     loadTheme();
 
     // Handle initial page load
     handleInitialPageLoad();
+
+    // Add loading indicator removal
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 500);
 });
 
-// Handle initial page load and hash
-function handleInitialPageLoad() {
-    const hash = window.location.hash.substring(1);
-    const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+// Initialize page transitions
+function initPageTransitions() {
+    const pageLinks = document.querySelectorAll('.nav-link, .btn[href^="#"]');
 
-    if (hash && validPages.includes(hash)) {
-        showPage(hash);
+    pageLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+
+            if (href && href.startsWith('#') && href !== '#home') {
+                e.preventDefault();
+
+                // Add loading state
+                document.body.classList.add('page-transition');
+
+                setTimeout(() => {
+                    const pageId = href.substring(1);
+                    showPage(pageId);
+
+                    // Remove loading state
+                    setTimeout(() => {
+                        document.body.classList.remove('page-transition');
+                    }, 300);
+                }, 150);
+            }
+        });
+    });
+}
+
+// Initialize smooth scrolling for anchor links
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+
+            // Skip if it's a page section link (handled by showPage)
+            if (href && href.length > 1) {
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection && targetSection.classList.contains('page-section')) {
+                    return; // Let showPage handle this
+                }
+            }
+
+            // Handle regular anchor links
+            if (href !== '#') {
+                e.preventDefault();
+
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// Initialize lazy loading for images
+function initImageLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
     } else {
-        showPage('home');
+        // Fallback for older browsers
+        images.forEach(img => {
+            img.src = img.dataset.src;
+        });
     }
 }
 
-// Show specific page
+// Enhanced showPage function with transitions
 function showPage(pageId) {
     console.log('Showing page:', pageId);
 
-    // Hide all pages
+    // Hide all pages with animation
     const allPages = document.querySelectorAll('.page-section');
     allPages.forEach(page => {
-        page.classList.remove('active');
+        if (page.classList.contains('active')) {
+            page.classList.add('page-exit');
+            setTimeout(() => {
+                page.classList.remove('active', 'page-exit');
+            }, 300);
+        } else {
+            page.classList.remove('active');
+        }
     });
 
     // Show the selected page
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
-        targetPage.classList.add('active');
+        targetPage.classList.add('page-enter');
+        setTimeout(() => {
+            targetPage.classList.add('active');
+            targetPage.classList.remove('page-enter');
+
+            // Trigger animations for elements on the new page
+            setTimeout(() => {
+                initScrollAnimations();
+            }, 100);
+        }, 50);
 
         // Update active navigation links
         updateActiveNav(pageId);
@@ -269,39 +367,276 @@ function initNavigation() {
     });
 }
 
-// Theme Toggle
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const themeIcon = document.querySelector('.theme-toggle i');
-    if (themeIcon) {
-        if (document.body.classList.contains('dark-mode')) {
-            themeIcon.className = 'fas fa-sun';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeIcon.className = 'fas fa-moon';
-            localStorage.setItem('theme', 'light');
-        }
+// Handle initial page load and hash
+function handleInitialPageLoad() {
+    const hash = window.location.hash.substring(1);
+    const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+
+    if (hash && validPages.includes(hash)) {
+        showPage(hash);
+    } else {
+        showPage('home');
     }
 }
 
-// Load saved theme
+// Enhanced Theme Toggle
+function toggleTheme() {
+    const isDarkMode = body.classList.toggle('dark-mode');
+    const themeIcon = document.querySelector('.theme-toggle i');
+
+    if (themeIcon) {
+        if (isDarkMode) {
+            themeIcon.className = 'fas fa-sun';
+            themeIcon.setAttribute('title', 'Switch to Light Mode');
+            localStorage.setItem('theme', 'dark');
+
+            // Add animation to icon
+            themeIcon.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 300);
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeIcon.setAttribute('title', 'Switch to Dark Mode');
+            localStorage.setItem('theme', 'light');
+
+            // Add animation to icon
+            themeIcon.style.transform = 'rotate(-360deg)';
+            setTimeout(() => {
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 300);
+        }
+    }
+
+    // Dispatch custom event for theme change
+    document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDarkMode } }));
+}
+
+// Enhanced Load Theme
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Use saved theme, then system preference, default to light
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
         const themeIcon = document.querySelector('.theme-toggle i');
         if (themeIcon) {
             themeIcon.className = 'fas fa-sun';
+            themeIcon.setAttribute('title', 'Switch to Light Mode');
+        }
+    } else {
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) {
+            themeIcon.setAttribute('title', 'Switch to Dark Mode');
         }
     }
 }
 
-// Mobile Navigation Toggle
+// Enhanced Mobile Navigation
 function toggleMobileNav() {
     if (mobileNav) {
+        const isOpening = !mobileNav.classList.contains('active');
         mobileNav.classList.toggle('active');
-        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+
+        // Update ARIA attributes
+        mobileNavToggle.setAttribute('aria-expanded', isOpening);
+
+        // Update body scroll
+        body.style.overflow = isOpening ? 'hidden' : '';
+
+        // Add animation class
+        if (isOpening) {
+            mobileNav.classList.add('opening');
+            setTimeout(() => {
+                mobileNav.classList.remove('opening');
+            }, 300);
+        }
     }
+}
+
+// Enhanced FAQ functionality
+function initFAQs() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        // Add ARIA attributes
+        const answer = question.nextElementSibling;
+        question.setAttribute('aria-expanded', 'false');
+        answer.setAttribute('aria-hidden', 'true');
+
+        question.addEventListener('click', () => {
+            const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+            // Toggle current FAQ
+            question.setAttribute('aria-expanded', !isExpanded);
+            answer.setAttribute('aria-hidden', isExpanded);
+            question.classList.toggle('active');
+            answer.classList.toggle('active');
+
+            // Smooth height transition
+            if (!isExpanded) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = '0px';
+            }
+        });
+    });
+}
+
+// Enhanced Newsletter Form with validation
+function initNewsletterForm() {
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('newsletterName').value.trim();
+            const email = document.getElementById('newsletterEmail').value.trim();
+            const eventUpdates = document.getElementById('eventUpdates').checked;
+            const newsletter = document.getElementById('newsletterSub').checked;
+
+            // Validation
+            if (!name || !email) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+            submitBtn.disabled = true;
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Show success message
+                const message = `Thank you, ${name}! You have been subscribed. Confirmation sent to: ${email}`;
+                showNotification(message, 'success');
+
+                // Reset form
+                newsletterForm.reset();
+
+                // Log subscription (in real app, send to server)
+                console.log("Newsletter subscription:", { name, email, eventUpdates, newsletter });
+
+            } catch (error) {
+                showNotification('Something went wrong. Please try again.', 'error');
+                console.error('Subscription error:', error);
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+}
+
+// Email validation helper
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 300px;
+            max-width: 500px;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .notification-success {
+            background: #4caf50;
+            color: white;
+        }
+        .notification-error {
+            background: #f44336;
+            color: white;
+        }
+        .notification-info {
+            background: #2196f3;
+            color: white;
+        }
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        .notification-close {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-left: 15px;
+            opacity: 0.8;
+        }
+        .notification-close:hover {
+            opacity: 1;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        body.dark-mode .notification {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    `;
+
+    // Add to document
+    document.head.appendChild(style);
+    document.body.appendChild(notification);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.animation = 'slideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
 }
 
 // Scroll to Top
@@ -323,21 +658,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// Close mobile nav on escape key
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && mobileNav && mobileNav.classList.contains('active')) {
-        toggleMobileNav();
-    }
-});
-
-// Handle window resize
-window.addEventListener('resize', function () {
-    // Close mobile nav on larger screens
-    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
-        toggleMobileNav();
-    }
-});
-
 // EVENTS PAGE FUNCTIONS
 
 // Subscribe to events
@@ -348,8 +668,7 @@ function subscribeToEvents(event) {
     if (email) {
         // Basic email validation
         if (email.includes('@') && email.includes('.')) {
-            // In a real application, you would send this to your server
-            alert("Thank you! You have been subscribed to event updates.");
+            showNotification("Thank you! You have been subscribed to event updates.", "success");
             console.log("New subscriber:", email);
 
             // You could add an AJAX request here to send to your server
@@ -362,7 +681,7 @@ function subscribeToEvents(event) {
 
             return true;
         } else {
-            alert("Please enter a valid email address.");
+            showNotification("Please enter a valid email address.", "error");
             return false;
         }
     }
@@ -479,14 +798,14 @@ function viewEventCalendar(event) {
 // View event photos
 function viewEventPhotos(eventId, e) {
     if (e) e.preventDefault();
-    alert(`Viewing photos for ${eventId}. This would open a photo gallery in a real implementation.`);
+    showNotification(`Viewing photos for ${eventId}. This would open a photo gallery in a real implementation.`, "info");
     // In real implementation, open a lightbox or navigate to photo gallery
 }
 
 // Download event report
 function downloadEventReport(eventId, e) {
     if (e) e.preventDefault();
-    alert(`Downloading report for ${eventId}. In a real implementation, this would download a PDF.`);
+    showNotification(`Downloading report for ${eventId}. In a real implementation, this would download a PDF.`, "info");
     // Example download simulation:
     // const link = document.createElement('a');
     // link.href = `/reports/${eventId}.pdf`;
@@ -499,13 +818,13 @@ function downloadEventReport(eventId, e) {
 // View event presentation
 function viewEventPresentation(eventId, e) {
     if (e) e.preventDefault();
-    alert(`Opening presentation for ${eventId}. In a real implementation, this would open a slideshow or PDF.`);
+    showNotification(`Opening presentation for ${eventId}. In a real implementation, this would open a slideshow or PDF.`, "info");
 }
 
 // Download newsletter
 function downloadNewsletter(year, e) {
     if (e) e.preventDefault();
-    alert(`Downloading ${year} newsletter. In a real implementation, this would download a PDF.`);
+    showNotification(`Downloading ${year} newsletter. In a real implementation, this would download a PDF.`, "info");
 }
 
 // Close modal
@@ -516,51 +835,12 @@ function closeModal() {
     }
 }
 
-// Initialize newsletter form
-function initNewsletterForm() {
-    const newsletterForm = document.getElementById('newsletterForm');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const name = document.getElementById('newsletterName').value;
-            const email = document.getElementById('newsletterEmail').value;
-            const eventUpdates = document.getElementById('eventUpdates').checked;
-            const newsletter = document.getElementById('newsletterSub').checked;
-
-            if (!name || !email) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Show success message
-            const message = `Thank you, ${name}! You have been subscribed to:\n` +
-                (eventUpdates ? "✓ Event updates\n" : "") +
-                (newsletter ? "✓ Annual newsletter\n" : "") +
-                `\nConfirmation sent to: ${email}`;
-
-            alert(message);
-
-            // Reset form
-            newsletterForm.reset();
-
-            // In a real application, send to server
-            console.log("Newsletter subscription:", { name, email, eventUpdates, newsletter });
-        });
-    }
-}
-
 // MEMBERSHIP PAGE FUNCTIONS
 
 // Download application form
 function downloadApplicationForm(event) {
     if (event) event.preventDefault();
-    alert("Downloading membership application form. In a real implementation, this would download a PDF file.");
+    showNotification("Downloading membership application form. In a real implementation, this would download a PDF file.", "info");
 
     // Example implementation:
     // const link = document.createElement('a');
@@ -577,7 +857,7 @@ function downloadApplicationForm(event) {
 // Download membership brochure
 function downloadMembershipBrochure(event) {
     if (event) event.preventDefault();
-    alert("Downloading membership brochure. In a real implementation, this would download a PDF file.");
+    showNotification("Downloading membership brochure. In a real implementation, this would download a PDF file.", "info");
 
     // Example implementation:
     // const link = document.createElement('a');
@@ -591,33 +871,57 @@ function downloadMembershipBrochure(event) {
     console.log("Membership brochure downloaded");
 }
 
-// Initialize FAQ functionality
-function initFAQs() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
+// Enhanced event handlers for better user experience
+document.addEventListener('keydown', function (event) {
+    // Close modals on Escape
+    if (event.key === 'Escape') {
+        const modal = document.querySelector('.event-calendar-modal');
+        if (modal) closeModal();
 
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            // Toggle active class on question
-            question.classList.toggle('active');
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
+    }
 
-            // Get the answer element
-            const answer = question.nextElementSibling;
+    // Handle Enter key on FAQ questions
+    if (event.key === 'Enter' && event.target.classList.contains('faq-question')) {
+        event.target.click();
+    }
+});
 
-            // Close other FAQs
-            faqQuestions.forEach(otherQuestion => {
-                if (otherQuestion !== question) {
-                    otherQuestion.classList.remove('active');
-                    otherQuestion.nextElementSibling.classList.remove('active');
-                }
-            });
+// Touch device detection and enhancements
+if ('ontouchstart' in window) {
+    document.body.classList.add('touch-device');
 
-            // Toggle current FAQ answer
-            answer.classList.toggle('active');
-        });
-    });
+    // Add touch feedback for buttons
+    document.addEventListener('touchstart', function () { }, { passive: true });
+
+    // Prevent zoom on double-tap
+    document.addEventListener('touchend', function (event) {
+        if (event.target.tagName === 'BUTTON' || event.target.tagName === 'A') {
+            event.preventDefault();
+        }
+    }, { passive: false });
 }
 
-// Make functions available globally
+// Performance optimization: Debounce scroll events
+let scrollTimeout;
+window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function () {
+        checkScroll();
+    }, 100);
+});
+
+// Handle window resize
+window.addEventListener('resize', function () {
+    // Close mobile nav on larger screens
+    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
+        toggleMobileNav();
+    }
+});
+
+// Make sure all global functions are available
 window.toggleTheme = toggleTheme;
 window.scrollToTop = scrollToTop;
 window.toggleMobileNav = toggleMobileNav;
@@ -633,3 +937,4 @@ window.downloadNewsletter = downloadNewsletter;
 window.downloadApplicationForm = downloadApplicationForm;
 window.downloadMembershipBrochure = downloadMembershipBrochure;
 window.closeModal = closeModal;
+window.showNotification = showNotification;
