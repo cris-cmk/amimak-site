@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript - Enhanced Version
+// AIMAK Website JavaScript
 
 // DOM Elements
 const backToTopBtn = document.querySelector('.back-to-top');
@@ -8,7 +8,7 @@ const body = document.body;
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('AIMAK Website Enhanced Version Initialized');
+    console.log('AIMAK Website Initialized');
 
     // Initialize all components
     initHeroSlider();
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initFAQs();
     initSmoothScrolling();
     initImageLazyLoading();
-    initPageTransitions();
 
     // Load saved theme
     loadTheme();
@@ -34,64 +33,169 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 500);
 });
 
-// Initialize page transitions
-function initPageTransitions() {
-    const pageLinks = document.querySelectorAll('.nav-link, .btn[href^="#"]');
+// Handle initial page load and hash
+function handleInitialPageLoad() {
+    const hash = window.location.hash.substring(1);
+    const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
 
-    pageLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
+    if (hash && validPages.includes(hash)) {
+        showPage(hash);
+    } else {
+        showPage('home');
+    }
+}
 
-            if (href && href.startsWith('#') && href !== '#home') {
-                e.preventDefault();
+// Show specific page
+function showPage(pageId) {
+    console.log('Showing page:', pageId);
 
-                // Add loading state
-                document.body.classList.add('page-transition');
+    // Hide all pages
+    const allPages = document.querySelectorAll('.page-section');
+    allPages.forEach(page => {
+        page.classList.remove('active');
+    });
 
-                setTimeout(() => {
-                    const pageId = href.substring(1);
-                    showPage(pageId);
+    // Show the selected page
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
 
-                    // Remove loading state
-                    setTimeout(() => {
-                        document.body.classList.remove('page-transition');
-                    }, 300);
-                }, 150);
-            }
+        // Update active navigation links
+        updateActiveNav(pageId);
+
+        // Update URL hash without scrolling
+        window.history.pushState(null, null, `#${pageId}`);
+
+        // Scroll to top of the page
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
+
+        // Reinitialize animations for the new page
+        setTimeout(() => {
+            initScrollAnimations();
+        }, 100);
+    }
+}
+
+// Update active navigation links
+function updateActiveNav(pageId) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        if (href === `#${pageId}`) {
+            link.classList.add('active');
+        }
     });
 }
 
-// Initialize smooth scrolling for anchor links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
+// Initialize Navigation
+function initNavigation() {
+    // Handle navigation clicks
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link && link.getAttribute('href')?.startsWith('#')) {
+            event.preventDefault();
 
-            // Skip if it's a page section link (handled by showPage)
-            if (href && href.length > 1) {
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
+            const href = link.getAttribute('href');
+            const pageId = href.substring(1);
 
-                if (targetSection && targetSection.classList.contains('page-section')) {
-                    return; // Let showPage handle this
+            // Only process if it's a valid page
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+            if (validPages.includes(pageId)) {
+                showPage(pageId);
+
+                // Close mobile menu if open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
                 }
             }
-
-            // Handle regular anchor links
-            if (href !== '#') {
-                e.preventDefault();
-
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-        });
+        }
     });
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function () {
+        const hash = window.location.hash.substring(1);
+        const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+
+        if (hash && validPages.includes(hash)) {
+            showPage(hash);
+        } else {
+            showPage('home');
+        }
+    });
+}
+
+// Enhanced Theme Toggle
+function toggleTheme() {
+    const isDarkMode = body.classList.toggle('dark-mode');
+    const themeIcon = document.querySelector('.theme-toggle i');
+
+    if (themeIcon) {
+        if (isDarkMode) {
+            themeIcon.className = 'fas fa-sun';
+            themeIcon.setAttribute('title', 'Switch to Light Mode');
+            localStorage.setItem('theme', 'dark');
+
+            // Add animation to icon
+            themeIcon.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 300);
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeIcon.setAttribute('title', 'Switch to Dark Mode');
+            localStorage.setItem('theme', 'light');
+
+            // Add animation to icon
+            themeIcon.style.transform = 'rotate(-360deg)';
+            setTimeout(() => {
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 300);
+        }
+    }
+
+    // Dispatch custom event for theme change
+    document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDarkMode } }));
+}
+
+// Load saved theme
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Use saved theme, then system preference, default to light
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) {
+            themeIcon.className = 'fas fa-sun';
+            themeIcon.setAttribute('title', 'Switch to Light Mode');
+        }
+    } else {
+        const themeIcon = document.querySelector('.theme-toggle i');
+        if (themeIcon) {
+            themeIcon.setAttribute('title', 'Switch to Dark Mode');
+        }
+    }
+}
+
+// Mobile Navigation Toggle
+function toggleMobileNav() {
+    if (mobileNav) {
+        const isOpening = !mobileNav.classList.contains('active');
+        mobileNav.classList.toggle('active');
+
+        // Update ARIA attributes
+        if (mobileNavToggle) {
+            mobileNavToggle.setAttribute('aria-expanded', isOpening);
+        }
+
+        // Update body scroll
+        document.body.style.overflow = isOpening ? 'hidden' : '';
+    }
 }
 
 // Initialize lazy loading for images
@@ -117,63 +221,6 @@ function initImageLazyLoading() {
             img.src = img.dataset.src;
         });
     }
-}
-
-// Enhanced showPage function with transitions
-function showPage(pageId) {
-    console.log('Showing page:', pageId);
-
-    // Hide all pages with animation
-    const allPages = document.querySelectorAll('.page-section');
-    allPages.forEach(page => {
-        if (page.classList.contains('active')) {
-            page.classList.add('page-exit');
-            setTimeout(() => {
-                page.classList.remove('active', 'page-exit');
-            }, 300);
-        } else {
-            page.classList.remove('active');
-        }
-    });
-
-    // Show the selected page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('page-enter');
-        setTimeout(() => {
-            targetPage.classList.add('active');
-            targetPage.classList.remove('page-enter');
-
-            // Trigger animations for elements on the new page
-            setTimeout(() => {
-                initScrollAnimations();
-            }, 100);
-        }, 50);
-
-        // Update active navigation links
-        updateActiveNav(pageId);
-
-        // Update URL hash without scrolling
-        window.history.replaceState(null, null, `#${pageId}`);
-
-        // Scroll to top of the page smoothly
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-}
-
-// Update active navigation links
-function updateActiveNav(pageId) {
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        const href = link.getAttribute('href');
-        if (href === `#${pageId}`) {
-            link.classList.add('active');
-        }
-    });
 }
 
 // Enhanced Hero Slider
@@ -275,7 +322,8 @@ function initStatsCounter() {
     }
 
     window.addEventListener('scroll', checkStatsVisibility);
-    checkStatsVisibility(); // Check on load
+    // Initial check in case stats are already visible
+    setTimeout(checkStatsVisibility, 500);
 }
 
 // Countdown Timer
@@ -337,122 +385,36 @@ function initScrollAnimations() {
     checkScroll(); // Check on load
 }
 
-// Initialize Navigation
-function initNavigation() {
-    // Handle navigation clicks
-    document.addEventListener('click', function (event) {
-        const link = event.target.closest('.nav-link');
-        if (link && link.getAttribute('href').startsWith('#')) {
-            event.preventDefault();
+// Initialize smooth scrolling for anchor links
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
 
-            const href = link.getAttribute('href');
-            const pageId = href.substring(1);
-            showPage(pageId);
+            // Skip if it's a page section link (handled by showPage)
+            if (href && href.length > 1) {
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
 
-            // Close mobile menu if open
-            if (mobileNav && mobileNav.classList.contains('active')) {
-                toggleMobileNav();
+                if (targetSection && targetSection.classList.contains('page-section')) {
+                    return; // Let showPage handle this
+                }
             }
-        }
+
+            // Handle regular anchor links
+            if (href !== '#') {
+                e.preventDefault();
+
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
     });
-
-    // Handle hash changes
-    window.addEventListener('hashchange', function () {
-        const hash = window.location.hash.substring(1);
-        const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-
-        if (hash && validPages.includes(hash)) {
-            showPage(hash);
-        }
-    });
-}
-
-// Handle initial page load and hash
-function handleInitialPageLoad() {
-    const hash = window.location.hash.substring(1);
-    const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-
-    if (hash && validPages.includes(hash)) {
-        showPage(hash);
-    } else {
-        showPage('home');
-    }
-}
-
-// Enhanced Theme Toggle
-function toggleTheme() {
-    const isDarkMode = body.classList.toggle('dark-mode');
-    const themeIcon = document.querySelector('.theme-toggle i');
-
-    if (themeIcon) {
-        if (isDarkMode) {
-            themeIcon.className = 'fas fa-sun';
-            themeIcon.setAttribute('title', 'Switch to Light Mode');
-            localStorage.setItem('theme', 'dark');
-
-            // Add animation to icon
-            themeIcon.style.transform = 'rotate(360deg)';
-            setTimeout(() => {
-                themeIcon.style.transform = 'rotate(0deg)';
-            }, 300);
-        } else {
-            themeIcon.className = 'fas fa-moon';
-            themeIcon.setAttribute('title', 'Switch to Dark Mode');
-            localStorage.setItem('theme', 'light');
-
-            // Add animation to icon
-            themeIcon.style.transform = 'rotate(-360deg)';
-            setTimeout(() => {
-                themeIcon.style.transform = 'rotate(0deg)';
-            }, 300);
-        }
-    }
-
-    // Dispatch custom event for theme change
-    document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDarkMode } }));
-}
-
-// Enhanced Load Theme
-function loadTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Use saved theme, then system preference, default to light
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        body.classList.add('dark-mode');
-        const themeIcon = document.querySelector('.theme-toggle i');
-        if (themeIcon) {
-            themeIcon.className = 'fas fa-sun';
-            themeIcon.setAttribute('title', 'Switch to Light Mode');
-        }
-    } else {
-        const themeIcon = document.querySelector('.theme-toggle i');
-        if (themeIcon) {
-            themeIcon.setAttribute('title', 'Switch to Dark Mode');
-        }
-    }
-}
-
-// Enhanced Mobile Navigation
-function toggleMobileNav() {
-    if (mobileNav) {
-        const isOpening = !mobileNav.classList.contains('active');
-        mobileNav.classList.toggle('active');
-
-        // Update ARIA attributes
-        mobileNavToggle.setAttribute('aria-expanded', isOpening);
-
-        // Update body scroll
-        body.style.overflow = isOpening ? 'hidden' : '';
-
-        // Add animation class
-        if (isOpening) {
-            mobileNav.classList.add('opening');
-            setTimeout(() => {
-                mobileNav.classList.remove('opening');
-            }, 300);
-        }
-    }
 }
 
 // Enhanced FAQ functionality
@@ -658,6 +620,14 @@ document.addEventListener('click', function (event) {
     }
 });
 
+// Handle window resize
+window.addEventListener('resize', function () {
+    // Close mobile nav on larger screens
+    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
+        toggleMobileNav();
+    }
+});
+
 // EVENTS PAGE FUNCTIONS
 
 // Subscribe to events
@@ -670,15 +640,6 @@ function subscribeToEvents(event) {
         if (email.includes('@') && email.includes('.')) {
             showNotification("Thank you! You have been subscribed to event updates.", "success");
             console.log("New subscriber:", email);
-
-            // You could add an AJAX request here to send to your server
-            // Example:
-            // fetch('/api/subscribe', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ email: email, type: 'events' })
-            // });
-
             return true;
         } else {
             showNotification("Please enter a valid email address.", "error");
@@ -789,6 +750,19 @@ function viewEventCalendar(event) {
             font-size: 0.9rem;
             margin-top: 10px;
         }
+        body.dark-mode .modal-content {
+            background: var(--gray-light);
+            color: var(--text-color);
+        }
+        body.dark-mode .calendar-event {
+            border-bottom-color: #444;
+        }
+        body.dark-mode .modal-header {
+            border-bottom-color: #444;
+        }
+        body.dark-mode .close-modal {
+            color: var(--text-color);
+        }
     `;
 
     document.head.appendChild(style);
@@ -799,20 +773,12 @@ function viewEventCalendar(event) {
 function viewEventPhotos(eventId, e) {
     if (e) e.preventDefault();
     showNotification(`Viewing photos for ${eventId}. This would open a photo gallery in a real implementation.`, "info");
-    // In real implementation, open a lightbox or navigate to photo gallery
 }
 
 // Download event report
 function downloadEventReport(eventId, e) {
     if (e) e.preventDefault();
     showNotification(`Downloading report for ${eventId}. In a real implementation, this would download a PDF.`, "info");
-    // Example download simulation:
-    // const link = document.createElement('a');
-    // link.href = `/reports/${eventId}.pdf`;
-    // link.download = `${eventId}_report.pdf`;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
 }
 
 // View event presentation
@@ -841,16 +807,6 @@ function closeModal() {
 function downloadApplicationForm(event) {
     if (event) event.preventDefault();
     showNotification("Downloading membership application form. In a real implementation, this would download a PDF file.", "info");
-
-    // Example implementation:
-    // const link = document.createElement('a');
-    // link.href = '/membership/application-form.pdf';
-    // link.download = 'AIMAK_Membership_Application_Form.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-
-    // Track download
     console.log("Membership application form downloaded");
 }
 
@@ -858,16 +814,6 @@ function downloadApplicationForm(event) {
 function downloadMembershipBrochure(event) {
     if (event) event.preventDefault();
     showNotification("Downloading membership brochure. In a real implementation, this would download a PDF file.", "info");
-
-    // Example implementation:
-    // const link = document.createElement('a');
-    // link.href = '/membership/membership-brochure.pdf';
-    // link.download = 'AIMAK_Membership_Brochure.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-
-    // Track download
     console.log("Membership brochure downloaded");
 }
 
@@ -889,6 +835,15 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+// Performance optimization: Debounce scroll events
+let scrollTimeout;
+window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function () {
+        checkScroll();
+    }, 100);
+});
+
 // Touch device detection and enhancements
 if ('ontouchstart' in window) {
     document.body.classList.add('touch-device');
@@ -904,25 +859,7 @@ if ('ontouchstart' in window) {
     }, { passive: false });
 }
 
-// Performance optimization: Debounce scroll events
-let scrollTimeout;
-window.addEventListener('scroll', function () {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(function () {
-        checkScroll();
-    }, 100);
-});
-
-// Handle window resize
-window.addEventListener('resize', function () {
-    // Close mobile nav on larger screens
-    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
-        toggleMobileNav();
-    }
-});
-
 // Make sure all global functions are available
-window.toggleTheme = toggleTheme;
 window.scrollToTop = scrollToTop;
 window.toggleMobileNav = toggleMobileNav;
 window.showPage = showPage;
@@ -938,3 +875,4 @@ window.downloadApplicationForm = downloadApplicationForm;
 window.downloadMembershipBrochure = downloadMembershipBrochure;
 window.closeModal = closeModal;
 window.showNotification = showNotification;
+window.toggleTheme = toggleTheme; // Add this line
