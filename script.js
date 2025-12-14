@@ -192,11 +192,6 @@ function showPage(pageId) {
             behavior: 'smooth'
         });
 
-        // Close mobile menu if it's open
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            toggleMobileNav();
-        }
-
         // Reinitialize animations for the new page
         setTimeout(() => {
             initScrollAnimations();
@@ -224,6 +219,7 @@ function initNavigation() {
     // Function to handle navigation
     function handleNavClick(event) {
         event.preventDefault();
+        event.stopPropagation(); // Prevent event bubbling
 
         const link = event.currentTarget;
         const href = link.getAttribute('href');
@@ -234,8 +230,15 @@ function initNavigation() {
             // Validate page ID
             const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
             if (validPages.includes(pageId)) {
-                // Show the page
-                showPage(pageId);
+                // Close mobile menu first if it's open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
+                }
+
+                // Show the page after a small delay to allow menu to close
+                setTimeout(() => {
+                    showPage(pageId);
+                }, 100);
             }
         }
     }
