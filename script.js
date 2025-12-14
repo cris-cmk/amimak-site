@@ -192,6 +192,11 @@ function showPage(pageId) {
             behavior: 'smooth'
         });
 
+        // Close mobile menu if it's open
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
+
         // Reinitialize animations for the new page
         setTimeout(() => {
             initScrollAnimations();
@@ -211,7 +216,7 @@ function updateActiveNav(pageId) {
     });
 }
 
-// Initialize Navigation
+// Initialize Navigation - FIXED VERSION
 function initNavigation() {
     // Get all navigation links
     const navLinks = document.querySelectorAll('.nav-link');
@@ -231,11 +236,6 @@ function initNavigation() {
             if (validPages.includes(pageId)) {
                 // Show the page
                 showPage(pageId);
-
-                // Close mobile menu if open
-                if (mobileNav && mobileNav.classList.contains('active')) {
-                    toggleMobileNav();
-                }
             }
         }
     }
@@ -329,9 +329,6 @@ function loadTheme() {
 
 // Mobile Navigation Toggle
 function toggleMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-
     if (mobileNav) {
         const isOpening = !mobileNav.classList.contains('active');
         mobileNav.classList.toggle('active');
@@ -342,7 +339,13 @@ function toggleMobileNav() {
         }
 
         // Update body scroll
-        document.body.style.overflow = isOpening ? 'hidden' : '';
+        if (isOpening) {
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('no-scroll');
+        } else {
+            document.body.style.overflow = '';
+            document.body.classList.remove('no-scroll');
+        }
 
         // Add animation class
         if (isOpening) {
