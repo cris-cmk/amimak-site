@@ -45,12 +45,12 @@
 
                     <!-- Header Actions -->
                     <div class="header-actions">
-                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                             <i class="fas fa-moon"></i>
                         </button>
 
                         <!-- Mobile Navigation Toggle -->
-                        <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle mobile menu"
+                        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle mobile menu"
                             aria-expanded="false">
                             <i class="fas fa-bars"></i>
                         </button>
@@ -65,25 +65,25 @@
                         <img src="images/Aimaklogo.jpg" alt="AIMAK Logo" loading="lazy">
                         <span>AIMAK</span>
                     </div>
-                    <button class="mobile-close-btn" onclick="toggleMobileNav()" aria-label="Close mobile menu">
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close mobile menu">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <ul>
-                    <li><a href="#home" class="nav-link active" onclick="toggleMobileNav()">HOME</a></li>
-                    <li><a href="#about" class="nav-link" onclick="toggleMobileNav()">ABOUT</a></li>
-                    <li><a href="#management" class="nav-link" onclick="toggleMobileNav()">MANAGEMENT</a></li>
-                    <li><a href="#membership" class="nav-link" onclick="toggleMobileNav()">MEMBERSHIP</a></li>
-                    <li><a href="#events" class="nav-link" onclick="toggleMobileNav()">EVENTS</a></li>
-                    <li><a href="#news" class="nav-link" onclick="toggleMobileNav()">BLOG</a></li>
-                    <li><a href="#contact" class="nav-link" onclick="toggleMobileNav()">CONTACT</a></li>
+                    <li><a href="#home" class="nav-link active">HOME</a></li>
+                    <li><a href="#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="#management" class="nav-link">MANAGEMENT</a></li>
+                    <li><a href="#membership" class="nav-link">MEMBERSHIP</a></li>
+                    <li><a href="#events" class="nav-link">EVENTS</a></li>
+                    <li><a href="#news" class="nav-link">BLOG</a></li>
+                    <li><a href="#contact" class="nav-link">CONTACT</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+    <button class="back-to-top" id="backToTopBtn" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
@@ -124,17 +124,17 @@
                         </div>
                     </div>
 
-                    <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)" aria-label="Previous slide">
+                    <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous slide">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="carousel-btn carousel-next" onclick="changeSlide(1)" aria-label="Next slide">
+                    <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next slide">
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
                     <div class="carousel-dots">
-                        <span class="dot active" onclick="goToSlide(0)" aria-label="Go to slide 1"></span>
-                        <span class="dot" onclick="goToSlide(1)" aria-label="Go to slide 2"></span>
-                        <span class="dot" onclick="goToSlide(2)" aria-label="Go to slide 3"></span>
+                        <span class="dot active" data-slide="0" aria-label="Go to slide 1"></span>
+                        <span class="dot" data-slide="1" aria-label="Go to slide 2"></span>
+                        <span class="dot" data-slide="2" aria-label="Go to slide 3"></span>
                     </div>
                 </div>
             </section>
@@ -763,7 +763,6 @@
                 </div>
             </section>
 
-
             <!-- Testimonials -->
             <section class="content-section alt">
                 <div class="container">
@@ -980,7 +979,7 @@
                     <p class="section-subtitle">Interested in attending or supporting our upcoming events?</p>
 
                     <div class="action-grid">
-                        <a href="#" class="action-card" onclick="subscribeToEvents(event)">
+                        <a href="#" class="action-card" id="subscribeEvents">
                             <div class="action-icon">
                                 <i class="fas fa-bell"></i>
                             </div>
@@ -996,7 +995,7 @@
                             <p>Have a great idea for an event? Share it with us!</p>
                         </a>
 
-                        <a href="#" class="action-card" onclick="viewEventCalendar(event)">
+                        <a href="#" class="action-card" id="viewEventCalendar">
                             <div class="action-icon">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
@@ -1022,13 +1021,13 @@
                                 <div class="past-event-date">March 2024</div>
                                 <p>Review of annual progress and strategic planning for the coming year</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('agm2024', event)">
+                                    <a href="#" class="view-photos" data-event="agm2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('agm2024', event)">
+                                    <a href="#" class="download-report" data-event="agm2024">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
-                                    <a href="#" onclick="viewEventPresentation('agm2024', event)">
+                                    <a href="#" class="view-presentation" data-event="agm2024">
                                         <i class="fas fa-presentation"></i> Presentation
                                     </a>
                                 </div>
@@ -1044,10 +1043,10 @@
                                 <div class="past-event-date">September 2024</div>
                                 <p>Celebration of global AIS awareness with industry experts</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('wais2024', event)">
+                                    <a href="#" class="view-photos" data-event="wais2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('wais2024', event)">
+                                    <a href="#" class="download-report" data-event="wais2024">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
                                 </div>
@@ -1063,10 +1062,10 @@
                                 <div class="past-event-date">November 2024</div>
                                 <p>Environmental conservation and community engagement</p>
                                 <div class="past-event-links">
-                                    <a href="#" onclick="viewEventPhotos('tree2024', event)">
+                                    <a href="#" class="view-photos" data-event="tree2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                    <a href="#" onclick="downloadEventReport('tree2024', event)">
+                                    <a href="#" class="download-report" data-event="tree2024">
                                         <i class="fas fa-file-pdf"></i> Report
                                     </a>
                                 </div>
@@ -1111,13 +1110,13 @@
                             <div class="newsletter-archive">
                                 <h3>Newsletter Archive</h3>
                                 <div class="archive-items">
-                                    <a href="#" onclick="downloadNewsletter('2024', event)">
+                                    <a href="#" class="download-newsletter" data-year="2024">
                                         <i class="fas fa-file-pdf"></i> 2024 Annual Newsletter
                                     </a>
-                                    <a href="#" onclick="downloadNewsletter('2023', event)">
+                                    <a href="#" class="download-newsletter" data-year="2023">
                                         <i class="fas fa-file-pdf"></i> 2023 Annual Newsletter
                                     </a>
-                                    <a href="#" onclick="downloadNewsletter('2022', event)">
+                                    <a href="#" class="download-newsletter" data-year="2022">
                                         <i class="fas fa-file-pdf"></i> 2022 Annual Newsletter
                                     </a>
                                 </div>
@@ -1327,7 +1326,7 @@
                 <div class="footer-section">
                     <h3>Newsletter</h3>
                     <p>Subscribe to our newsletter for updates</p>
-                    <form class="newsletter-form">
+                    <form class="newsletter-form" id="footerNewsletter">
                         <input type="email" placeholder="Your email address" required aria-label="Email for newsletter">
                         <button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter">
                             <i class="fas fa-paper-plane"></i>

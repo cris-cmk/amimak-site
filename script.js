@@ -1,9 +1,11 @@
 // AIMAK Website JavaScript
 
 // DOM Elements
-const backToTopBtn = document.querySelector('.back-to-top');
+const backToTopBtn = document.getElementById('backToTopBtn');
 const mobileNav = document.getElementById('mobileNav');
-const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+const mobileNavToggle = document.getElementById('mobileNavToggle');
+const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
 // Initialize everything when DOM is loaded
@@ -11,15 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('AIMAK Website Initialized');
 
     // Initialize all components
+    initNavigation(); // MUST BE FIRST
     initHeroSlider();
     initStatsCounter();
     initCountdownTimer();
     initScrollAnimations();
-    initNavigation(); // This will handle page switching
     initNewsletterForm();
     initFAQs();
     initSmoothScrolling();
     initImageLazyLoading();
+    initEventListeners();
 
     // Load saved theme
     loadTheme();
@@ -32,6 +35,123 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.add('loaded');
     }, 500);
 });
+
+// Initialize all event listeners
+function initEventListeners() {
+    // Theme toggle
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Back to top
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', scrollToTop);
+    }
+
+    // Mobile nav toggle
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+
+    // Mobile nav close
+    if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMobileNav);
+    }
+
+    // Event page buttons
+    const subscribeEventsBtn = document.getElementById('subscribeEvents');
+    if (subscribeEventsBtn) {
+        subscribeEventsBtn.addEventListener('click', subscribeToEvents);
+    }
+
+    const viewEventCalendarBtn = document.getElementById('viewEventCalendar');
+    if (viewEventCalendarBtn) {
+        viewEventCalendarBtn.addEventListener('click', viewEventCalendar);
+    }
+
+    // Past event links
+    document.querySelectorAll('.view-photos').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const eventId = this.getAttribute('data-event');
+            viewEventPhotos(eventId);
+        });
+    });
+
+    document.querySelectorAll('.download-report').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const eventId = this.getAttribute('data-event');
+            downloadEventReport(eventId);
+        });
+    });
+
+    document.querySelectorAll('.view-presentation').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const eventId = this.getAttribute('data-event');
+            viewEventPresentation(eventId);
+        });
+    });
+
+    // Newsletter archive links
+    document.querySelectorAll('.download-newsletter').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const year = this.getAttribute('data-year');
+            downloadNewsletter(year);
+        });
+    });
+
+    // Carousel controls
+    const carouselPrev = document.getElementById('carouselPrev');
+    const carouselNext = document.getElementById('carouselNext');
+    const carouselDots = document.querySelectorAll('.dot');
+
+    if (carouselPrev) {
+        carouselPrev.addEventListener('click', () => changeSlide(-1));
+    }
+
+    if (carouselNext) {
+        carouselNext.addEventListener('click', () => changeSlide(1));
+    }
+
+    carouselDots.forEach(dot => {
+        dot.addEventListener('click', function () {
+            const slideIndex = parseInt(this.getAttribute('data-slide'));
+            goToSlide(slideIndex);
+        });
+    });
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function (event) {
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            if (!mobileNav.contains(event.target) &&
+                event.target !== mobileNavToggle &&
+                !mobileNavToggle.contains(event.target)) {
+                toggleMobileNav();
+            }
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function () {
+        // Close mobile nav on larger screens
+        if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
+    });
+
+    // Handle Escape key
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeModal();
+            if (mobileNav && mobileNav.classList.contains('active')) {
+                toggleMobileNav();
+            }
+        }
+    });
+}
 
 // Handle initial page load and hash
 function handleInitialPageLoad() {
@@ -91,42 +211,38 @@ function updateActiveNav(pageId) {
     });
 }
 
-// Initialize Navigation - FIXED VERSION
+// Initialize Navigation
 function initNavigation() {
-    // Handle navigation clicks
-    document.addEventListener('click', function (event) {
-        const link = event.target.closest('a');
-        if (link && link.classList.contains('nav-link')) {
-            event.preventDefault();
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
 
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                const pageId = href.substring(1);
+    // Function to handle navigation
+    function handleNavClick(event) {
+        event.preventDefault();
 
-                // Validate page ID
-                const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-                if (validPages.includes(pageId)) {
-                    showPage(pageId);
+        const link = event.currentTarget;
+        const href = link.getAttribute('href');
 
-                    // Close mobile menu if open
-                    if (mobileNav && mobileNav.classList.contains('active')) {
-                        toggleMobileNav();
-                    }
+        if (href && href.startsWith('#')) {
+            const pageId = href.substring(1);
+
+            // Validate page ID
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+            if (validPages.includes(pageId)) {
+                // Show the page
+                showPage(pageId);
+
+                // Close mobile menu if open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
                 }
             }
         }
+    }
 
-        // Also handle other navigation buttons
-        if (link && link.classList.contains('btn') && link.getAttribute('href')?.startsWith('#')) {
-            event.preventDefault();
-            const href = link.getAttribute('href');
-            const pageId = href.substring(1);
-            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-
-            if (validPages.includes(pageId)) {
-                showPage(pageId);
-            }
-        }
+    // Add click event to all navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', handleNavClick);
     });
 
     // Handle browser back/forward buttons
@@ -138,6 +254,21 @@ function initNavigation() {
             showPage(hash);
         } else {
             showPage('home');
+        }
+    });
+
+    // Also handle button navigation
+    document.addEventListener('click', function (event) {
+        const btn = event.target.closest('.btn');
+        if (btn && btn.getAttribute('href')?.startsWith('#')) {
+            event.preventDefault();
+            const href = btn.getAttribute('href');
+            const pageId = href.substring(1);
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+
+            if (validPages.includes(pageId)) {
+                showPage(pageId);
+            }
         }
     });
 }
@@ -198,6 +329,9 @@ function loadTheme() {
 
 // Mobile Navigation Toggle
 function toggleMobileNav() {
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+
     if (mobileNav) {
         const isOpening = !mobileNav.classList.contains('active');
         mobileNav.classList.toggle('active');
@@ -209,19 +343,28 @@ function toggleMobileNav() {
 
         // Update body scroll
         document.body.style.overflow = isOpening ? 'hidden' : '';
+
+        // Add animation class
+        if (isOpening) {
+            mobileNav.classList.add('opening');
+        } else {
+            mobileNav.classList.remove('opening');
+        }
     }
 }
 
 // Initialize lazy loading for images
 function initImageLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
+    const images = document.querySelectorAll('img[loading="lazy"]');
 
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.src = img.dataset.src;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
                     img.classList.add('loaded');
                     observer.unobserve(img);
                 }
@@ -229,11 +372,6 @@ function initImageLazyLoading() {
         });
 
         images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Fallback for older browsers
-        images.forEach(img => {
-            img.src = img.dataset.src;
-        });
     }
 }
 
@@ -508,6 +646,22 @@ function initNewsletterForm() {
             }
         });
     }
+
+    // Footer newsletter form
+    const footerNewsletter = document.getElementById('footerNewsletter');
+    if (footerNewsletter) {
+        footerNewsletter.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value.trim();
+
+            if (email && validateEmail(email)) {
+                showNotification('Thank you for subscribing to our newsletter!', 'success');
+                this.reset();
+            } else {
+                showNotification('Please enter a valid email address.', 'error');
+            }
+        });
+    }
 }
 
 // Email validation helper
@@ -532,7 +686,7 @@ function showNotification(message, type = 'info') {
             <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
             <span>${message}</span>
         </div>
-        <button class="notification-close" onclick="this.parentElement.remove()">
+        <button class="notification-close" id="notificationClose">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -588,6 +742,10 @@ function showNotification(message, type = 'info') {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
         body.dark-mode .notification {
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
@@ -596,6 +754,19 @@ function showNotification(message, type = 'info') {
     // Add to document
     document.head.appendChild(style);
     document.body.appendChild(notification);
+
+    // Add close event
+    const closeBtn = document.getElementById('notificationClose');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            notification.style.animation = 'slideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        });
+    }
 
     // Auto-remove after 5 seconds
     setTimeout(() => {
@@ -617,25 +788,6 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
-
-// Close mobile nav when clicking outside
-document.addEventListener('click', function (event) {
-    if (mobileNav && mobileNavToggle) {
-        if (!mobileNav.contains(event.target) &&
-            !mobileNavToggle.contains(event.target) &&
-            mobileNav.classList.contains('active')) {
-            toggleMobileNav();
-        }
-    }
-});
-
-// Handle window resize
-window.addEventListener('resize', function () {
-    // Close mobile nav on larger screens
-    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
-        toggleMobileNav();
-    }
-});
 
 // EVENTS PAGE FUNCTIONS
 
@@ -669,7 +821,7 @@ function viewEventCalendar(event) {
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Upcoming Events Calendar</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
+                <button class="close-modal" id="modalCloseBtn">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="calendar-event">
@@ -776,29 +928,38 @@ function viewEventCalendar(event) {
 
     document.head.appendChild(style);
     document.body.appendChild(modal);
+
+    // Add close event
+    const closeBtn = document.getElementById('modalCloseBtn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    // Close when clicking outside modal
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
 }
 
 // View event photos
-function viewEventPhotos(eventId, e) {
-    if (e) e.preventDefault();
+function viewEventPhotos(eventId) {
     showNotification(`Viewing photos for ${eventId}. This would open a photo gallery in a real implementation.`, "info");
 }
 
 // Download event report
-function downloadEventReport(eventId, e) {
-    if (e) e.preventDefault();
+function downloadEventReport(eventId) {
     showNotification(`Downloading report for ${eventId}. In a real implementation, this would download a PDF.`, "info");
 }
 
 // View event presentation
-function viewEventPresentation(eventId, e) {
-    if (e) e.preventDefault();
+function viewEventPresentation(eventId) {
     showNotification(`Opening presentation for ${eventId}. In a real implementation, this would open a slideshow or PDF.`, "info");
 }
 
 // Download newsletter
-function downloadNewsletter(year, e) {
-    if (e) e.preventDefault();
+function downloadNewsletter(year) {
     showNotification(`Downloading ${year} newsletter. In a real implementation, this would download a PDF.`, "info");
 }
 
@@ -825,24 +986,6 @@ function downloadMembershipBrochure(event) {
     showNotification("Downloading membership brochure. In a real implementation, this would download a PDF file.", "info");
     console.log("Membership brochure downloaded");
 }
-
-// Enhanced event handlers for better user experience
-document.addEventListener('keydown', function (event) {
-    // Close modals on Escape
-    if (event.key === 'Escape') {
-        const modal = document.querySelector('.event-calendar-modal');
-        if (modal) closeModal();
-
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            toggleMobileNav();
-        }
-    }
-
-    // Handle Enter key on FAQ questions
-    if (event.key === 'Enter' && event.target.classList.contains('faq-question')) {
-        event.target.click();
-    }
-});
 
 // Performance optimization: Debounce scroll events
 let scrollTimeout;
