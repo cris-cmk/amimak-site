@@ -8,9 +8,12 @@ const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
+// Track if we're on a mobile device
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('AIMAK Website Initialized');
+    console.log('AIMAK Website Initialized - Mobile:', isMobile);
 
     // Initialize all components
     initNavigation(); // MUST BE FIRST
@@ -50,12 +53,28 @@ function initEventListeners() {
 
     // Mobile nav toggle
     if (mobileNavToggle) {
-        mobileNavToggle.addEventListener('click', toggleMobileNav);
+        // Use touchstart for mobile, click for desktop
+        if (isMobile) {
+            mobileNavToggle.addEventListener('touchstart', function (e) {
+                e.preventDefault();
+                toggleMobileNav();
+            }, { passive: false });
+        } else {
+            mobileNavToggle.addEventListener('click', toggleMobileNav);
+        }
     }
 
     // Mobile nav close
     if (mobileCloseBtn) {
-        mobileCloseBtn.addEventListener('click', toggleMobileNav);
+        // Use touchstart for mobile, click for desktop
+        if (isMobile) {
+            mobileCloseBtn.addEventListener('touchstart', function (e) {
+                e.preventDefault();
+                toggleMobileNav();
+            }, { passive: false });
+        } else {
+            mobileCloseBtn.addEventListener('click', toggleMobileNav);
+        }
     }
 
     // Event page buttons
@@ -123,30 +142,29 @@ function initEventListeners() {
         });
     });
 
-    // Close mobile nav when clicking outside
+    // Close mobile nav when clicking outside - FIXED FOR MOBILE
     document.addEventListener('click', function (event) {
         if (mobileNav && mobileNav.classList.contains('active')) {
-            // Don't close if clicking inside the nav or on the toggle button
             if (!mobileNav.contains(event.target) &&
                 event.target !== mobileNavToggle &&
                 !mobileNavToggle.contains(event.target)) {
-                console.log('Clicking outside - closing mobile nav');
                 toggleMobileNav();
             }
         }
-    }, { passive: true });
+    });
 
     // Also handle touch events for mobile
-    document.addEventListener('touchstart', function (event) {
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            if (!mobileNav.contains(event.target) &&
-                event.target !== mobileNavToggle &&
-                !mobileNavToggle.contains(event.target)) {
-                console.log('Touch outside - closing mobile nav');
-                toggleMobileNav();
+    if (isMobile) {
+        document.addEventListener('touchstart', function (event) {
+            if (mobileNav && mobileNav.classList.contains('active')) {
+                if (!mobileNav.contains(event.target) &&
+                    event.target !== mobileNavToggle &&
+                    !mobileNavToggle.contains(event.target)) {
+                    toggleMobileNav();
+                }
             }
-        }
-    }, { passive: true });
+        });
+    }
 
     // Handle window resize
     window.addEventListener('resize', function () {
@@ -206,6 +224,11 @@ function showPage(pageId) {
             behavior: 'smooth'
         });
 
+        // Close mobile menu if it's open
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
+
         // Reinitialize animations for the new page
         setTimeout(() => {
             initScrollAnimations();
@@ -225,70 +248,67 @@ function updateActiveNav(pageId) {
     });
 }
 
-// Initialize Navigation - MOBILE-FIXED VERSION
+// Initialize Navigation - FIXED FOR MOBILE
 function initNavigation() {
     // Get all navigation links
     const navLinks = document.querySelectorAll('.nav-link');
-    const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
 
-    // Function to handle navigation
+    // Function to handle navigation - SEPARATE FOR MOBILE AND DESKTOP
     function handleNavClick(event) {
         event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
+        event.stopPropagation(); // Important for mobile
 
         const link = event.currentTarget;
         const href = link.getAttribute('href');
 
-        console.log('Navigation clicked:', href);
-
         if (href && href.startsWith('#')) {
             const pageId = href.substring(1);
 
+            // Validate page ID
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
             if (validPages.includes(pageId)) {
-                // Close mobile menu first if it's open
-                const isMobileMenuOpen = mobileNav && mobileNav.classList.contains('active');
-
-                console.log('Is mobile menu open?', isMobileMenuOpen);
-                console.log('Navigating to:', pageId);
-
-                if (isMobileMenuOpen) {
-                    // Force close mobile nav
-                    mobileNav.classList.remove('active');
-                    mobileNav.classList.remove('opening');
-                    document.body.style.overflow = '';
-                    document.body.classList.remove('no-scroll');
-                    if (mobileNavToggle) {
-                        mobileNavToggle.setAttribute('aria-expanded', 'false');
-                    }
-                }
-
-                // Show the page immediately
+                // Show the page
                 showPage(pageId);
+
+                // On mobile, add a small delay for better UX
+                if (isMobile) {
+                    // Prevent any default touch behaviors
+                    if (event.type === 'touchstart') {
+                        event.preventDefault();
+                    }
+
+                    // Add active state visual feedback
+                    link.classList.add('clicked');
+                    setTimeout(() => {
+                        link.classList.remove('clicked');
+                    }, 300);
+                }
             }
         }
-
-        return false;
     }
 
-    // Remove any existing click handlers and add new ones
+    // Add click/touch events to all navigation links
     navLinks.forEach(link => {
-        // Clone the node to remove all existing event listeners
-        const newLink = link.cloneNode(true);
-        link.parentNode.replaceChild(newLink, link);
+        if (isMobile) {
+            // For mobile devices, use touchstart with passive: false
+            link.addEventListener('touchstart', handleNavClick, { passive: false });
+            // Also keep click for compatibility
+            link.addEventListener('click', handleNavClick);
+        } else {
+            // For desktop, just use click
+            link.addEventListener('click', handleNavClick);
+        }
 
-        // Add both click and touchend for better mobile support
-        newLink.addEventListener('click', handleNavClick, { passive: false });
-        newLink.addEventListener('touchend', handleNavClick, { passive: false });
+        // Prevent default anchor behavior
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+        });
     });
-
-    // Re-query after cloning
-    const updatedNavLinks = document.querySelectorAll('.nav-link');
-    console.log('Navigation links initialized:', updatedNavLinks.length);
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', function () {
         const hash = window.location.hash.substring(1);
+        const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
 
         if (hash && validPages.includes(hash)) {
             showPage(hash);
@@ -304,6 +324,7 @@ function initNavigation() {
             event.preventDefault();
             const href = btn.getAttribute('href');
             const pageId = href.substring(1);
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
 
             if (validPages.includes(pageId)) {
                 showPage(pageId);
@@ -366,13 +387,10 @@ function loadTheme() {
     }
 }
 
-// Mobile Navigation Toggle
+// Mobile Navigation Toggle - ENHANCED FOR MOBILE
 function toggleMobileNav() {
     if (mobileNav) {
         const isOpening = !mobileNav.classList.contains('active');
-
-        console.log('Toggling mobile nav. Opening:', isOpening);
-
         mobileNav.classList.toggle('active');
 
         // Update ARIA attributes
@@ -380,15 +398,25 @@ function toggleMobileNav() {
             mobileNavToggle.setAttribute('aria-expanded', isOpening);
         }
 
-        // Update body scroll
+        // Update body scroll - FIXED FOR MOBILE
         if (isOpening) {
             document.body.style.overflow = 'hidden';
             document.body.classList.add('no-scroll');
-            mobileNav.classList.add('opening');
+            // Add opening animation
+            mobileNav.style.transform = 'translateX(0)';
         } else {
             document.body.style.overflow = '';
             document.body.classList.remove('no-scroll');
-            mobileNav.classList.remove('opening');
+            // Add closing animation
+            mobileNav.style.transform = 'translateX(100%)';
+        }
+
+        // Add animation class
+        if (isOpening) {
+            mobileNav.classList.add('opening');
+            setTimeout(() => {
+                mobileNav.classList.remove('opening');
+            }, 300);
         }
     }
 }
