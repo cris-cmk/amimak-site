@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initStatsCounter();
     initCountdownTimer();
     initScrollAnimations();
-    initNavigation();
+    initNavigation(); // This will handle page switching
     initNewsletterForm();
     initFAQs();
     initSmoothScrolling();
@@ -66,7 +66,7 @@ function showPage(pageId) {
         // Update URL hash without scrolling
         window.history.pushState(null, null, `#${pageId}`);
 
-        // Scroll to top of the page
+        // Scroll to top of the page (smoothly)
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -91,26 +91,40 @@ function updateActiveNav(pageId) {
     });
 }
 
-// Initialize Navigation
+// Initialize Navigation - FIXED VERSION
 function initNavigation() {
     // Handle navigation clicks
     document.addEventListener('click', function (event) {
         const link = event.target.closest('a');
-        if (link && link.getAttribute('href')?.startsWith('#')) {
+        if (link && link.classList.contains('nav-link')) {
             event.preventDefault();
 
             const href = link.getAttribute('href');
-            const pageId = href.substring(1);
+            if (href && href.startsWith('#')) {
+                const pageId = href.substring(1);
 
-            // Only process if it's a valid page
+                // Validate page ID
+                const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+                if (validPages.includes(pageId)) {
+                    showPage(pageId);
+
+                    // Close mobile menu if open
+                    if (mobileNav && mobileNav.classList.contains('active')) {
+                        toggleMobileNav();
+                    }
+                }
+            }
+        }
+
+        // Also handle other navigation buttons
+        if (link && link.classList.contains('btn') && link.getAttribute('href')?.startsWith('#')) {
+            event.preventDefault();
+            const href = link.getAttribute('href');
+            const pageId = href.substring(1);
             const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+
             if (validPages.includes(pageId)) {
                 showPage(pageId);
-
-                // Close mobile menu if open
-                if (mobileNav && mobileNav.classList.contains('active')) {
-                    toggleMobileNav();
-                }
             }
         }
     });
@@ -391,14 +405,9 @@ function initSmoothScrolling() {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
 
-            // Skip if it's a page section link (handled by showPage)
-            if (href && href.length > 1) {
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
-
-                if (targetSection && targetSection.classList.contains('page-section')) {
-                    return; // Let showPage handle this
-                }
+            // Skip if it's a nav-link (handled by showPage)
+            if (this.classList.contains('nav-link')) {
+                return;
             }
 
             // Handle regular anchor links
@@ -875,4 +884,4 @@ window.downloadApplicationForm = downloadApplicationForm;
 window.downloadMembershipBrochure = downloadMembershipBrochure;
 window.closeModal = closeModal;
 window.showNotification = showNotification;
-window.toggleTheme = toggleTheme; // Add this line
+window.toggleTheme = toggleTheme;
