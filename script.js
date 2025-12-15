@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript - FIXED VERSION
+// AIMAK Website JavaScript - UPDATED VERSION
 
 // DOM Elements
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -114,6 +114,23 @@ function initEventListeners() {
             goToSlide(slideIndex);
         });
     });
+
+    // Fix for hero buttons on mobile
+    fixHeroButtonsOnMobile();
+}
+
+// Fix hero buttons on mobile
+function fixHeroButtonsOnMobile() {
+    const heroButtons = document.querySelector('.hero-buttons');
+    const carouselDots = document.querySelector('.carousel-dots');
+
+    if (isMobile && heroButtons && carouselDots) {
+        // Add extra margin to hero buttons on mobile
+        heroButtons.style.marginTop = '40px';
+
+        // Move carousel dots up on mobile
+        carouselDots.style.bottom = '100px';
+    }
 }
 
 // Handle initial page load and hash
@@ -185,6 +202,10 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav .nav-link');
 
+    // Also get the hero buttons
+    const learnMoreBtn = document.querySelector('.learn-more-btn');
+    const joinUsBtn = document.querySelector('.join-us-btn');
+
     // Function to handle navigation - SIMPLIFIED
     function handleNavClick(event) {
         // Prevent only the default behavior, not propagation
@@ -226,6 +247,17 @@ function initNavigation() {
         link.removeEventListener('touchstart', handleNavClick);
         link.addEventListener('click', handleNavClick);
     });
+
+    // Add click events to hero buttons
+    if (learnMoreBtn) {
+        learnMoreBtn.removeEventListener('click', handleNavClick);
+        learnMoreBtn.addEventListener('click', handleNavClick);
+    }
+
+    if (joinUsBtn) {
+        joinUsBtn.removeEventListener('click', handleNavClick);
+        joinUsBtn.addEventListener('click', handleNavClick);
+    }
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', function () {
@@ -782,189 +814,10 @@ function fixMobileIssues() {
         if (window.innerWidth > 992 && mobileNav && mobileNav.classList.contains('active')) {
             toggleMobileNav();
         }
+
+        // Adjust hero buttons on mobile resize
+        fixHeroButtonsOnMobile();
     });
-}
-
-// EVENTS PAGE FUNCTIONS
-
-// Subscribe to events
-function subscribeToEvents(event) {
-    if (event) event.preventDefault();
-    const email = prompt("Please enter your email address to subscribe for event updates:");
-
-    if (email) {
-        // Basic email validation
-        if (email.includes('@') && email.includes('.')) {
-            showNotification("Thank you! You have been subscribed to event updates.", "success");
-            console.log("New subscriber:", email);
-            return true;
-        } else {
-            showNotification("Please enter a valid email address.", "error");
-            return false;
-        }
-    }
-    return false;
-}
-
-// View event calendar
-function viewEventCalendar(event) {
-    if (event) event.preventDefault();
-
-    // Create a modal with event calendar
-    const modal = document.createElement('div');
-    modal.className = 'event-calendar-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Upcoming Events Calendar</h3>
-                <button class="close-modal" id="modalCloseBtn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="calendar-event">
-                    <div class="calendar-date">March 15, 2025</div>
-                    <h4>Annual General Meeting 2025</h4>
-                    <p>Wilson Airport Conference Hall</p>
-                    <a href="#" class="btn btn-small">Register Now</a>
-                </div>
-                <div class="calendar-event">
-                    <div class="calendar-date">May 10, 2025</div>
-                    <h4>World AIS Day Celebration</h4>
-                    <p>Virtual Event</p>
-                    <a href="#" class="btn btn-small">Join Webinar</a>
-                </div>
-                <div class="calendar-event">
-                    <div class="calendar-date">August 20, 2025</div>
-                    <h4>CSR Tree Planting Day</h4>
-                    <p>Ngong Forest</p>
-                    <a href="#" class="btn btn-small">Volunteer</a>
-                </div>
-            </div>
-        </div>
-    `;
-
-    // Add modal styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .event-calendar-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        .modal-content {
-            background: white;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-header h3 {
-            color: var(--primary-color);
-            margin: 0;
-        }
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-        .modal-body {
-            padding: 20px;
-        }
-        .calendar-event {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .calendar-event:last-child {
-            border-bottom: none;
-        }
-        .calendar-date {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .calendar-event h4 {
-            color: var(--primary-color);
-            margin: 0 0 5px 0;
-        }
-        .btn-small {
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        body.dark-mode .modal-content {
-            background: var(--gray-light);
-            color: var(--text-color);
-        }
-        body.dark-mode .calendar-event {
-            border-bottom-color: #444;
-        }
-        body.dark-mode .modal-header {
-            border-bottom-color: #444;
-        }
-        body.dark-mode .close-modal {
-            color: var(--text-color);
-        }
-    `;
-
-    document.head.appendChild(style);
-    document.body.appendChild(modal);
-
-    // Add close event
-    const closeBtn = document.getElementById('modalCloseBtn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-
-    // Close when clicking outside modal
-    modal.addEventListener('click', function (e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-}
-
-// View event photos
-function viewEventPhotos(eventId) {
-    showNotification(`Viewing photos for ${eventId}. This would open a photo gallery in a real implementation.`, "info");
-}
-
-// Download event report
-function downloadEventReport(eventId) {
-    showNotification(`Downloading report for ${eventId}. In a real implementation, this would download a PDF.`, "info");
-}
-
-// View event presentation
-function viewEventPresentation(eventId) {
-    showNotification(`Opening presentation for ${eventId}. In a real implementation, this would open a slideshow or PDF.`, "info");
-}
-
-// Download newsletter
-function downloadNewsletter(year) {
-    showNotification(`Downloading ${year} newsletter. In a real implementation, this would download a PDF.`, "info");
-}
-
-// Close modal
-function closeModal() {
-    const modal = document.querySelector('.event-calendar-modal');
-    if (modal) {
-        modal.remove();
-    }
 }
 
 // Performance optimization: Debounce scroll events
@@ -982,12 +835,5 @@ window.toggleMobileNav = toggleMobileNav;
 window.showPage = showPage;
 window.changeSlide = changeSlide;
 window.goToSlide = goToSlide;
-window.subscribeToEvents = subscribeToEvents;
-window.viewEventCalendar = viewEventCalendar;
-window.viewEventPhotos = viewEventPhotos;
-window.downloadEventReport = downloadEventReport;
-window.viewEventPresentation = viewEventPresentation;
-window.downloadNewsletter = downloadNewsletter;
-window.closeModal = closeModal;
 window.showNotification = showNotification;
 window.toggleTheme = toggleTheme;

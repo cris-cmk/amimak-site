@@ -753,6 +753,14 @@ header {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+
+/* FIX FOR MOBILE: Ensure buttons are above carousel controls */
+.hero-buttons .btn {
+    position: relative;
+    z-index: 10;
 }
 
 .carousel-btn {
@@ -768,7 +776,7 @@ header {
     font-size: 1.2rem;
     cursor: pointer;
     transition: var(--transition);
-    z-index: 3;
+    z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -794,7 +802,7 @@ header {
     display: flex;
     justify-content: center;
     gap: 10px;
-    z-index: 3;
+    z-index: 5;
 }
 
 .dot {
@@ -826,6 +834,8 @@ header {
     transition: var(--transition);
     text-align: center;
     min-width: 160px;
+    position: relative;
+    z-index: 10;
 }
 
 .btn:hover {
@@ -2668,6 +2678,13 @@ header {
         font-size: 1.2rem;
     }
 
+    /* FIX FOR MOBILE: Move buttons up to avoid carousel controls */
+    .hero-buttons {
+        margin-top: 30px;
+        position: relative;
+        z-index: 10;
+    }
+
     /* Fix page headers on mobile */
     .page-header {
         padding: 100px 0 60px;
@@ -2783,19 +2800,49 @@ header {
 
     .subtitle {
         font-size: 1rem;
+        margin-bottom: 25px;
     }
 
     .hero-buttons {
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        margin-top: 40px;
+        position: relative;
+        z-index: 10;
     }
 
-    .btn {
+    /* FIX: Ensure buttons are clickable on mobile */
+    .hero-buttons .btn {
         width: 100%;
         max-width: 280px;
         min-height: 50px;
         padding: 14px 20px;
+        z-index: 10;
+        position: relative;
+    }
+
+    /* Fix carousel buttons position on mobile */
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        top: 60%;
+        z-index: 5;
+    }
+
+    .carousel-prev {
+        left: 10px;
+    }
+
+    .carousel-next {
+        right: 10px;
+    }
+
+    /* Move carousel dots up to avoid buttons */
+    .carousel-dots {
+        bottom: 100px;
+        z-index: 5;
     }
 
     /* Fix grids for mobile */
@@ -2811,21 +2858,6 @@ header {
     .membership-tiers {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-
-    /* Fix carousel buttons */
-    .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-
-    .carousel-prev {
-        left: 10px;
-    }
-
-    .carousel-next {
-        right: 10px;
     }
 
     /* Fix about grid */
@@ -2886,21 +2918,47 @@ header {
 
     /* Extra small devices */
     .hero-section {
-        height: 400px;
+        height: 500px;
         margin-top: 70px;
     }
 
     .hero-content h1 {
         font-size: 1.6rem;
+        margin-bottom: 10px;
     }
 
     .tagline {
         font-size: 1rem;
+        margin-bottom: 15px;
     }
 
     .hero-plane-icon {
         font-size: 2.5rem;
         margin: 15px 0;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+        margin-top: 30px;
+        gap: 12px;
+    }
+
+    /* FIX: Ensure buttons are well spaced and clickable */
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 250px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
+
+    /* Move carousel dots further up on very small screens */
+    .carousel-dots {
+        bottom: 120px;
     }
 
     .section-title {
@@ -2954,6 +3012,36 @@ header {
     }
 }
 
+@media (max-width: 400px) {
+
+    /* Extra small screens */
+    .hero-section {
+        height: 550px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .tagline {
+        font-size: 0.9rem;
+    }
+
+    /* Move buttons further up */
+    .hero-buttons {
+        margin-top: 40px;
+    }
+
+    /* Move carousel dots even further up */
+    .carousel-dots {
+        bottom: 140px;
+    }
+
+    .carousel-btn {
+        top: 65%;
+    }
+}
+
 /* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
 @media (hover: none) and (pointer: coarse) {
 
@@ -2976,6 +3064,13 @@ header {
     /* Improve scrolling on iOS */
     .mobile-nav {
         -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ensure buttons are easily tappable */
+    .hero-buttons .btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 24px;
     }
 }
 
@@ -3020,4 +3115,15 @@ header {
 
 .back-to-top {
     z-index: 999;
+}
+
+/* FIX: Ensure hero buttons are above carousel controls */
+.hero-buttons {
+    position: relative;
+    z-index: 10;
+}
+
+.hero-buttons .btn {
+    position: relative;
+    z-index: 11;
 }
