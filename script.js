@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript
+// AIMAK Website JavaScript - FIXED VERSION
 
 // DOM Elements
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initSmoothScrolling();
     initImageLazyLoading();
     initEventListeners();
+    fixMobileIssues();
 
     // Load saved theme
     loadTheme();
@@ -51,75 +52,47 @@ function initEventListeners() {
         backToTopBtn.addEventListener('click', scrollToTop);
     }
 
-    // Mobile nav toggle
+    // Mobile nav toggle - SIMPLIFIED
     if (mobileNavToggle) {
-        // Use touchstart for mobile, click for desktop
-        if (isMobile) {
-            mobileNavToggle.addEventListener('touchstart', function (e) {
-                e.preventDefault();
-                toggleMobileNav();
-            }, { passive: false });
-        } else {
-            mobileNavToggle.addEventListener('click', toggleMobileNav);
-        }
+        mobileNavToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            toggleMobileNav();
+        });
     }
 
     // Mobile nav close
     if (mobileCloseBtn) {
-        // Use touchstart for mobile, click for desktop
-        if (isMobile) {
-            mobileCloseBtn.addEventListener('touchstart', function (e) {
-                e.preventDefault();
+        mobileCloseBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            toggleMobileNav();
+        });
+    }
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function (event) {
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            if (!mobileNav.contains(event.target) &&
+                event.target !== mobileNavToggle &&
+                !mobileNavToggle.contains(event.target)) {
                 toggleMobileNav();
-            }, { passive: false });
-        } else {
-            mobileCloseBtn.addEventListener('click', toggleMobileNav);
+            }
         }
-    }
-
-    // Event page buttons
-    const subscribeEventsBtn = document.getElementById('subscribeEvents');
-    if (subscribeEventsBtn) {
-        subscribeEventsBtn.addEventListener('click', subscribeToEvents);
-    }
-
-    const viewEventCalendarBtn = document.getElementById('viewEventCalendar');
-    if (viewEventCalendarBtn) {
-        viewEventCalendarBtn.addEventListener('click', viewEventCalendar);
-    }
-
-    // Past event links
-    document.querySelectorAll('.view-photos').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const eventId = this.getAttribute('data-event');
-            viewEventPhotos(eventId);
-        });
     });
 
-    document.querySelectorAll('.download-report').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const eventId = this.getAttribute('data-event');
-            downloadEventReport(eventId);
+    // Prevent clicks inside mobile nav from closing it
+    if (mobileNav) {
+        mobileNav.addEventListener('click', function (e) {
+            e.stopPropagation();
         });
-    });
+    }
 
-    document.querySelectorAll('.view-presentation').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const eventId = this.getAttribute('data-event');
-            viewEventPresentation(eventId);
-        });
-    });
-
-    // Newsletter archive links
-    document.querySelectorAll('.download-newsletter').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const year = this.getAttribute('data-year');
-            downloadNewsletter(year);
-        });
+    // Handle Escape key
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            if (mobileNav && mobileNav.classList.contains('active')) {
+                toggleMobileNav();
+            }
+        }
     });
 
     // Carousel controls
@@ -140,48 +113,6 @@ function initEventListeners() {
             const slideIndex = parseInt(this.getAttribute('data-slide'));
             goToSlide(slideIndex);
         });
-    });
-
-    // Close mobile nav when clicking outside - FIXED FOR MOBILE
-    document.addEventListener('click', function (event) {
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            if (!mobileNav.contains(event.target) &&
-                event.target !== mobileNavToggle &&
-                !mobileNavToggle.contains(event.target)) {
-                toggleMobileNav();
-            }
-        }
-    });
-
-    // Also handle touch events for mobile
-    if (isMobile) {
-        document.addEventListener('touchstart', function (event) {
-            if (mobileNav && mobileNav.classList.contains('active')) {
-                if (!mobileNav.contains(event.target) &&
-                    event.target !== mobileNavToggle &&
-                    !mobileNavToggle.contains(event.target)) {
-                    toggleMobileNav();
-                }
-            }
-        });
-    }
-
-    // Handle window resize
-    window.addEventListener('resize', function () {
-        // Close mobile nav on larger screens
-        if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
-            toggleMobileNav();
-        }
-    });
-
-    // Handle Escape key
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            closeModal();
-            if (mobileNav && mobileNav.classList.contains('active')) {
-                toggleMobileNav();
-            }
-        }
     });
 }
 
@@ -248,15 +179,16 @@ function updateActiveNav(pageId) {
     });
 }
 
-// Initialize Navigation - FIXED FOR MOBILE
+// Initialize Navigation - FIXED VERSION
 function initNavigation() {
     // Get all navigation links
     const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav .nav-link');
 
-    // Function to handle navigation - SEPARATE FOR MOBILE AND DESKTOP
+    // Function to handle navigation - SIMPLIFIED
     function handleNavClick(event) {
+        // Prevent only the default behavior, not propagation
         event.preventDefault();
-        event.stopPropagation(); // Important for mobile
 
         const link = event.currentTarget;
         const href = link.getAttribute('href');
@@ -270,39 +202,29 @@ function initNavigation() {
                 // Show the page
                 showPage(pageId);
 
-                // On mobile, add a small delay for better UX
-                if (isMobile) {
-                    // Prevent any default touch behaviors
-                    if (event.type === 'touchstart') {
-                        event.preventDefault();
-                    }
-
-                    // Add active state visual feedback
-                    link.classList.add('clicked');
-                    setTimeout(() => {
-                        link.classList.remove('clicked');
-                    }, 300);
+                // Close mobile nav if open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
                 }
             }
         }
     }
 
-    // Add click/touch events to all navigation links
+    // Add click events to all navigation links (DESKTOP AND MOBILE)
     navLinks.forEach(link => {
-        if (isMobile) {
-            // For mobile devices, use touchstart with passive: false
-            link.addEventListener('touchstart', handleNavClick, { passive: false });
-            // Also keep click for compatibility
-            link.addEventListener('click', handleNavClick);
-        } else {
-            // For desktop, just use click
-            link.addEventListener('click', handleNavClick);
-        }
+        // Remove any existing listeners to prevent duplicates
+        link.removeEventListener('click', handleNavClick);
+        link.removeEventListener('touchstart', handleNavClick);
 
-        // Prevent default anchor behavior
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-        });
+        // Add click event for all devices
+        link.addEventListener('click', handleNavClick);
+    });
+
+    // Add click events to mobile navigation links
+    mobileNavLinks.forEach(link => {
+        link.removeEventListener('click', handleNavClick);
+        link.removeEventListener('touchstart', handleNavClick);
+        link.addEventListener('click', handleNavClick);
     });
 
     // Handle browser back/forward buttons
@@ -314,21 +236,6 @@ function initNavigation() {
             showPage(hash);
         } else {
             showPage('home');
-        }
-    });
-
-    // Also handle button navigation
-    document.addEventListener('click', function (event) {
-        const btn = event.target.closest('.btn');
-        if (btn && btn.getAttribute('href')?.startsWith('#')) {
-            event.preventDefault();
-            const href = btn.getAttribute('href');
-            const pageId = href.substring(1);
-            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-
-            if (validPages.includes(pageId)) {
-                showPage(pageId);
-            }
         }
     });
 }
@@ -387,37 +294,31 @@ function loadTheme() {
     }
 }
 
-// Mobile Navigation Toggle - ENHANCED FOR MOBILE
+// Mobile Navigation Toggle - SIMPLIFIED
 function toggleMobileNav() {
-    if (mobileNav) {
-        const isOpening = !mobileNav.classList.contains('active');
-        mobileNav.classList.toggle('active');
+    if (!mobileNav) return;
 
-        // Update ARIA attributes
-        if (mobileNavToggle) {
-            mobileNavToggle.setAttribute('aria-expanded', isOpening);
-        }
+    const isOpening = !mobileNav.classList.contains('active');
 
-        // Update body scroll - FIXED FOR MOBILE
-        if (isOpening) {
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('no-scroll');
-            // Add opening animation
-            mobileNav.style.transform = 'translateX(0)';
-        } else {
-            document.body.style.overflow = '';
-            document.body.classList.remove('no-scroll');
-            // Add closing animation
-            mobileNav.style.transform = 'translateX(100%)';
-        }
+    // Toggle active class
+    mobileNav.classList.toggle('active');
 
-        // Add animation class
-        if (isOpening) {
-            mobileNav.classList.add('opening');
-            setTimeout(() => {
-                mobileNav.classList.remove('opening');
-            }, 300);
-        }
+    // Update ARIA attributes
+    if (mobileNavToggle) {
+        mobileNavToggle.setAttribute('aria-expanded', isOpening);
+    }
+
+    // Update body scroll
+    if (isOpening) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.classList.add('no-scroll');
+    } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.classList.remove('no-scroll');
     }
 }
 
@@ -857,6 +758,33 @@ function scrollToTop() {
     });
 }
 
+// Fix mobile issues
+function fixMobileIssues() {
+    // Prevent zoom on double tap
+    document.addEventListener('touchstart', function (event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    // Fix for iOS 100vh issue
+    function setVh() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    setVh();
+    window.addEventListener('resize', setVh);
+
+    // Handle window resize
+    window.addEventListener('resize', function () {
+        // Close mobile nav on larger screens
+        if (window.innerWidth > 992 && mobileNav && mobileNav.classList.contains('active')) {
+            toggleMobileNav();
+        }
+    });
+}
+
 // EVENTS PAGE FUNCTIONS
 
 // Subscribe to events
@@ -1039,22 +967,6 @@ function closeModal() {
     }
 }
 
-// MEMBERSHIP PAGE FUNCTIONS
-
-// Download application form
-function downloadApplicationForm(event) {
-    if (event) event.preventDefault();
-    showNotification("Downloading membership application form. In a real implementation, this would download a PDF file.", "info");
-    console.log("Membership application form downloaded");
-}
-
-// Download membership brochure
-function downloadMembershipBrochure(event) {
-    if (event) event.preventDefault();
-    showNotification("Downloading membership brochure. In a real implementation, this would download a PDF file.", "info");
-    console.log("Membership brochure downloaded");
-}
-
 // Performance optimization: Debounce scroll events
 let scrollTimeout;
 window.addEventListener('scroll', function () {
@@ -1063,21 +975,6 @@ window.addEventListener('scroll', function () {
         checkScroll();
     }, 100);
 });
-
-// Touch device detection and enhancements
-if ('ontouchstart' in window) {
-    document.body.classList.add('touch-device');
-
-    // Add touch feedback for buttons
-    document.addEventListener('touchstart', function () { }, { passive: true });
-
-    // Prevent zoom on double-tap
-    document.addEventListener('touchend', function (event) {
-        if (event.target.tagName === 'BUTTON' || event.target.tagName === 'A') {
-            event.preventDefault();
-        }
-    }, { passive: false });
-}
 
 // Make sure all global functions are available
 window.scrollToTop = scrollToTop;
@@ -1091,8 +988,6 @@ window.viewEventPhotos = viewEventPhotos;
 window.downloadEventReport = downloadEventReport;
 window.viewEventPresentation = viewEventPresentation;
 window.downloadNewsletter = downloadNewsletter;
-window.downloadApplicationForm = downloadApplicationForm;
-window.downloadMembershipBrochure = downloadMembershipBrochure;
 window.closeModal = closeModal;
 window.showNotification = showNotification;
 window.toggleTheme = toggleTheme;
