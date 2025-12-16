@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript - UPDATED VERSION
+// AIMAK Website JavaScript - FIXED NAVIGATION VERSION
 
 // DOM Elements
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('AIMAK Website Initialized - Mobile:', isMobile);
 
     // Initialize all components
-    initNavigation(); // MUST BE FIRST
+    initEventListeners();
+    initNavigation(); // MUST BE CALLED BEFORE OTHER INIT FUNCTIONS
     initHeroSlider();
     initStatsCounter();
     initCountdownTimer();
@@ -25,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initFAQs();
     initSmoothScrolling();
     initImageLazyLoading();
-    initEventListeners();
     fixMobileIssues();
 
     // Load saved theme
@@ -119,6 +119,66 @@ function initEventListeners() {
     fixHeroButtonsOnMobile();
 }
 
+// Initialize Navigation - SIMPLIFIED AND FIXED
+function initNavigation() {
+    console.log('Initializing navigation...');
+    
+    // Function to handle navigation clicks
+    function handleNavClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const link = e.currentTarget;
+        const href = link.getAttribute('href');
+        
+        if (href && href.startsWith('#')) {
+            const pageId = href.substring(1);
+            
+            // Validate page ID
+            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+            
+            if (validPages.includes(pageId)) {
+                console.log('Navigating to:', pageId);
+                showPage(pageId);
+                
+                // Close mobile nav if open
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileNav();
+                }
+            }
+        }
+    }
+    
+    // Add event listeners to ALL navigation links
+    const allNavLinks = document.querySelectorAll('.nav-link, .footer-nav-link, .learn-more-btn, .join-us-btn, .view-all-benefits, .view-all-news, .register-event-btn, .apply-now-btn, .news-link, .service-link');
+    
+    allNavLinks.forEach(link => {
+        // Remove existing listeners to prevent duplicates
+        link.removeEventListener('click', handleNavClick);
+        // Add new listener
+        link.addEventListener('click', handleNavClick);
+    });
+    
+    // Also handle footer links
+    const footerLinks = document.querySelectorAll('.footer-links a');
+    footerLinks.forEach(link => {
+        link.removeEventListener('click', handleNavClick);
+        link.addEventListener('click', handleNavClick);
+    });
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function () {
+        const hash = window.location.hash.substring(1);
+        const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
+        
+        if (hash && validPages.includes(hash)) {
+            showPage(hash);
+        } else {
+            showPage('home');
+        }
+    });
+}
+
 // Fix hero buttons on mobile
 function fixHeroButtonsOnMobile() {
     const heroButtons = document.querySelector('.hero-buttons');
@@ -145,7 +205,7 @@ function handleInitialPageLoad() {
     }
 }
 
-// Show specific page
+// Show specific page - FIXED
 function showPage(pageId) {
     console.log('Showing page:', pageId);
 
@@ -164,18 +224,15 @@ function showPage(pageId) {
         updateActiveNav(pageId);
 
         // Update URL hash without scrolling
-        window.history.pushState(null, null, `#${pageId}`);
+        if (window.location.hash.substring(1) !== pageId) {
+            window.history.pushState(null, null, `#${pageId}`);
+        }
 
         // Scroll to top of the page (smoothly)
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-
-        // Close mobile menu if it's open
-        if (mobileNav && mobileNav.classList.contains('active')) {
-            toggleMobileNav();
-        }
 
         // Reinitialize animations for the new page
         setTimeout(() => {
@@ -192,82 +249,6 @@ function updateActiveNav(pageId) {
         const href = link.getAttribute('href');
         if (href === `#${pageId}`) {
             link.classList.add('active');
-        }
-    });
-}
-
-// Initialize Navigation - FIXED VERSION
-function initNavigation() {
-    // Get all navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav .nav-link');
-
-    // Also get the hero buttons
-    const learnMoreBtn = document.querySelector('.learn-more-btn');
-    const joinUsBtn = document.querySelector('.join-us-btn');
-
-    // Function to handle navigation - SIMPLIFIED
-    function handleNavClick(event) {
-        // Prevent only the default behavior, not propagation
-        event.preventDefault();
-
-        const link = event.currentTarget;
-        const href = link.getAttribute('href');
-
-        if (href && href.startsWith('#')) {
-            const pageId = href.substring(1);
-
-            // Validate page ID
-            const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-            if (validPages.includes(pageId)) {
-                // Show the page
-                showPage(pageId);
-
-                // Close mobile nav if open
-                if (mobileNav && mobileNav.classList.contains('active')) {
-                    toggleMobileNav();
-                }
-            }
-        }
-    }
-
-    // Add click events to all navigation links (DESKTOP AND MOBILE)
-    navLinks.forEach(link => {
-        // Remove any existing listeners to prevent duplicates
-        link.removeEventListener('click', handleNavClick);
-        link.removeEventListener('touchstart', handleNavClick);
-
-        // Add click event for all devices
-        link.addEventListener('click', handleNavClick);
-    });
-
-    // Add click events to mobile navigation links
-    mobileNavLinks.forEach(link => {
-        link.removeEventListener('click', handleNavClick);
-        link.removeEventListener('touchstart', handleNavClick);
-        link.addEventListener('click', handleNavClick);
-    });
-
-    // Add click events to hero buttons
-    if (learnMoreBtn) {
-        learnMoreBtn.removeEventListener('click', handleNavClick);
-        learnMoreBtn.addEventListener('click', handleNavClick);
-    }
-
-    if (joinUsBtn) {
-        joinUsBtn.removeEventListener('click', handleNavClick);
-        joinUsBtn.addEventListener('click', handleNavClick);
-    }
-
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', function () {
-        const hash = window.location.hash.substring(1);
-        const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-
-        if (hash && validPages.includes(hash)) {
-            showPage(hash);
-        } else {
-            showPage('home');
         }
     });
 }
@@ -545,7 +526,16 @@ function initSmoothScrolling() {
             const href = this.getAttribute('href');
 
             // Skip if it's a nav-link (handled by showPage)
-            if (this.classList.contains('nav-link')) {
+            if (this.classList.contains('nav-link') || 
+                this.classList.contains('footer-nav-link') ||
+                this.classList.contains('learn-more-btn') ||
+                this.classList.contains('join-us-btn') ||
+                this.classList.contains('view-all-benefits') ||
+                this.classList.contains('view-all-news') ||
+                this.classList.contains('register-event-btn') ||
+                this.classList.contains('apply-now-btn') ||
+                this.classList.contains('news-link') ||
+                this.classList.contains('service-link')) {
                 return;
             }
 
@@ -825,7 +815,28 @@ let scrollTimeout;
 window.addEventListener('scroll', function () {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function () {
-        checkScroll();
+        // Re-check scroll animations
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        animatedElements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (rect.top <= windowHeight * 0.8 && rect.bottom >= 0) {
+                const delay = element.getAttribute('data-delay') || 0;
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, delay);
+            }
+        });
+
+        // Back to top button visibility
+        if (backToTopBtn) {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
     }, 100);
 });
 
