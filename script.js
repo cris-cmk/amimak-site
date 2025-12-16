@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript - FIXED NAVIGATION VERSION
+// AIMAK Website JavaScript with Blog Detail Feature
 
 // DOM Elements
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -11,13 +11,227 @@ const body = document.body;
 // Track if we're on a mobile device
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+// Blog Data
+const blogPosts = [
+    {
+        id: 1,
+        title: "Annual General Meeting 2025",
+        date: "November 2025",
+        image: "images/general-meeting.avif",
+        category: "Events",
+        tags: ["AGM", "Meeting", "Members"],
+        content: `
+            <p>We are excited to announce our upcoming Annual General Meeting 2025, where we'll gather to review our achievements over the past year and chart the course for AIMAK's future development.</p>
+            
+            <h2>Meeting Agenda</h2>
+            <p>The AGM will cover several key areas including:</p>
+            <ul>
+                <li>Review of 2024 achievements and milestones</li>
+                <li>Financial reports and budget planning for 2025</li>
+                <li>Strategic initiatives for advancing AIM standards</li>
+                <li>Election of new executive committee members</li>
+                <li>Member feedback and open forum discussion</li>
+            </ul>
+            
+            <h2>Special Highlights</h2>
+            <p>This year's AGM will feature special presentations on:</p>
+            <ol>
+                <li>ICAO's updated Annex 15 requirements</li>
+                <li>Digital transformation in Aeronautical Information Services</li>
+                <li>Regional collaboration opportunities</li>
+                <li>Professional development programs for 2025</li>
+            </ol>
+            
+            <h2>Participation Details</h2>
+            <p>The meeting will be held at the Kenya Civil Aviation Authority Headquarters. Both physical and virtual attendance options will be available to accommodate members from different regions.</p>
+            
+            <blockquote>
+                "This AGM represents a pivotal moment for AIMAK as we continue to elevate professional standards in aeronautical information management across Kenya and East Africa."
+            </blockquote>
+            
+            <p>All members are encouraged to participate actively in shaping the future direction of our association.</p>
+        `
+    },
+    {
+        id: 2,
+        title: "ICAO Standards Training Workshop",
+        date: "October 2025",
+        image: "images/ICAO.jpeg",
+        category: "Training",
+        tags: ["ICAO", "Workshop", "Training", "Standards"],
+        content: `
+            <p>Our recent ICAO Standards Training Workshop successfully equipped participants with the latest knowledge on Annex 15 updates and digital transformation initiatives.</p>
+            
+            <h2>Workshop Objectives</h2>
+            <p>The primary objectives of this comprehensive workshop were:</p>
+            <ul>
+                <li>Understanding ICAO Annex 15 amendments effective from 2025</li>
+                <li>Implementing digital NOTAM and AIS digitalization</li>
+                <li>Quality management systems for aeronautical information</li>
+                <li>Data integrity and security protocols</li>
+            </ul>
+            
+            <h2>Key Learnings</h2>
+            <p>Participants gained valuable insights into:</p>
+            <ol>
+                <li>Transition from AIS to AIM concepts</li>
+                <li>Electronic Aeronautical Information Publication (eAIP) implementation</li>
+                <li>Digital data sets and their validation</li>
+                <li>Cybersecurity considerations for AIM systems</li>
+            </ol>
+            
+            <h2>Expert Facilitation</h2>
+            <p>The workshop was facilitated by international AIM experts with decades of experience in implementing ICAO standards across different regions.</p>
+            
+            <blockquote>
+                "Digital transformation in AIM is no longer optional – it's essential for maintaining aviation safety and efficiency in the modern era."
+            </blockquote>
+            
+            <p>Participants received certification upon completion, enhancing their professional credentials in aeronautical information management.</p>
+        `
+    },
+    {
+        id: 3,
+        title: "IFAIMA Regional Conference",
+        date: "September 2025",
+        image: "images/conference.avif",
+        category: "Conference",
+        tags: ["IFAIMA", "Conference", "International"],
+        content: `
+            <p>AIMAK members proudly represented Kenya at the IFAIMA Regional Conference in Johannesburg, sharing our nation's experiences in AIM modernization.</p>
+            
+            <h2>Conference Highlights</h2>
+            <p>The conference focused on several critical themes:</p>
+            <ul>
+                <li>Regional harmonization of AIM practices</li>
+                <li>Technology adoption challenges in developing nations</li>
+                <li>Capacity building and knowledge transfer</li>
+                <li>Future of aeronautical information management</li>
+            </ul>
+            
+            <h2>Kenya's Presentation</h2>
+            <p>Our delegation presented on:</p>
+            <ol>
+                <li>Kenya's progress in AIM digitalization</li>
+                <li>Challenges and solutions in local implementation</li>
+                <li>Training and certification programs developed</li>
+                <li>Regional collaboration initiatives</li>
+            </ol>
+            
+            <h2>Networking Opportunities</h2>
+            <p>The conference provided excellent networking opportunities with AIM professionals from across Africa and beyond, fostering collaborations that will benefit Kenya's aviation sector.</p>
+            
+            <blockquote>
+                "Sharing our experiences at international forums helps position Kenya as a leader in AIM modernization in East Africa."
+            </blockquote>
+            
+            <p>The knowledge gained will directly contribute to our ongoing initiatives and future strategic planning.</p>
+        `
+    },
+    {
+        id: 4,
+        title: "Advanced Flight Planning Workshop",
+        date: "August 2025",
+        image: "images/flight-planning.jpg",
+        category: "Training",
+        tags: ["Flight Planning", "Workshop", "Aviation"],
+        content: `
+            <p>Our Advanced Flight Planning Workshop provided in-depth training on modern flight planning techniques and sector flight plan management.</p>
+            
+            <h2>Workshop Focus Areas</h2>
+            <p>The workshop covered:</p>
+            <ul>
+                <li>Advanced flight planning methodologies</li>
+                <li>Sector flight plan optimization</li>
+                <li>Fuel efficiency calculations</li>
+                <li>Weather integration in flight planning</li>
+            </ul>
+            
+            <h2>Practical Applications</h2>
+            <p>Participants worked on:</p>
+            <ol>
+                <li>Real-world flight planning scenarios</li>
+                <li>Software tools and applications</li>
+                <li>Case studies from different airspaces</li>
+                <li>Emergency planning considerations</li>
+            </ol>
+            
+            <p>The workshop combined theoretical knowledge with hands-on practical exercises for maximum learning impact.</p>
+        `
+    },
+    {
+        id: 5,
+        title: "Aviation Technology Summit",
+        date: "July 2025",
+        image: "images/drones-futuristic-cityscape-sunset.jpg",
+        category: "Technology",
+        tags: ["Technology", "Innovation", "Summit"],
+        content: `
+            <p>AIMAK actively participated in the East Africa Aviation Technology Summit 2025, showcasing innovative solutions for modern aviation challenges.</p>
+            
+            <h2>Summit Themes</h2>
+            <p>The summit explored:</p>
+            <ul>
+                <li>Emerging technologies in aviation</li>
+                <li>Digital transformation strategies</li>
+                <li>Sustainable aviation solutions</li>
+                <li>Future air navigation systems</li>
+            </ul>
+            
+            <h2>AIMAK's Contributions</h2>
+            <p>We presented on:</p>
+            <ol>
+                <li>Digital AIM implementation in Kenya</li>
+                <li>Collaboration with technology partners</li>
+                <li>Training programs for new technologies</li>
+                <li>Future roadmap for AIM in East Africa</li>
+            </ol>
+            
+            <p>The summit highlighted the critical role of technology in advancing aviation safety and efficiency.</p>
+        `
+    },
+    {
+        id: 6,
+        title: "Member Achievement Recognition",
+        date: "June 2025",
+        image: "images/archivement.jpg",
+        category: "Recognition",
+        tags: ["Achievement", "Members", "Recognition"],
+        content: `
+            <p>We celebrate the outstanding achievements of our members who have significantly contributed to advancing aeronautical information management standards.</p>
+            
+            <h2>Recognized Members</h2>
+            <p>This quarter, we honor:</p>
+            <ul>
+                <li>Members who completed advanced certifications</li>
+                <li>Contributors to AIM research and publications</li>
+                <li>Innovators in process improvement</li>
+                <li>Mentors supporting junior professionals</li>
+            </ul>
+            
+            <h2>Achievement Categories</h2>
+            <p>Recognitions were awarded in:</p>
+            <ol>
+                <li>Professional development excellence</li>
+                <li>Innovation and process improvement</li>
+                <li>Leadership and mentorship</li>
+                <li>Research and publication contributions</li>
+            </ol>
+            
+            <p>These recognitions highlight the talent and dedication within our AIMAK community.</p>
+        `
+    }
+];
+
+let currentBlogIndex = 0;
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     console.log('AIMAK Website Initialized - Mobile:', isMobile);
 
     // Initialize all components
     initEventListeners();
-    initNavigation(); // MUST BE CALLED BEFORE OTHER INIT FUNCTIONS
+    initNavigation();
     initHeroSlider();
     initStatsCounter();
     initCountdownTimer();
@@ -27,12 +241,16 @@ document.addEventListener('DOMContentLoaded', function () {
     initSmoothScrolling();
     initImageLazyLoading();
     fixMobileIssues();
+    initBlog();
 
     // Load saved theme
     loadTheme();
 
     // Handle initial page load
     handleInitialPageLoad();
+
+    // Handle blog navigation on hash change
+    window.addEventListener('hashchange', handleBlogNavigation);
 
     // Add loading indicator removal
     setTimeout(() => {
@@ -52,7 +270,7 @@ function initEventListeners() {
         backToTopBtn.addEventListener('click', scrollToTop);
     }
 
-    // Mobile nav toggle - SIMPLIFIED
+    // Mobile nav toggle
     if (mobileNavToggle) {
         mobileNavToggle.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -119,28 +337,90 @@ function initEventListeners() {
     fixHeroButtonsOnMobile();
 }
 
-// Initialize Navigation - SIMPLIFIED AND FIXED
+// Initialize Blog Functionality
+function initBlog() {
+    console.log('Initializing blog functionality...');
+
+    // Add event listeners to all "Read More" links
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach((link, index) => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const blogId = parseInt(this.getAttribute('data-id'));
+            const blogIndex = blogPosts.findIndex(post => post.id === blogId);
+            if (blogIndex !== -1) {
+                showBlogDetail(blogIndex);
+            }
+        });
+    });
+
+    // Add event listener for back button
+    const backToBlogBtn = document.getElementById('backToBlog');
+    if (backToBlogBtn) {
+        backToBlogBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideBlogDetail();
+        });
+    }
+
+    // Add event listeners for navigation buttons
+    const prevBtn = document.getElementById('prev-blog');
+    const nextBtn = document.getElementById('next-blog');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', showPreviousBlog);
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', showNextBlog);
+    }
+
+    // Add event listeners for share buttons
+    const shareButtons = document.querySelectorAll('.share-btn');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const platform = this.getAttribute('data-platform');
+            shareBlog(platform);
+        });
+    });
+
+    // Add click event to related articles
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.related-article')) {
+            const article = e.target.closest('.related-article');
+            const blogId = parseInt(article.getAttribute('data-id'));
+            if (blogId) {
+                const blogIndex = blogPosts.findIndex(post => post.id === blogId);
+                if (blogIndex !== -1) {
+                    showBlogDetail(blogIndex);
+                }
+            }
+        }
+    });
+}
+
+// Initialize Navigation
 function initNavigation() {
     console.log('Initializing navigation...');
-    
+
     // Function to handle navigation clicks
     function handleNavClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const link = e.currentTarget;
         const href = link.getAttribute('href');
-        
+
         if (href && href.startsWith('#')) {
             const pageId = href.substring(1);
-            
+
             // Validate page ID
             const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-            
+
             if (validPages.includes(pageId)) {
                 console.log('Navigating to:', pageId);
                 showPage(pageId);
-                
+
                 // Close mobile nav if open
                 if (mobileNav && mobileNav.classList.contains('active')) {
                     toggleMobileNav();
@@ -148,29 +428,29 @@ function initNavigation() {
             }
         }
     }
-    
+
     // Add event listeners to ALL navigation links
-    const allNavLinks = document.querySelectorAll('.nav-link, .footer-nav-link, .learn-more-btn, .join-us-btn, .view-all-benefits, .view-all-news, .register-event-btn, .apply-now-btn, .news-link, .service-link');
-    
+    const allNavLinks = document.querySelectorAll('.nav-link, .footer-nav-link, .learn-more-btn, .join-us-btn, .view-all-benefits, .view-all-news, .register-event-btn, .apply-now-btn, .service-link');
+
     allNavLinks.forEach(link => {
         // Remove existing listeners to prevent duplicates
         link.removeEventListener('click', handleNavClick);
         // Add new listener
         link.addEventListener('click', handleNavClick);
     });
-    
+
     // Also handle footer links
     const footerLinks = document.querySelectorAll('.footer-links a');
     footerLinks.forEach(link => {
         link.removeEventListener('click', handleNavClick);
         link.addEventListener('click', handleNavClick);
     });
-    
+
     // Handle browser back/forward buttons
     window.addEventListener('popstate', function () {
         const hash = window.location.hash.substring(1);
         const validPages = ['home', 'about', 'management', 'membership', 'events', 'news', 'contact'];
-        
+
         if (hash && validPages.includes(hash)) {
             showPage(hash);
         } else {
@@ -205,7 +485,7 @@ function handleInitialPageLoad() {
     }
 }
 
-// Show specific page - FIXED
+// Show specific page
 function showPage(pageId) {
     console.log('Showing page:', pageId);
 
@@ -219,6 +499,17 @@ function showPage(pageId) {
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.classList.add('active');
+
+        // If showing news page, ensure blog list is visible
+        if (pageId === 'news') {
+            const blogList = document.querySelector('#news .content-section');
+            const blogDetail = document.getElementById('blog-detail');
+
+            if (blogList && blogDetail) {
+                blogList.style.display = 'block';
+                blogDetail.style.display = 'none';
+            }
+        }
 
         // Update active navigation links
         updateActiveNav(pageId);
@@ -238,6 +529,194 @@ function showPage(pageId) {
         setTimeout(() => {
             initScrollAnimations();
         }, 100);
+    }
+}
+
+// Show blog detail
+function showBlogDetail(index) {
+    console.log('Showing blog detail for index:', index);
+
+    if (index < 0 || index >= blogPosts.length) {
+        console.error('Invalid blog index:', index);
+        return;
+    }
+
+    currentBlogIndex = index;
+    const blog = blogPosts[index];
+
+    // Update blog detail elements
+    document.getElementById('blog-detail-title').textContent = blog.title;
+    document.getElementById('blog-detail-date').textContent = blog.date;
+    document.getElementById('blog-detail-category').textContent = blog.category;
+    document.getElementById('blog-detail-image').src = blog.image;
+    document.getElementById('blog-detail-image').alt = blog.title;
+
+    // Use innerHTML to properly render HTML content
+    document.getElementById('blog-detail-article').innerHTML = blog.content;
+
+    // Update tags
+    const tagsContainer = document.getElementById('blog-detail-tags');
+    tagsContainer.innerHTML = '';
+    blog.tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'tag';
+        tagElement.textContent = tag;
+        tagsContainer.appendChild(tagElement);
+    });
+
+    // Update navigation buttons
+    updateNavigationButtons();
+
+    // Show blog detail and hide blog list
+    const blogList = document.querySelector('#news .content-section');
+    const blogDetail = document.getElementById('blog-detail');
+
+    if (blogList && blogDetail) {
+        blogList.style.display = 'none';
+        blogDetail.style.display = 'block';
+
+        // Scroll to top of blog detail
+        blogDetail.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update URL hash without scrolling
+    window.history.pushState({ blogId: blog.id }, '', `#blog-${blog.id}`);
+
+    // Load related articles
+    loadRelatedArticles(index);
+}
+
+// Hide blog detail
+function hideBlogDetail() {
+    const blogList = document.querySelector('#news .content-section');
+    const blogDetail = document.getElementById('blog-detail');
+
+    if (blogList && blogDetail) {
+        blogList.style.display = 'block';
+        blogDetail.style.display = 'none';
+
+        // Scroll to top of blog section
+        document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update URL hash
+    window.history.pushState(null, '', '#news');
+}
+
+// Show previous blog
+function showPreviousBlog() {
+    if (currentBlogIndex > 0) {
+        showBlogDetail(currentBlogIndex - 1);
+    }
+}
+
+// Show next blog
+function showNextBlog() {
+    if (currentBlogIndex < blogPosts.length - 1) {
+        showBlogDetail(currentBlogIndex + 1);
+    }
+}
+
+// Update navigation buttons state
+function updateNavigationButtons() {
+    const prevBtn = document.getElementById('prev-blog');
+    const nextBtn = document.getElementById('next-blog');
+
+    if (prevBtn) {
+        prevBtn.style.opacity = currentBlogIndex > 0 ? '1' : '0.5';
+        prevBtn.style.cursor = currentBlogIndex > 0 ? 'pointer' : 'not-allowed';
+        prevBtn.disabled = currentBlogIndex === 0;
+    }
+
+    if (nextBtn) {
+        nextBtn.style.opacity = currentBlogIndex < blogPosts.length - 1 ? '1' : '0.5';
+        nextBtn.style.cursor = currentBlogIndex < blogPosts.length - 1 ? 'pointer' : 'not-allowed';
+        nextBtn.disabled = currentBlogIndex === blogPosts.length - 1;
+    }
+}
+
+// Load related articles
+function loadRelatedArticles(currentIndex) {
+    const relatedContainer = document.getElementById('related-articles');
+    if (!relatedContainer) return;
+
+    // Filter related articles (excluding current)
+    const relatedPosts = blogPosts
+        .filter((post, index) => index !== currentIndex && post.category === blogPosts[currentIndex].category)
+        .slice(0, 3); // Show max 3 related articles
+
+    relatedContainer.innerHTML = '';
+
+    if (relatedPosts.length === 0) {
+        relatedContainer.innerHTML = '<p class="no-related">No related articles found.</p>';
+        return;
+    }
+
+    relatedPosts.forEach(post => {
+        const articleElement = document.createElement('div');
+        articleElement.className = 'related-article';
+        articleElement.setAttribute('data-id', post.id);
+
+        articleElement.innerHTML = `
+            <img src="${post.image}" alt="${post.title}" loading="lazy">
+            <div class="related-article-content">
+                <h4>${post.title}</h4>
+                <p>${post.date} • ${post.category}</p>
+            </div>
+        `;
+
+        relatedContainer.appendChild(articleElement);
+    });
+}
+
+// Share blog on social media
+function shareBlog(platform) {
+    const blog = blogPosts[currentBlogIndex];
+    const url = window.location.href.split('#')[0] + `#blog-${blog.id}`;
+    const text = `Check out this article from AIMAK: ${blog.title}`;
+
+    let shareUrl = '';
+
+    switch (platform) {
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+            break;
+        case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+            break;
+        case 'email':
+            shareUrl = `mailto:?subject=${encodeURIComponent(blog.title)}&body=${encodeURIComponent(text + '\n\n' + url)}`;
+            break;
+    }
+
+    if (platform === 'email') {
+        window.location.href = shareUrl;
+    } else {
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+}
+
+// Handle blog navigation from URL hash
+function handleBlogNavigation() {
+    const hash = window.location.hash;
+
+    if (hash.startsWith('#blog-')) {
+        const blogId = parseInt(hash.replace('#blog-', ''));
+        const blogIndex = blogPosts.findIndex(post => post.id === blogId);
+
+        if (blogIndex !== -1) {
+            // Show news page first
+            showPage('news');
+            // Then show blog detail
+            setTimeout(() => {
+                showBlogDetail(blogIndex);
+            }, 100);
+        }
+    } else if (hash === '#news') {
+        hideBlogDetail();
     }
 }
 
@@ -307,7 +786,7 @@ function loadTheme() {
     }
 }
 
-// Mobile Navigation Toggle - SIMPLIFIED
+// Mobile Navigation Toggle
 function toggleMobileNav() {
     if (!mobileNav) return;
 
@@ -526,7 +1005,7 @@ function initSmoothScrolling() {
             const href = this.getAttribute('href');
 
             // Skip if it's a nav-link (handled by showPage)
-            if (this.classList.contains('nav-link') || 
+            if (this.classList.contains('nav-link') ||
                 this.classList.contains('footer-nav-link') ||
                 this.classList.contains('learn-more-btn') ||
                 this.classList.contains('join-us-btn') ||
@@ -534,8 +1013,8 @@ function initSmoothScrolling() {
                 this.classList.contains('view-all-news') ||
                 this.classList.contains('register-event-btn') ||
                 this.classList.contains('apply-now-btn') ||
-                this.classList.contains('news-link') ||
-                this.classList.contains('service-link')) {
+                this.classList.contains('service-link') ||
+                this.classList.contains('read-more-btn')) {
                 return;
             }
 
@@ -848,3 +1327,5 @@ window.changeSlide = changeSlide;
 window.goToSlide = goToSlide;
 window.showNotification = showNotification;
 window.toggleTheme = toggleTheme;
+window.showBlogDetail = showBlogDetail;
+window.hideBlogDetail = hideBlogDetail;

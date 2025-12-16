@@ -90,7 +90,7 @@
     <!-- Main Content -->
     <main id="main-content" class="main-content">
         <!-- Home Page -->
-        <section id="home" class="page-section">
+        <section id="home" class="page-section active">
             <!-- Hero Section -->
             <section class="hero-section">
                 <div class="hero-slider">
@@ -255,7 +255,7 @@
                 <div class="container">
                     <h2 class="section-title animate-on-scroll">Latest News</h2>
                     <div class="news-grid">
-                        <div class="news-card animate-on-scroll" data-animation="fade-up">
+                        <div class="news-card" data-id="1">
                             <div class="news-image">
                                 <img src="images/general-meeting.avif" alt="Annual General Meeting" loading="lazy">
                             </div>
@@ -264,31 +264,34 @@
                                 <h3>Annual General Meeting 2025</h3>
                                 <p>Join us for our upcoming AGM where we'll discuss achievements and future plans for
                                     advancing AIM standards in Kenya.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="1">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card animate-on-scroll" data-animation="fade-up" data-delay="200">
+                        <div class="news-card" data-id="2">
                             <div class="news-image">
-                                <img src="images/workshop.jpg" alt="Training Workshop" loading="lazy">
+                                <img src="images/ICAO.jpeg" alt="ICAO Standards Training Workshop" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">October 2025</div>
                                 <h3>ICAO Standards Training Workshop</h3>
                                 <p>Successful completion of our professional development workshop on ICAO Annex 15
                                     updates and digital transformation.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="2">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card animate-on-scroll" data-animation="fade-up" data-delay="400">
+                        <div class="news-card" data-id="3">
                             <div class="news-image">
-                                <img src="images/conference.avif" alt="Regional Conference" loading="lazy">
+                                <img src="images/conference.avif" alt="IFAIMA Regional Conference" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">September 2025</div>
                                 <h3>IFAIMA Regional Conference</h3>
                                 <p>AIMAK members attended the IFAIMA conference in Johannesburg, sharing Kenya's
                                     experiences in AIM modernization.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="3">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -1024,25 +1027,24 @@
                                     <a href="#" class="view-photos" data-event="agm2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                            
+
                                 </div>
                             </div>
                         </div>
 
                         <div class="past-event-card">
                             <div class="past-event-image">
-                                <img src="images/worldaidsday.jpg"
-                                    alt="World AIS Day 2024" loading="lazy">
+                                <img src="images/worldaidsday.jpg" alt="World AIS Day 2024" loading="lazy">
                             </div>
                             <div class="past-event-content">
                                 <h3>World AIDS Day 2025</h3>
-                                <div class="past-event-date">December  2025</div>
+                                <div class="past-event-date">December 2025</div>
                                 <p>Celebration of global AIDS awareness with industry experts</p>
                                 <div class="past-event-links">
                                     <a href="#" class="view-photos" data-event="wais2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -1060,7 +1062,7 @@
                                     <a href="#" class="view-photos" data-event="tree2024">
                                         <i class="fas fa-images"></i> Photos
                                     </a>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -1133,81 +1135,149 @@
             <section class="content-section">
                 <div class="container">
                     <div class="news-grid">
-                        <div class="news-card">
+                        <div class="news-card" data-id="1">
                             <div class="news-image">
-                                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                    alt="Annual General Meeting" loading="lazy">
+                                <img src="images/general-meeting.avif" alt="Annual General Meeting" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">November 2025</div>
                                 <h3>Annual General Meeting 2025</h3>
                                 <p>Join us for our upcoming AGM where we'll discuss achievements and future plans for
                                     advancing AIM standards in Kenya.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="1">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card">
+                        <div class="news-card" data-id="2">
                             <div class="news-image">
-                                <img src="images/ICAO.jpeg"
-                                    alt="Flight Planning Technology" loading="lazy">
+                                <img src="images/ICAO.jpeg" alt="ICAO Standards Training Workshop" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">October 2025</div>
                                 <h3>ICAO Standards Training Workshop</h3>
                                 <p>Successful completion of our professional development workshop on ICAO Annex 15
                                     updates and digital transformation.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="2">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card">
+                        <div class="news-card" data-id="3">
                             <div class="news-image">
-                                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                    alt="African Aviation Exhibition" loading="lazy">
+                                <img src="images/conference.avif" alt="IFAIMA Regional Conference" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">September 2025</div>
                                 <h3>IFAIMA Regional Conference</h3>
                                 <p>AIMAK members attended the IFAIMA conference in Johannesburg, sharing Kenya's
                                     experiences in AIM modernization.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="3">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card">
+                        <div class="news-card" data-id="4">
                             <div class="news-image">
-                                <img src="images/flight-planning.jpg" alt="Flight Planning Technology" loading="lazy">
+                                <img src="images/flight-planning.jpg" alt="Advanced Flight Planning Workshop"
+                                    loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">August 2025</div>
                                 <h3>Advanced Flight Planning Workshop</h3>
                                 <p>Expert-led workshop on advanced flight planning techniques and sector flight plan
                                     management.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="4">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card">
+                        <div class="news-card" data-id="5">
                             <div class="news-image">
                                 <img src="images/drones-futuristic-cityscape-sunset.jpg"
-                                    alt="Aviation Technology" loading="lazy">
+                                    alt="Aviation Technology Summit" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">July 2025</div>
                                 <h3>Aviation Technology Summit</h3>
                                 <p>AIMAK participated in the East Africa Aviation Technology Summit 2025, showcasing
                                     innovative solutions.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="5">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="news-card">
+                        <div class="news-card" data-id="6">
                             <div class="news-image">
-                                <img src="images/archivement.jpg"
-                                    alt="Member Achievement" loading="lazy">
+                                <img src="images/archivement.jpg" alt="Member Achievement Recognition" loading="lazy">
                             </div>
                             <div class="news-content">
                                 <div class="news-date">June 2025</div>
                                 <h3>Member Achievement Recognition</h3>
                                 <p>Celebrating the achievements of our members in advancing aeronautical information
                                     management standards.</p>
-                                <a href="#news" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="#" class="news-link read-more-btn" data-id="6">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Detail Section -->
+            <section id="blog-detail" class="blog-detail-section" style="display: none;">
+                <div class="container">
+                    <div class="blog-detail-header">
+                        <button id="backToBlog" class="btn-back">
+                            <i class="fas fa-arrow-left"></i> Back to Blog
+                        </button>
+                        <h1 id="blog-detail-title" class="blog-title">Blog Title</h1>
+                        <div class="blog-meta">
+                            <span id="blog-detail-date" class="blog-date"></span>
+                            <span id="blog-detail-author" class="blog-author">By AIMAK Editorial Team</span>
+                            <span id="blog-detail-category" class="blog-category"></span>
+                        </div>
+                    </div>
+
+                    <div class="blog-detail-content">
+                        <div class="blog-featured-image">
+                            <img id="blog-detail-image" src="" alt="" loading="lazy">
+                        </div>
+
+                        <div class="blog-article" id="blog-detail-article">
+                            <!-- Content will be dynamically inserted here -->
+                        </div>
+
+                        <div class="blog-tags" id="blog-detail-tags">
+                            <!-- Tags will be dynamically inserted here -->
+                        </div>
+
+                        <div class="blog-share">
+                            <h3>Share this article:</h3>
+                            <div class="share-buttons">
+                                <button class="share-btn facebook" data-platform="facebook">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </button>
+                                <button class="share-btn twitter" data-platform="twitter">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </button>
+                                <button class="share-btn linkedin" data-platform="linkedin">
+                                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                                </button>
+                                <button class="share-btn email" data-platform="email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="blog-navigation">
+                            <button id="prev-blog" class="btn-nav prev-blog">
+                                <i class="fas fa-chevron-left"></i> Previous Article
+                            </button>
+                            <button id="next-blog" class="btn-nav next-blog">
+                                Next Article <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <div class="related-articles">
+                            <h3>Related Articles</h3>
+                            <div class="related-grid" id="related-articles">
+                                <!-- Related articles will be dynamically inserted here -->
                             </div>
                         </div>
                     </div>
@@ -1278,8 +1348,6 @@
                                 target="_blank" class="btn btn-primary">Open in Google Maps</a>
                         </div>
                     </div>
-
-
                 </div>
             </section>
         </section>
