@@ -406,6 +406,7 @@ header {
     gap: 30px;
 }
 
+/* ===== LARGER LOGO STYLES ===== */
 .logo-container {
     display: flex;
     align-items: center;
@@ -414,21 +415,25 @@ header {
 }
 
 .logo-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    /* Increased from 60px */
+    height: 80px;
+    /* Increased from 60px */
     border-radius: 50%;
     overflow: hidden;
     background: var(--light-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .logo-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 8px;
+    padding: 10px;
+    /* Increased padding for better fit */
 }
 
 .logo-text {
@@ -437,14 +442,16 @@ header {
 }
 
 .logo-main {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    /* Increased from 1.8rem */
     font-weight: 700;
     color: var(--primary-color);
     line-height: 1.2;
 }
 
 .logo-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    /* Increased from 0.8rem */
     color: var(--text-light);
     max-width: 200px;
 }
@@ -573,8 +580,8 @@ header {
 }
 
 .mobile-logo img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: contain;
 }
@@ -3300,12 +3307,12 @@ body.dark-mode .stat-subtext {
 }
 
 .footer-logo img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: contain;
     background: white;
-    padding: 5px;
+    padding: 8px;
 }
 
 .footer-section p {
@@ -3473,6 +3480,20 @@ body.dark-mode .stat-subtext {
 
 @media (max-width: 992px) {
 
+    /* Fix logo size on tablets */
+    .logo-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logo-main {
+        font-size: 1.8rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.8rem;
+    }
+
     /* Fix mobile navigation positioning */
     .mobile-nav {
         width: 300px;
@@ -3576,6 +3597,16 @@ body.dark-mode .stat-subtext {
 }
 
 @media (max-width: 768px) {
+
+    /* Fix logo size on smaller tablets */
+    .logo-wrapper {
+        width: 65px;
+        height: 65px;
+    }
+
+    .logo-main {
+        font-size: 1.6rem;
+    }
 
     /* Better mobile navigation */
     .mobile-nav {
@@ -3760,6 +3791,20 @@ body.dark-mode .stat-subtext {
 
 @media (max-width: 576px) {
 
+    /* Fix logo size on phones */
+    .logo-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+
+    .logo-main {
+        font-size: 1.6rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.7rem;
+    }
+
     /* Extra small devices */
     .hero-section {
         height: 500px;
@@ -3853,14 +3898,6 @@ body.dark-mode .stat-subtext {
         flex: 1;
     }
 
-    .logo-main {
-        font-size: 1.5rem;
-    }
-
-    .logo-subtitle {
-        font-size: 0.7rem;
-    }
-
     /* Fix forms */
     .newsletter-form-container {
         padding: 20px 15px;
@@ -3878,6 +3915,16 @@ body.dark-mode .stat-subtext {
 }
 
 @media (max-width: 400px) {
+
+    /* Fix logo size on very small phones */
+    .logo-wrapper {
+        width: 55px;
+        height: 55px;
+    }
+
+    .logo-main {
+        font-size: 1.4rem;
+    }
 
     /* Extra small screens */
     .hero-section {

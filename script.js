@@ -15,13 +15,13 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const blogPosts = [
     {
         id: 1,
-        title: "Annual General Meeting 2025",
-        date: "November 2025",
+        title: "Annual General Meeting 2026",
+        date: "26th March  2026",
         image: "images/general-meeting.avif",
         category: "Events",
         tags: ["AGM", "Meeting", "Members"],
         content: `
-            <p>We are excited to announce our upcoming Annual General Meeting 2025, where we'll gather to review our achievements over the past year and chart the course for AIMAK's future development.</p>
+            <p>We are excited to announce our upcoming Annual General Meeting 2026, where we'll gather to review our achievements over the past year and chart the course for AIMAK's future development.</p>
             
             <h2>Meeting Agenda</h2>
             <p>The AGM will cover several key areas including:</p>
@@ -941,7 +941,7 @@ function initStatsCounter() {
 
 // Countdown Timer
 function initCountdownTimer() {
-    const eventDate = new Date('December 15, 2025 09:00:00').getTime();
+    const eventDate = new Date('March 26, 2026 09:00:00').getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
