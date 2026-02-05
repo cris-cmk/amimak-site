@@ -1,4 +1,4 @@
-// AIMAK Website JavaScript with Blog Detail Feature
+// AIMAK Website JavaScript with Blog Detail Feature and Forms Download
 
 // DOM Elements
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -242,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initImageLazyLoading();
     fixMobileIssues();
     initBlog();
+    initFormsDownload();
 
     // Load saved theme
     loadTheme();
@@ -335,6 +336,122 @@ function initEventListeners() {
 
     // Fix for hero buttons on mobile
     fixHeroButtonsOnMobile();
+}
+
+// Initialize Forms Download Functionality
+function initFormsDownload() {
+    const downloadButtons = document.querySelectorAll('.download-form-btn');
+
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const formType = this.getAttribute('data-form');
+            downloadForm(formType);
+        });
+    });
+}
+
+// Download form function
+function downloadForm(formType) {
+    let content, filename, formName;
+
+    if (formType === 'membership') {
+        content = `**AIMAK MEMBERSHIP REGISTRATION FORM**
+
+[Your Membership Registration Form Content Here]
+
+Please complete all sections of this form carefully.
+All information provided will be kept confidential.
+
+Personal Details:
+- Full Name: __________________________
+- ID Number: __________________________
+- Contact Information: _________________
+- Professional Background: _____________
+
+Membership Category:
+[ ] Ordinary Member
+[ ] Corporate Member
+[ ] Student Member
+[ ] Honorary Member (by invitation only)
+
+Declaration:
+I hereby apply for membership to AIMAK and agree to abide by the association's constitution and regulations.
+
+Signature: _________________________
+Date: _____________________________`;
+        filename = 'AIMAK-Membership-Registration-Form.docx';
+        formName = 'Membership Registration Form';
+    } else if (formType === 'nextofkin') {
+        content = `**NEXT OF KIN NOMINATION FORM**
+
+PARTICULARS OF THE MEMBER:
+- Surname: ____________________________
+- Other Names: ________________________
+- Membership No: ______________________
+- ID No: ______________________________
+- Marital Status: _____________________
+- Telephone: __________________________
+- Address: ____________________________
+
+PARTICULARS OF NEXT OF KIN:
+- Surname: ____________________________
+- Other Names: ________________________
+- ID No: ______________________________
+- Telephone: __________________________
+- Address: ____________________________
+- Relationship: _______________________
+
+(If spouse, attach copy of National ID/Marriage Certificate/Sworn Affidavit)
+
+PARTICULARS OF ALTERNATIVE NEXT OF KIN:
+- Surname: ____________________________
+- Other Names: ________________________
+- ID No: ______________________________
+- Telephone: __________________________
+- Address: ____________________________
+- Relationship: _______________________
+
+PARTICULARS OF CHILDREN:
+Name: ________________ Age: __________
+Name: ________________ Age: __________
+Name: ________________ Age: __________
+
+DECLARATION:
+I certify that the information given above is true and correct.
+
+Signature: _________________________
+Date: _____________________________`;
+        filename = 'AIMAK-Next-of-Kin-Form.docx';
+        formName = 'Next of Kin Nomination Form';
+    } else {
+        return;
+    }
+
+    // Create Blob
+    const blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+
+    // Create download link
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.style.display = 'none';
+
+    // Add to document and trigger download
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup
+    setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    }, 100);
+
+    // Show success notification
+    showNotification(`Download started: ${formName}`, 'success');
+
+    // Log download
+    console.log(`Form downloaded: ${formName}`);
 }
 
 // Initialize Blog Functionality
@@ -1329,3 +1446,4 @@ window.showNotification = showNotification;
 window.toggleTheme = toggleTheme;
 window.showBlogDetail = showBlogDetail;
 window.hideBlogDetail = hideBlogDetail;
+window.downloadForm = downloadForm;

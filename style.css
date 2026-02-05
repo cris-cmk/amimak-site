@@ -416,9 +416,7 @@ header {
 
 .logo-wrapper {
     width: 80px;
-    /* Increased from 60px */
     height: 80px;
-    /* Increased from 60px */
     border-radius: 50%;
     overflow: hidden;
     background: var(--light-color);
@@ -433,7 +431,6 @@ header {
     height: 100%;
     object-fit: contain;
     padding: 10px;
-    /* Increased padding for better fit */
 }
 
 .logo-text {
@@ -443,7 +440,6 @@ header {
 
 .logo-main {
     font-size: 2rem;
-    /* Increased from 1.8rem */
     font-weight: 700;
     color: var(--primary-color);
     line-height: 1.2;
@@ -451,7 +447,6 @@ header {
 
 .logo-subtitle {
     font-size: 0.9rem;
-    /* Increased from 0.8rem */
     color: var(--text-light);
     max-width: 200px;
 }
@@ -956,8 +951,6 @@ header {
 }
 
 /* ===== STATS SECTION ===== */
-/* ===== STATS SECTION - FIXED WITHOUT AFFECTING OTHER SECTIONS ===== */
-/* ===== COMPACT VIBRANT STATS SECTION ===== */
 .stats-section {
     padding: 80px 0;
     background: linear-gradient(135deg,
@@ -970,7 +963,7 @@ header {
     min-height: 400px;
 }
 
-/* Stats-specific title styling - ONLY affects stats section */
+/* Stats-specific title styling */
 .stats-section .section-title {
     color: white !important;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -1163,39 +1156,6 @@ header {
     line-height: 1.2;
 }
 
-/* Smaller Decorative Dots */
-.stat-decoration {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 30px;
-    height: 30px;
-}
-
-.dot {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--main-color);
-    opacity: 0.5;
-}
-
-.dot-1 {
-    top: 0;
-    left: 0;
-}
-
-.dot-2 {
-    top: 12px;
-    left: 12px;
-}
-
-.dot-3 {
-    top: 0;
-    left: 24px;
-}
-
 /* Animations */
 @keyframes pulse {
 
@@ -1211,127 +1171,197 @@ header {
     }
 }
 
-/* Responsive - Fit 4 in one line on most screens */
-@media (max-width: 1200px) {
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1100px;
-        gap: 15px;
-    }
-
-    .stat-item {
-        padding: 20px 12px;
-        min-height: 200px;
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-    }
-
-    .stat-icon-wrapper {
-        width: 55px;
-        height: 55px;
-    }
-
-    .stat-icon {
-        font-size: 1.6rem;
-    }
+/* ===== FORMS DOWNLOAD SECTION ===== */
+.forms-download-container {
+    max-width: 900px;
+    margin: 40px auto 0;
 }
 
-/* Tablets - 2 per row */
-@media (max-width: 992px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
-        gap: 20px;
-    }
-
-    .stats-section .section-title {
-        font-size: 2.4rem;
-    }
-
-    .stat-item {
-        min-height: 220px;
-        padding: 25px 15px;
-    }
-
-    .stat-number {
-        font-size: 3rem;
-    }
-
-    .stat-icon-wrapper {
-        width: 65px;
-        height: 65px;
-    }
-
-    .stat-icon {
-        font-size: 2rem;
-    }
+.form-download-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    transition: var(--transition);
+    border-left: 4px solid transparent;
 }
 
-/* Phones - 1 per row */
+.form-download-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-left-color: var(--primary-color);
+}
+
+.form-icon {
+    background: var(--light-color);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.form-download-card:hover .form-icon {
+    background: var(--gradient);
+    color: white;
+    transform: rotate(360deg);
+}
+
+.form-details {
+    flex: 1;
+}
+
+.form-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.form-details p {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.form-info {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-info i {
+    font-size: 0.8rem;
+}
+
+.download-form-btn {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.download-form-btn i {
+    font-size: 1rem;
+}
+
+.forms-instructions {
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-top: 40px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.forms-instructions h4 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.forms-instructions ol {
+    margin-left: 20px;
+    color: var(--text-color);
+}
+
+.forms-instructions li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    padding-left: 5px;
+}
+
+.forms-instructions a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.forms-instructions a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Dark mode styles for forms section */
+body.dark-mode .form-download-card {
+    background: var(--gray-light);
+}
+
+body.dark-mode .form-icon {
+    background: var(--dark-color);
+}
+
+body.dark-mode .forms-instructions {
+    background: var(--gray-light);
+}
+
+body.dark-mode .forms-instructions ol {
+    color: var(--text-color);
+}
+
+/* Mobile responsiveness for forms */
 @media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-        max-width: 350px;
+    .form-download-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 25px;
     }
 
-    .stats-section .section-title {
-        font-size: 2rem;
+    .form-details {
+        text-align: center;
     }
 
-    .stats-subtitle {
-        font-size: 1rem;
-        margin-bottom: 30px;
+    .form-info {
+        justify-content: center;
     }
 
-    .stat-item {
-        min-height: 200px;
-    }
-}
-
-/* Extra small phones */
-@media (max-width: 480px) {
-    .stats-grid {
-        max-width: 300px;
-    }
-
-    .stat-item {
-        padding: 20px 10px;
-        min-height: 180px;
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
+    .download-form-btn {
+        width: 100%;
     }
 }
 
-/* Dark Mode Adjustments for Stats */
-body.dark-mode .stats-section {
-    background: linear-gradient(135deg,
-            #0a1a36 0%,
-            #0d2b50 30%,
-            #1a365d 60%,
-            #2c5282 100%);
-}
+@media (max-width: 576px) {
+    .forms-download-container {
+        margin-top: 30px;
+    }
 
-body.dark-mode .stat-item {
-    background: rgba(30, 30, 40, 0.95);
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-}
+    .form-download-card {
+        padding: 20px;
+    }
 
-body.dark-mode .stat-label {
-    color: #e0e0e0;
-}
+    .forms-instructions {
+        padding: 20px;
+    }
 
-body.dark-mode .stat-subtext {
-    color: #a0a0a0;
+    .forms-instructions h4 {
+        font-size: 1.2rem;
+    }
 }
 
 /* ===== COUNTDOWN SECTION ===== */
@@ -1736,7 +1766,7 @@ body.dark-mode .stat-subtext {
     font-size: 1rem;
 }
 
-/* ===== TIMELINE SECTION - WITH MOBILE FIXES ===== */
+/* ===== TIMELINE SECTION ===== */
 .timeline {
     position: relative;
     max-width: 800px;
@@ -1894,111 +1924,6 @@ body.dark-mode .stat-subtext {
     .timeline-item:nth-child(even) .timeline-content,
     .timeline-item:nth-child(odd) .timeline-content {
         margin-left: 0;
-    }
-}
-
-/* For very small screens */
-@media (max-width: 576px) {
-    .timeline {
-        padding-left: 35px;
-    }
-
-    .timeline::before {
-        left: 15px !important;
-        width: 3px;
-    }
-
-    .timeline-item::after {
-        left: 15px !important;
-        width: 14px;
-        height: 14px;
-    }
-
-    .timeline-year {
-        min-width: 80px;
-        padding: 10px 15px;
-        font-size: 1rem;
-        margin-right: 10px;
-    }
-
-    .timeline-content {
-        width: calc(100% - 95px) !important;
-        padding: 20px;
-    }
-
-    .timeline-content h3 {
-        font-size: 1.2rem;
-    }
-
-    .timeline-content p {
-        font-size: 0.95rem;
-    }
-}
-
-/* Alternative: Simplified mobile timeline without the vertical line */
-@media (max-width: 768px) {
-    .timeline {
-        padding-left: 0;
-    }
-
-    .timeline::before {
-        display: none;
-    }
-
-    .timeline-item {
-        flex-direction: column;
-        margin-bottom: 40px;
-        position: relative;
-        padding-left: 30px;
-    }
-
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 10px;
-        width: 15px;
-        height: 15px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        border: 3px solid var(--white);
-        box-shadow: 0 0 0 3px var(--primary-color);
-        z-index: 2;
-    }
-
-    .timeline-year {
-        background: var(--gradient);
-        color: white;
-        padding: 8px 20px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 15px;
-        align-self: flex-start;
-        box-shadow: 0 3px 10px rgba(13, 71, 161, 0.3);
-        order: 1;
-    }
-
-    .timeline-content {
-        background: var(--white);
-        padding: 25px;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
-        width: 100%;
-        order: 2;
-        position: relative;
-    }
-
-    .timeline-content::before {
-        display: none;
-    }
-
-    body.dark-mode .timeline-content {
-        background: var(--gray-light);
-    }
-
-    body.dark-mode .timeline-item::before {
-        border-color: var(--gray-light);
     }
 }
 
