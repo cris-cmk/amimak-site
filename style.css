@@ -1332,15 +1332,15 @@ body.dark-mode .forms-instructions ol {
         gap: 20px;
         padding: 25px;
     }
-
+    
     .form-details {
         text-align: center;
     }
-
+    
     .form-info {
         justify-content: center;
     }
-
+    
     .download-form-btn {
         width: 100%;
     }
@@ -1350,15 +1350,15 @@ body.dark-mode .forms-instructions ol {
     .forms-download-container {
         margin-top: 30px;
     }
-
+    
     .form-download-card {
         padding: 20px;
     }
-
+    
     .forms-instructions {
         padding: 20px;
     }
-
+    
     .forms-instructions h4 {
         font-size: 1.2rem;
     }
