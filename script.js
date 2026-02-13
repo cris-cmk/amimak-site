@@ -1436,6 +1436,24 @@ window.addEventListener('scroll', function () {
     }, 100);
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Check if the URL has no hash (like #home) or is just the base URL
+    if (!window.location.hash || window.location.hash === '') {
+        // Option 1: Scroll smoothly to the 'home' section
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Option 2: Alternatively, scroll to the hero section or top of content
+        // You can adjust the selector to scroll to the hero section or main content
+        // const heroSection = document.querySelector('.hero-section');
+        // if (heroSection) {
+        //     heroSection.scrollIntoView({ behavior: 'smooth' });
+        // }
+    }
+});
+
 // Make sure all global functions are available
 window.scrollToTop = scrollToTop;
 window.toggleMobileNav = toggleMobileNav;
